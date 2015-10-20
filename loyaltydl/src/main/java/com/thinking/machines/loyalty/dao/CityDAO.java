@@ -230,6 +230,7 @@ ResultSet resultSet=callableStatement.getResultSet();
 exists=resultSet.next();
 resultSet.close();
 callableStatement.close();
+			connection.close();
 return exists;
 }
 catch(Exception exception)
@@ -279,6 +280,7 @@ ResultSet resultSet=callableStatement.getResultSet();
 exists=resultSet.next();
 resultSet.close();
 callableStatement.close();
+connection.close();
 return exists;
 }
 catch(Exception exception)
