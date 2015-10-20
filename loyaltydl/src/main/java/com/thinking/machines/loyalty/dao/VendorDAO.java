@@ -5,7 +5,7 @@ import java.util.*;
 import java.sql.*;
 public class VendorDAO implements VendorDAOInterface
 {
-	public void addVendor(VendorInterface vendorInterface) throws DAOException
+	public void add(VendorInterface vendorInterface) throws DAOException
 	{
 		try
 		{
@@ -48,6 +48,47 @@ public class VendorDAO implements VendorDAOInterface
 	}
 
 
+	public void update(VendorInterface vendorInterface) throws DAOException
+	{
+		try
+		{
+			if(!exists(vendorInterface.getCode()))
+			{
+			throw new DAOException("VendorDAO : update() --> Invalid vendor Code :"+vendorInterface.getCode());
+			}
+			if(getCountByUsername(vendorInterface.getUsername())>1)
+			{
+			throw new DAOException("VendorDAO : update() --> Vendor with same username Already Exists");
+			}
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call update_vendor(?,?,?,?,?,?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,vendorInterface.getName());
+			callableStatement.setString(2,vendorInterface.getPassword());
+			callableStatement.setInt(3,vendorInterface.getCityCode());
+			callableStatement.setString(4,vendorInterface.getAddress());
+			callableStatement.setString(5,vendorInterface.getEmailId());
+			String contactNumbersString="";
+			int x=0;
+			ArrayList<String> contactNumbers=vendorInterface.getContactNumbers();
+			int s=contactNumbers.size();
+			while(x<s)
+			{
+				if(x>0)
+				{
+				contactNumbersString=contactNumbersString + "#";	
+				}
+				contactNumbersString=contactNumbersString + contactNumbers.get(x);
+			}
+			callableStatement.setString(6,contactNumbersString);
+			callableStatement.execute();
+			callableStatement.close();
+			connection.close();
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorDAO : update() " + exception.getMessage());
+		}
+	}
 
 
 	public void remove(int code) throws DAOException
@@ -237,6 +278,28 @@ public class VendorDAO implements VendorDAOInterface
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorDAO : getCount() " + exception.getMessage());
+		}
+
+	}
+
+
+	public int getCountByUsername(String username) throws DAOException
+	{
+		try
+		{
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call get_vendor_count_by_username(?,?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,username);
+			callableStatement.registerOutParameter(2, java.sql.Types.INTEGER);
+			callableStatement.execute();
+			int count=callableStatement.getInt(2);
+			callableStatement.close();
+			connection.close();
+			return count;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorDAO : getCountByUsername() " + exception.getMessage());
 		}
 
 	}
