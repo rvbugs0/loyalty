@@ -12,7 +12,16 @@ public class Vendor implements VendorInterface
 	private	String address;
 	private ArrayList<String> contactNumbers;
 	private String copyOfName;
+	private String passwordKey;
 
+public void setPasswordKey(String passwordKey)
+{
+	this.passwordKey=passwordKey;
+}
+public String getPasswordKey()
+{
+	return this.passwordKey;
+}
 public Vendor()
 {
 	contactNumbers=new ArrayList<String>();

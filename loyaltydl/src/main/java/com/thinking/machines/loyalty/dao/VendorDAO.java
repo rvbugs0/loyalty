@@ -13,15 +13,20 @@ public class VendorDAO implements VendorDAOInterface
 		{
 		throw new DAOException("VendorDAO : add()" +vendorInterface.getName()+" already exists");
 		}
+		if(!(new CityDAO().exists(vendorInterface.getCityCode())))
+		{
+		throw new DAOException("VendorDAO : add() invalid city code : " + vendorInterface.getCityCode());	
+		}
 		Connection connection=DAOConnection.getConnection();
-		String job="{ call add_vendor(?,?,?,?,?,?,?,?) }";
+		String job="{ call add_vendor(?,?,?,?,?,?,?,?,?) }";
 		CallableStatement callableStatement=connection.prepareCall(job);
 		callableStatement.setString(1,vendorInterface.getName());
 		callableStatement.setString(2,vendorInterface.getUsername());
-		callableStatement.setString(3,vendorInterface.getPassword());
-		callableStatement.setInt(4,vendorInterface.getCityCode());
-		callableStatement.setString(5,vendorInterface.getAddress());
-		callableStatement.setString(6,vendorInterface.getEmailId());
+		callableStatement.setString(3,vendorInterface.getPasswordKey());
+		callableStatement.setString(4,vendorInterface.getPassword());
+		callableStatement.setInt(5,vendorInterface.getCityCode());
+		callableStatement.setString(6,vendorInterface.getAddress());
+		callableStatement.setString(7,vendorInterface.getEmailId());
 		String contactNumbersString="";
 		int x=0;
 		ArrayList<String> contactNumbers=vendorInterface.getContactNumbers();
@@ -34,8 +39,8 @@ public class VendorDAO implements VendorDAOInterface
 			}
 			contactNumbersString=contactNumbersString + contactNumbers.get(x);
 		}
-		callableStatement.setString(7,contactNumbersString);
-		callableStatement.registerOutParameter(8, java.sql.Types.INTEGER);
+		callableStatement.setString(8,contactNumbersString);
+		callableStatement.registerOutParameter(9, java.sql.Types.INTEGER);
 		callableStatement.execute();
 		//int code=callableStatement.getInt(4);
 		callableStatement.close();
@@ -60,14 +65,19 @@ public class VendorDAO implements VendorDAOInterface
 			{
 			throw new DAOException("VendorDAO : update() --> Vendor with same username Already Exists");
 			}
+			if(!(new CityDAO().exists(vendorInterface.getCityCode())))
+			{
+			throw new DAOException("VendorDAO : update() invalid city code : " + vendorInterface.getCityCode());	
+			}
 			Connection connection=DAOConnection.getConnection();
-			String job="{ call update_vendor(?,?,?,?,?,?) }";
+			String job="{ call update_vendor(?,?,?,?,?,?,?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setString(1,vendorInterface.getName());
-			callableStatement.setString(2,vendorInterface.getPassword());
-			callableStatement.setInt(3,vendorInterface.getCityCode());
-			callableStatement.setString(4,vendorInterface.getAddress());
-			callableStatement.setString(5,vendorInterface.getEmailId());
+			callableStatement.setString(2,vendorInterface.getPasswordKey());
+			callableStatement.setString(3,vendorInterface.getPassword());
+			callableStatement.setInt(4,vendorInterface.getCityCode());
+			callableStatement.setString(5,vendorInterface.getAddress());
+			callableStatement.setString(6,vendorInterface.getEmailId());
 			String contactNumbersString="";
 			int x=0;
 			ArrayList<String> contactNumbers=vendorInterface.getContactNumbers();
@@ -80,7 +90,7 @@ public class VendorDAO implements VendorDAOInterface
 				}
 				contactNumbersString=contactNumbersString + contactNumbers.get(x);
 			}
-			callableStatement.setString(6,contactNumbersString);
+			callableStatement.setString(7,contactNumbersString);
 			callableStatement.execute();
 			callableStatement.close();
 			connection.close();
@@ -132,7 +142,8 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setName(resultSet.getString("name_of_firm").trim());
 			vendorInterface.setEmailId(resultSet.getString("mail_id").trim());
 			vendorInterface.setUsername(resultSet.getString("username").trim());
-			vendorInterface.setUsername(resultSet.getString("address").trim());
+			vendorInterface.setAddress(resultSet.getString("address").trim());
+			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
 			String contactNumbersString = resultSet.getString("contact_numbers").trim();
 			String[] numbers=contactNumbersString.split("#");
 			ArrayList<String> contactNumbers=new ArrayList<String>();
@@ -235,7 +246,8 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setName(resultSet.getString("name_of_firm").trim());
 			vendorInterface.setEmailId(resultSet.getString("mail_id").trim());
 			vendorInterface.setUsername(resultSet.getString("username").trim());
-			vendorInterface.setUsername(resultSet.getString("address").trim());
+			vendorInterface.setAddress(resultSet.getString("address").trim());
+			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
 			String contactNumbersString = resultSet.getString("contact_numbers").trim();
 			String[] numbers=contactNumbersString.split("#");
 			ArrayList<String> contactNumbers=new ArrayList<String>();
@@ -334,7 +346,8 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setName(resultSet.getString("name_of_firm").trim());
 			vendorInterface.setEmailId(resultSet.getString("mail_id").trim());
 			vendorInterface.setUsername(resultSet.getString("username").trim());
-			vendorInterface.setUsername(resultSet.getString("address").trim());
+			vendorInterface.setAddress(resultSet.getString("address").trim());
+			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
 			String contactNumbersString = resultSet.getString("contact_numbers").trim();
 			String[] numbers=contactNumbersString.split("#");
 			ArrayList<String> contactNumbers=new ArrayList<String>();

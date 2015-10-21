@@ -1,1 +1,1 @@
-javac -classpath ~/Documents/loyalty/loyaltydl/build/libs/loyaltydl.jar:. *.java
+javac -classpath /home/bugs/Desktop/loyalty/loyaltydl/build/libs/loyaltydl.jar:. *.java

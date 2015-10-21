@@ -15,6 +15,9 @@ public String getUsername();
 public void setPassword(String password);
 public String getPassword();
 
+public void setPasswordKey(String passwordKey);
+public String getPasswordKey();
+
 public void setAddress(String address);
 public String getAddress();
 

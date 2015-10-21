@@ -19,11 +19,11 @@ public String toString()
 {
 if(this.message==null)
 {
-return "com.thinking.machines.loyalty.exceptions.DAOException";
+return "com.thinking.machines.loyalty.exceptions.DAOException ";
 }
 else
 {
-return "com.thinking.machines.loyalty.exceptions.DAOException"+this.message;
+return "com.thinking.machines.loyalty.exceptions.DAOException "+this.message;
 }
 }
 
