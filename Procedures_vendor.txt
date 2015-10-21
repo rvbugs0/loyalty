@@ -1,3 +1,26 @@
+//add vendor
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`add_vendor`$$
+CREATE PROCEDURE `loyalty`.`add_vendor` (in v_name char(50),in v_username char(50),in v_password_key char(100),in v_password char(50),in v_city_code int, in v_address Varchar(500),in v_mail_id char(100),in v_contact_numbers char(100),out v_code int)
+BEGIN
+insert into vendor (name_of_firm ,username ,password_key ,password ,  city_code, address, mail_id ,contact_numbers ) values (v_name,v_username,v_password_key,v_password,v_city_code,v_address,v_mail_id,v_contact_numbers);
+set v_code = last_insert_id();
+END$$
+
+DELIMITER ;
+
+
+//update vendor
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`update_vendor`$$
+CREATE PROCEDURE `loyalty`.`update_vendor` (in v_code int,in v_name char(50),in v_username char(50),in v_password_key char(100),in v_password char(50),in v_city_code int, in v_address Varchar(500),in v_mail_id char(100),in v_contact_numbers char(100))
+BEGIN
+update vendor set name_of_firm = v_name , password_key = v_password_key ,password = v_password ,city_code = v_city_code ,address= v_address ,mail_id = v_mail_id ,contact_numbers= v_contact_numbers where username = v_username and code = v_code;
+END$$
+
+DELIMITER ;
 
 
 
@@ -45,4 +68,20 @@ select * from vendor where username = v_username;
 END$$
 
 DELIMITER ;
+
+
+//vendor exists by mail_id
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`vendor_exists_by_mail_id`$$
+CREATE PROCEDURE `loyalty`.`vendor_exists_by_mail_id` (in v_mail_id char(100))
+BEGIN
+select * from vendor where mail_id = v_mail_id;
+END$$
+
+DELIMITER ;
+
+
+
 

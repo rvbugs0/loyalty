@@ -11,10 +11,14 @@ public class VendorDAO implements VendorDAOInterface
 		{
 		if(existsByUsername(vendorInterface.getName()))
 		{
-		throw new DAOException("VendorDAO : add()" +vendorInterface.getName()+" already exists");
+		throw new DAOException("VendorDAO : add() " +vendorInterface.getName()+" already exists");
+		}
+		if(existsByEmailId(vendorInterface.getEmailId()))
+		{
+		throw new DAOException("VendorDAO : add() " +vendorInterface.getEmailId()+" already exists");
 		}
 		if(!(new CityDAO().exists(vendorInterface.getCityCode())))
-		{
+		{	
 		throw new DAOException("VendorDAO : add() invalid city code : " + vendorInterface.getCityCode());	
 		}
 		Connection connection=DAOConnection.getConnection();
@@ -38,6 +42,7 @@ public class VendorDAO implements VendorDAOInterface
 			contactNumbersString=contactNumbersString + "#";	
 			}
 			contactNumbersString=contactNumbersString + contactNumbers.get(x);
+		x++;
 		}
 		callableStatement.setString(8,contactNumbersString);
 		callableStatement.registerOutParameter(9, java.sql.Types.INTEGER);
@@ -65,19 +70,25 @@ public class VendorDAO implements VendorDAOInterface
 			{
 			throw new DAOException("VendorDAO : update() --> Vendor with same username Already Exists");
 			}
-			if(!(new CityDAO().exists(vendorInterface.getCityCode())))
+			if(existsByEmailId(vendorInterface.getEmailId()))
+			{
+			throw new DAOException("VendorDAO : add() " +vendorInterface.getEmailId()+" already exists");
+			}
+				if(!(new CityDAO().exists(vendorInterface.getCityCode())))
 			{
 			throw new DAOException("VendorDAO : update() invalid city code : " + vendorInterface.getCityCode());	
 			}
 			Connection connection=DAOConnection.getConnection();
-			String job="{ call update_vendor(?,?,?,?,?,?,?) }";
+			String job="{ call update_vendor(?,?,?,?,?,?,?,?,?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
-			callableStatement.setString(1,vendorInterface.getName());
-			callableStatement.setString(2,vendorInterface.getPasswordKey());
-			callableStatement.setString(3,vendorInterface.getPassword());
-			callableStatement.setInt(4,vendorInterface.getCityCode());
-			callableStatement.setString(5,vendorInterface.getAddress());
-			callableStatement.setString(6,vendorInterface.getEmailId());
+			callableStatement.setInt(1,vendorInterface.getCode());
+			callableStatement.setString(2,vendorInterface.getName());
+			callableStatement.setString(3,vendorInterface.getUsername());
+			callableStatement.setString(4,vendorInterface.getPasswordKey());
+			callableStatement.setString(5,vendorInterface.getPassword());
+			callableStatement.setInt(6,vendorInterface.getCityCode());
+			callableStatement.setString(7,vendorInterface.getAddress());
+			callableStatement.setString(8,vendorInterface.getEmailId());
 			String contactNumbersString="";
 			int x=0;
 			ArrayList<String> contactNumbers=vendorInterface.getContactNumbers();
@@ -90,7 +101,7 @@ public class VendorDAO implements VendorDAOInterface
 				}
 				contactNumbersString=contactNumbersString + contactNumbers.get(x);
 			}
-			callableStatement.setString(7,contactNumbersString);
+			callableStatement.setString(9,contactNumbersString);
 			callableStatement.execute();
 			callableStatement.close();
 			connection.close();
@@ -316,6 +327,57 @@ public class VendorDAO implements VendorDAOInterface
 
 	}
 
+	public VendorInterface getByEmailId(String emailId) throws DAOException
+	{
+		try
+		{
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call get_vendor_by_mail_id(?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,emailId);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorDAO : getByEmailId() --> No ResultSet object");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			if(resultSet.next()==false)
+			{
+				resultSet.close();
+				callableStatement.close();
+				connection.close();
+				throw new DAOException("VendorDAO : getByEmailId() --> Invalid emailId "+emailId);
+			}
+			VendorInterface vendorInterface = new Vendor();
+			vendorInterface.setCode(resultSet.getInt("code"));
+			vendorInterface.setCityCode(resultSet.getInt("city_code"));
+			vendorInterface.setName(resultSet.getString("name_of_firm").trim());
+			vendorInterface.setEmailId(resultSet.getString("mail_id").trim());
+			vendorInterface.setUsername(resultSet.getString("username").trim());
+			vendorInterface.setAddress(resultSet.getString("address").trim());
+			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
+			String contactNumbersString = resultSet.getString("contact_numbers").trim();
+			String[] numbers=contactNumbersString.split("#");
+			ArrayList<String> contactNumbers=new ArrayList<String>();
+			int x=0;
+			int l=numbers.length;
+			while(x<l)
+			{
+				contactNumbers.add(numbers[x]);
+			x++;
+			}
+			vendorInterface.setContactNumbers(contactNumbers);
+			vendorInterface.setPassword(resultSet.getString("password").trim());
+			callableStatement.close();
+			connection.close();
+			return vendorInterface;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorDAO : getByEmailId() "+exception.getMessage());			
+		}
+	}
 
 	public VendorInterface getByUsername(String username) throws DAOException
 	{
@@ -356,6 +418,7 @@ public class VendorDAO implements VendorDAOInterface
 			while(x<l)
 			{
 				contactNumbers.add(numbers[x]);
+			x++;
 			}
 			vendorInterface.setContactNumbers(contactNumbers);
 			vendorInterface.setPassword(resultSet.getString("password").trim());
@@ -394,6 +457,35 @@ public class VendorDAO implements VendorDAOInterface
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorDAO : existsByUsername() " + exception.getMessage());
+		}
+
+	}
+
+	public boolean existsByEmailId(String emailId) throws DAOException
+	{
+		try
+		{
+			boolean exists=false;
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call vendor_exists_by_mail_id(?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,emailId);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorDAO :existsByEmailId() --> No records in generated result");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			exists=resultSet.next();
+			resultSet.close();
+			callableStatement.close();
+			connection.close();
+			return exists;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorDAO : existsByEmailId() " + exception.getMessage());
 		}
 
 	}
