@@ -9,10 +9,12 @@ public void add(CityInterface cityInterface) throws DAOException
 {
 try
 {
+	/*
 if(existsByName(cityInterface.getName()))
 {
 throw new DAOException("CityDAO : add()" +cityInterface.getName()+" already exists");
 }
+*/
 Connection connection=DAOConnection.getConnection();
 String job="{ call add_city(?,?,?,?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
