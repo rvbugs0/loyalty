@@ -7,7 +7,7 @@ public interface VendorDAOInterface
 	public void add(VendorInterface vendorInterface) throws DAOException;
 	public void update(VendorInterface vendorInterface) throws DAOException;
 	public void remove(int code) throws DAOException;
-	public VendorInterface getByPrimaryKey(int code) throws DAOException;
+	public VendorInterface getByCode(int code) throws DAOException;
 	public void removeAll() throws DAOException;
 	public boolean exists(int code) throws DAOException;
 	public ArrayList<VendorInterface> getAll() throws DAOException;

@@ -113,12 +113,12 @@ public class VendorDAO implements VendorDAOInterface
 	}
 
 
-	public VendorInterface getByPrimaryKey(int code) throws DAOException
+	public VendorInterface getByCode(int code) throws DAOException
 	{
 		try
 		{
 			Connection connection=DAOConnection.getConnection();
-			String job="{ call get_vendor_by_primary_key(?) }";
+			String job="{ call get_vendor_by_code(?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setInt(1,code);
 			boolean resultGenerated=callableStatement.execute();
@@ -375,7 +375,7 @@ public class VendorDAO implements VendorDAOInterface
 		{
 			boolean exists=false;
 			Connection connection=DAOConnection.getConnection();
-			String job="{ call city_exists_by_name(?) }";
+			String job="{ call vendor_exists_by_username(?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setString(1,username);
 			boolean resultGenerated=callableStatement.execute();

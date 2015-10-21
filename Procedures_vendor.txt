@@ -1,0 +1,48 @@
+
+
+
+//get vendor count
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`get_vendor_count`$$
+CREATE PROCEDURE `loyalty`.`get_vendor_count` (out v_vendor_count int)
+BEGIN
+DECLARE vendor_count Int;
+select count(*) into vendor_count from vendor; 
+set v_vendor_count = vendor_count;
+END$$
+
+DELIMITER ;
+
+
+
+//get vendor count by username
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`get_vendor_count_by_username`$$
+CREATE PROCEDURE `loyalty`.`get_vendor_count_by_username` (in v_username char(50),out v_count int)
+BEGIN
+DECLARE vendor_count int;
+select count(*) into vendor_count from vendor where username= v_username;
+set v_count=vendor_count; 
+END$$
+
+DELIMITER ;
+
+
+
+
+//vendor exists by username
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`vendor_exists_by_username`$$
+CREATE PROCEDURE `loyalty`.`vendor_exists_by_username` (in v_username char(50))
+BEGIN
+select * from vendor where username = v_username;
+END$$
+
+DELIMITER ;
+

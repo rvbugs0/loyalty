@@ -66,12 +66,12 @@ throw new DAOException("CityDAO --> update() --> "+exception.getMessage());
 
 }
 
-public CityInterface getByPrimaryKey(int code) throws DAOException
+public CityInterface getByCode(int code) throws DAOException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
-String job="{ call get_city_by_primary_key(?) }";
+String job="{ call get_city_by_code(?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.setInt(1,code);
 boolean resultGenerated=callableStatement.execute();
@@ -79,7 +79,7 @@ if(!resultGenerated)
 {
 callableStatement.close();
 connection.close();
-throw new DAOException("CityDAO : getByPrimaryKey() --> No ResultSet object");
+throw new DAOException("CityDAO : getByCode() --> No ResultSet object");
 }
 ResultSet resultSet=callableStatement.getResultSet();
 if(resultSet.next()==false)
@@ -87,7 +87,7 @@ if(resultSet.next()==false)
 	resultSet.close();
 	callableStatement.close();
 	connection.close();
-	throw new DAOException("CityDAO : getByPrimaryKey() --> Invalid Code "+code);
+	throw new DAOException("CityDAO : getByCode() --> Invalid Code "+code);
 }
 CityInterface cityInterface=new City();
 cityInterface.setCode(resultSet.getInt("code"));
@@ -100,7 +100,7 @@ return cityInterface;
 }
 catch(Exception exception)
 {
-throw new DAOException("CityDAO --> getByPrimaryKey() --> "+exception.getMessage());
+throw new DAOException("CityDAO --> getByCode() --> "+exception.getMessage());
 }
 
 }
@@ -232,7 +232,7 @@ ResultSet resultSet=callableStatement.getResultSet();
 exists=resultSet.next();
 resultSet.close();
 callableStatement.close();
-			connection.close();
+connection.close();
 return exists;
 }
 catch(Exception exception)
@@ -257,6 +257,7 @@ return count;
 }
 catch(Exception exception)
 {
+
 throw new DAOException("CityDAO --> getCount() --> "+exception.getMessage());
 }
 }
@@ -316,9 +317,6 @@ public void remove(int code) throws DAOException
 {
 
 }
-public void removeByName(String name) throws DAOException
-{
 
-}
 
 }
