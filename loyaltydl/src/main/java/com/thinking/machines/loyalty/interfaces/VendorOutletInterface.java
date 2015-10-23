@@ -21,5 +21,7 @@ public String getLatitude();
 public void setLongitude(String longitude);
 public String getLongitude();
 
+public void setVendorCode(int vendorCode);
+public int getVendorCode();
 
 }

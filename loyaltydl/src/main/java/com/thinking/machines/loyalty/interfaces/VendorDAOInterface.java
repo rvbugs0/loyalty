@@ -14,7 +14,9 @@ public interface VendorDAOInterface
 	public ArrayList<VendorInterface> getAll() throws DAOException;
 	public long getCount() throws DAOException;
 	public int getCountByUsername(String username) throws DAOException;
+	public int getCountByContactNumber(String contactNumber) throws DAOException;
 	public VendorInterface getByUsername(String username) throws DAOException;
 	public boolean existsByUsername(String username) throws DAOException;
 	public boolean existsByEmailId(String emailId) throws DAOException;
+
 }

@@ -11,6 +11,6 @@ public interface VendorOutletDAOInterface
 	public void removeAll() throws DAOException;
 	public boolean exists(int code) throws DAOException;
 	public ArrayList<VendorOutletInterface> getAll() throws DAOException;
-	public ArrayList<VendorOutletInterface> getByCity() throws DAOException;
+	public ArrayList<VendorOutletInterface> getByCity(int cityCode) throws DAOException;
 	public long getCount() throws DAOException;	
 }

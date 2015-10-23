@@ -27,7 +27,7 @@ public int getCityCode();
 public void setEmailId(String emailId);
 public String getEmailId();
 
-public void setContactNumbers(ArrayList<String> contactNumbers);
-public ArrayList<String> getContactNumbers();
+public void setContactNumber(String contactNumber);
+public String getContactNumber();
 
 }

@@ -10,7 +10,7 @@ public class Vendor implements VendorInterface
 	private String username;
 	private String password;
 	private	String address;
-	private ArrayList<String> contactNumbers;
+	private String contactNumber;
 	private String copyOfName;
 	private String passwordKey;
 
@@ -24,7 +24,6 @@ public String getPasswordKey()
 }
 public Vendor()
 {
-	contactNumbers=new ArrayList<String>();
 }
 public void setAddress(String address)
 {
@@ -34,13 +33,13 @@ public String getAddress()
 {
 	return this.address;
 }
-public void setContactNumbers(ArrayList<String> contactNumbers)
+public void setContactNumber(String contactNumber)
 {
-	this.contactNumbers=contactNumbers;
+	this.contactNumber=contactNumber;
 }
-public ArrayList<String> getContactNumbers()
+public String getContactNumber()
 {
-return this.contactNumbers;
+return this.contactNumber;
 }
 
 public void setUsername(String username)

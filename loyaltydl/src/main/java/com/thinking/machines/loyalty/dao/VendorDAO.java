@@ -5,8 +5,10 @@ import java.util.*;
 import java.sql.*;
 public class VendorDAO implements VendorDAOInterface
 {
+
 	public void add(VendorInterface vendorInterface) throws DAOException
 	{
+
 		try
 		{
 		if(existsByUsername(vendorInterface.getName()))
@@ -16,6 +18,10 @@ public class VendorDAO implements VendorDAOInterface
 		if(existsByEmailId(vendorInterface.getEmailId()))
 		{
 		throw new DAOException("VendorDAO : add() " +vendorInterface.getEmailId()+" already exists");
+		}
+		if(getCountByContactNumber(vendorInterface.getContactNumber())>0)
+		{
+		throw new DAOException("VendorDAO : add() --> Vendor with same contactNumber Already Exists");
 		}
 		if(!(new CityDAO().exists(vendorInterface.getCityCode())))
 		{	
@@ -31,21 +37,9 @@ public class VendorDAO implements VendorDAOInterface
 		callableStatement.setInt(5,vendorInterface.getCityCode());
 		callableStatement.setString(6,vendorInterface.getAddress());
 		callableStatement.setString(7,vendorInterface.getEmailId());
-		String contactNumbersString="";
-		int x=0;
-		ArrayList<String> contactNumbers=vendorInterface.getContactNumbers();
-		int s=contactNumbers.size();
-		while(x<s)
-		{
-			if(x>0)
-			{
-			contactNumbersString=contactNumbersString + "#";	
-			}
-			contactNumbersString=contactNumbersString + contactNumbers.get(x);
-		x++;
-		}
-		callableStatement.setString(8,contactNumbersString);
+		callableStatement.setString(8,vendorInterface.getContactNumber());
 		callableStatement.registerOutParameter(9, java.sql.Types.INTEGER);
+		//callableStatement.setString(10,);
 		callableStatement.execute();
 		//int code=callableStatement.getInt(4);
 		callableStatement.close();
@@ -89,19 +83,7 @@ public class VendorDAO implements VendorDAOInterface
 			callableStatement.setInt(6,vendorInterface.getCityCode());
 			callableStatement.setString(7,vendorInterface.getAddress());
 			callableStatement.setString(8,vendorInterface.getEmailId());
-			String contactNumbersString="";
-			int x=0;
-			ArrayList<String> contactNumbers=vendorInterface.getContactNumbers();
-			int s=contactNumbers.size();
-			while(x<s)
-			{
-				if(x>0)
-				{
-				contactNumbersString=contactNumbersString + "#";	
-				}
-				contactNumbersString=contactNumbersString + contactNumbers.get(x);
-			}
-			callableStatement.setString(9,contactNumbersString);
+			callableStatement.setString(9,vendorInterface.getContactNumber());
 			callableStatement.execute();
 			callableStatement.close();
 			connection.close();
@@ -155,16 +137,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setUsername(resultSet.getString("username").trim());
 			vendorInterface.setAddress(resultSet.getString("address").trim());
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
-			String contactNumbersString = resultSet.getString("contact_numbers").trim();
-			String[] numbers=contactNumbersString.split("#");
-			ArrayList<String> contactNumbers=new ArrayList<String>();
-			int x=0;
-			int l=numbers.length;
-			while(x<l)
-			{
-				contactNumbers.add(numbers[x]);
-			}
-			vendorInterface.setContactNumbers(contactNumbers);
+			vendorInterface.setContactNumber(resultSet.getString("contact_numbers").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
 			callableStatement.close();
 			connection.close();
@@ -198,7 +171,7 @@ public class VendorDAO implements VendorDAOInterface
 		{
 			boolean exists=false;
 			Connection connection=DAOConnection.getConnection();
-			String job="{ call vendor_exists_by_primary_key(?) }";
+			String job="{ call vendor_exists_by_code(?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setInt(1,code);
 			boolean resultGenerated=callableStatement.execute();
@@ -259,16 +232,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setUsername(resultSet.getString("username").trim());
 			vendorInterface.setAddress(resultSet.getString("address").trim());
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
-			String contactNumbersString = resultSet.getString("contact_numbers").trim();
-			String[] numbers=contactNumbersString.split("#");
-			ArrayList<String> contactNumbers=new ArrayList<String>();
-			int x=0;
-			int l=numbers.length;
-			while(x<l)
-			{
-				contactNumbers.add(numbers[x]);
-			}
-			vendorInterface.setContactNumbers(contactNumbers);
+			vendorInterface.setContactNumber(resultSet.getString("contact_numbers").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
 			vendors.add(vendorInterface);
 			}while(resultSet.next());
@@ -327,6 +291,28 @@ public class VendorDAO implements VendorDAOInterface
 
 	}
 
+
+		public int getCountByContactNumber(String contactNumber) throws DAOException
+	{
+		try
+		{
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call get_vendor_count_by_contact_number(?,?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,contactNumber);
+			callableStatement.registerOutParameter(2, java.sql.Types.INTEGER);
+			callableStatement.execute();
+			int count=callableStatement.getInt(2);
+			callableStatement.close();
+			connection.close();
+			return count;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorDAO : getCountByContactNumber() " + exception.getMessage());
+		}
+
+	}
+
 	public VendorInterface getByEmailId(String emailId) throws DAOException
 	{
 		try
@@ -358,17 +344,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setUsername(resultSet.getString("username").trim());
 			vendorInterface.setAddress(resultSet.getString("address").trim());
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
-			String contactNumbersString = resultSet.getString("contact_numbers").trim();
-			String[] numbers=contactNumbersString.split("#");
-			ArrayList<String> contactNumbers=new ArrayList<String>();
-			int x=0;
-			int l=numbers.length;
-			while(x<l)
-			{
-				contactNumbers.add(numbers[x]);
-			x++;
-			}
-			vendorInterface.setContactNumbers(contactNumbers);
+			vendorInterface.setContactNumber(resultSet.getString("contact_numbers").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
 			callableStatement.close();
 			connection.close();
@@ -410,17 +386,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setUsername(resultSet.getString("username").trim());
 			vendorInterface.setAddress(resultSet.getString("address").trim());
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
-			String contactNumbersString = resultSet.getString("contact_numbers").trim();
-			String[] numbers=contactNumbersString.split("#");
-			ArrayList<String> contactNumbers=new ArrayList<String>();
-			int x=0;
-			int l=numbers.length;
-			while(x<l)
-			{
-				contactNumbers.add(numbers[x]);
-			x++;
-			}
-			vendorInterface.setContactNumbers(contactNumbers);
+			vendorInterface.setContactNumber(resultSet.getString("contact_numbers").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
 			callableStatement.close();
 			connection.close();
@@ -489,6 +455,8 @@ public class VendorDAO implements VendorDAOInterface
 		}
 
 	}
+
+
 
 }
 
