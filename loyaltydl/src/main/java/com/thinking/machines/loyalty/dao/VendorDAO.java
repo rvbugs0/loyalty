@@ -8,12 +8,11 @@ public class VendorDAO implements VendorDAOInterface
 
 	public void add(VendorInterface vendorInterface) throws DAOException
 	{
-
 		try
 		{
-		if(existsByUsername(vendorInterface.getName()))
+		if(existsByUsername(vendorInterface.getUsername()))
 		{
-		throw new DAOException("VendorDAO : add() " +vendorInterface.getName()+" already exists");
+		throw new DAOException("VendorDAO : add() " +vendorInterface.getUsername()+" already exists");
 		}
 		if(existsByEmailId(vendorInterface.getEmailId()))
 		{
@@ -60,15 +59,32 @@ public class VendorDAO implements VendorDAOInterface
 			{
 			throw new DAOException("VendorDAO : update() --> Invalid vendor Code :"+vendorInterface.getCode());
 			}
-			if(getCountByUsername(vendorInterface.getUsername())>1)
-			{
-			throw new DAOException("VendorDAO : update() --> Vendor with same username Already Exists");
+			VendorInterface vVendorInterface;
+			try
+			{	
+				vVendorInterface= getByContactNumber(vendorInterface.getContactNumber());
+				if(vendorInterface.getCode()!=vVendorInterface.getCode())
+				{
+				throw new DAOException("VendorDAO : update() --> Vendor with same contactNumber Already Exists");									
+				}
 			}
-			if(existsByEmailId(vendorInterface.getEmailId()))
+			catch(DAOException dAOException)
 			{
-			throw new DAOException("VendorDAO : add() " +vendorInterface.getEmailId()+" already exists");
+
 			}
-				if(!(new CityDAO().exists(vendorInterface.getCityCode())))
+			try
+			{	
+				vVendorInterface= getByEmailId(vendorInterface.getEmailId());
+				if(vendorInterface.getCode()!=vVendorInterface.getCode())
+				{
+				throw new DAOException("VendorDAO : update() --> Vendor with same email id Already Exists");									
+				}
+			}
+			catch(DAOException dAOException)
+			{
+			
+			}
+			if(!(new CityDAO().exists(vendorInterface.getCityCode())))
 			{
 			throw new DAOException("VendorDAO : update() invalid city code : " + vendorInterface.getCityCode());	
 			}
@@ -119,7 +135,7 @@ public class VendorDAO implements VendorDAOInterface
 			{
 			callableStatement.close();
 			connection.close();
-			throw new DAOException("VendorDAO : getByPrimaryKey() --> No ResultSet object");
+			throw new DAOException("VendorDAO : getByCode() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
 			if(resultSet.next()==false)
@@ -127,7 +143,7 @@ public class VendorDAO implements VendorDAOInterface
 				resultSet.close();
 				callableStatement.close();
 				connection.close();
-				throw new DAOException("VendorDAO : getByPrimaryKey() --> Invalid Code "+code);
+				throw new DAOException("VendorDAO : getByCode() --> Invalid Code "+code);
 			}
 			VendorInterface vendorInterface = new Vendor();
 			vendorInterface.setCode(resultSet.getInt("code"));
@@ -137,7 +153,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setUsername(resultSet.getString("username").trim());
 			vendorInterface.setAddress(resultSet.getString("address").trim());
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
-			vendorInterface.setContactNumber(resultSet.getString("contact_numbers").trim());
+			vendorInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
 			callableStatement.close();
 			connection.close();
@@ -145,6 +161,50 @@ public class VendorDAO implements VendorDAOInterface
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorDAO : getByPrimaryKey() " + exception.getMessage());
+		}
+
+	}
+
+
+		public VendorInterface getByContactNumber(String contactNumber) throws DAOException
+	{
+		try
+		{
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call get_vendor_by_contact_number(?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,contactNumber);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorDAO : getByContactNumber() --> No ResultSet object");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			if(resultSet.next()==false)
+			{
+				resultSet.close();
+				callableStatement.close();
+				connection.close();
+				throw new DAOException("VendorDAO : getByContactNumber() --> Invalid contactNumber " + contactNumber);
+			}
+			VendorInterface vendorInterface = new Vendor();
+			vendorInterface.setCode(resultSet.getInt("code"));
+			vendorInterface.setCityCode(resultSet.getInt("city_code"));
+			vendorInterface.setName(resultSet.getString("name_of_firm").trim());
+			vendorInterface.setEmailId(resultSet.getString("mail_id").trim());
+			vendorInterface.setUsername(resultSet.getString("username").trim());
+			vendorInterface.setAddress(resultSet.getString("address").trim());
+			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
+			vendorInterface.setContactNumber(resultSet.getString("contact_number").trim());
+			vendorInterface.setPassword(resultSet.getString("password").trim());
+			callableStatement.close();
+			connection.close();
+			return vendorInterface;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorDAO : getByContactNumber() " + exception.getMessage());
 		}
 
 	}
@@ -232,7 +292,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setUsername(resultSet.getString("username").trim());
 			vendorInterface.setAddress(resultSet.getString("address").trim());
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
-			vendorInterface.setContactNumber(resultSet.getString("contact_numbers").trim());
+			vendorInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
 			vendors.add(vendorInterface);
 			}while(resultSet.next());
@@ -344,7 +404,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setUsername(resultSet.getString("username").trim());
 			vendorInterface.setAddress(resultSet.getString("address").trim());
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
-			vendorInterface.setContactNumber(resultSet.getString("contact_numbers").trim());
+			vendorInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
 			callableStatement.close();
 			connection.close();
@@ -386,7 +446,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setUsername(resultSet.getString("username").trim());
 			vendorInterface.setAddress(resultSet.getString("address").trim());
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
-			vendorInterface.setContactNumber(resultSet.getString("contact_numbers").trim());
+			vendorInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
 			callableStatement.close();
 			connection.close();

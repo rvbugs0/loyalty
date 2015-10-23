@@ -7,7 +7,7 @@ public class VendorOutlet implements VendorOutletInterface
 	private int cityCode;
 	private	String address;
 	private int vendorCode;
-	private ArrayList<String> contactNumbers;
+	private String contactNumber;
 	private String latitude;
 	private String longitude;
 
@@ -51,13 +51,13 @@ public int getVendorCode()
 {
 	return this.vendorCode;
 }
-public void setContactNumbers(ArrayList<String> contactNumbers)
+public void setContactNumber(String contactNumber)
 {
-	this.contactNumbers=contactNumbers;
+	this.contactNumber=contactNumber;
 }
-public ArrayList<String> getContactNumbers()
+public String getContactNumber()
 {
-	return this.contactNumbers;
+	return this.contactNumber;
 }
 public void setAddress(String address)
 {

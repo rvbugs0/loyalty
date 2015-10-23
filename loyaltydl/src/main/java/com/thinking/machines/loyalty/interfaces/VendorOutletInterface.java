@@ -9,8 +9,8 @@ public int getCode();
 public void setCityCode(int cityCode);
 public int getCityCode();
 
-public void setContactNumbers(ArrayList<String> contactNumbers);
-public ArrayList<String> getContactNumbers();
+public void setContactNumber(String contactNumber);
+public String getContactNumber();
 
 public void setAddress(String address);
 public String getAddress();

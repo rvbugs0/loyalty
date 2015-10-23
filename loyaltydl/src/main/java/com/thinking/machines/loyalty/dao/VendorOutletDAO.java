@@ -25,21 +25,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		callableStatement.setString(3,vendorOutletInterface.getLatitude());
 		callableStatement.setString(4,vendorOutletInterface.getLongitude());
 		callableStatement.setInt(5,vendorOutletInterface.getCityCode());
-		
-		String contactNumbersString="";
-		int x=0;
-		ArrayList<String> contactNumbers=vendorOutletInterface.getContactNumbers();
-		int s=contactNumbers.size();
-		while(x<s)
-		{
-			if(x>0)
-			{
-			contactNumbersString=contactNumbersString + "#";	
-			}
-			contactNumbersString=contactNumbersString + contactNumbers.get(x);
-		x++;
-		}
-		callableStatement.setString(6,contactNumbersString);
+		callableStatement.setString(6,vendorOutletInterface.getContactNumber());
 		callableStatement.registerOutParameter(7, java.sql.Types.INTEGER);
 		//callableStatement.setString(10,);
 		callableStatement.execute();
