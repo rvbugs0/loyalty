@@ -7,7 +7,7 @@ public static void main(String data[])
 try
 {
 CityDAOInterface cityDAOInterface=new CityDAO();
-CityInterface cityInterface=cityDAOInterface.getByPrimaryKey(Integer.parseInt(data[0]));
+CityInterface cityInterface=cityDAOInterface.getByCode(Integer.parseInt(data[0]));
 System.out.println(cityInterface.getCode());
 System.out.println(cityInterface.getName());
 System.out.println(cityInterface.getState());

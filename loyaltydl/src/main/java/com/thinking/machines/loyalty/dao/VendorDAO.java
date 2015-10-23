@@ -12,11 +12,11 @@ public class VendorDAO implements VendorDAOInterface
 		{
 		if(existsByUsername(vendorInterface.getUsername()))
 		{
-		throw new DAOException("VendorDAO : add() " +vendorInterface.getUsername()+" already exists");
+		throw new DAOException("VendorDAO : add() Username :" +vendorInterface.getUsername()+" already exists");
 		}
 		if(existsByEmailId(vendorInterface.getEmailId()))
 		{
-		throw new DAOException("VendorDAO : add() " +vendorInterface.getEmailId()+" already exists");
+		throw new DAOException("VendorDAO : add() Email :" +vendorInterface.getEmailId()+" already exists");
 		}
 		if(getCountByContactNumber(vendorInterface.getContactNumber())>0)
 		{
@@ -55,35 +55,49 @@ public class VendorDAO implements VendorDAOInterface
 	{
 		try
 		{
+			boolean valid =true;
 			if(!exists(vendorInterface.getCode()))
 			{
 			throw new DAOException("VendorDAO : update() --> Invalid vendor Code :"+vendorInterface.getCode());
 			}
+
 			VendorInterface vVendorInterface;
 			try
 			{	
-				vVendorInterface= getByContactNumber(vendorInterface.getContactNumber());
+				vVendorInterface = getByContactNumber(vendorInterface.getContactNumber());
+
+				if(vendorInterface.getCode()!= vVendorInterface.getCode())
+				{
+					valid=false;			
+				}
+			}
+			catch(DAOException daoException)
+			{
+
+			}
+			if(!valid)
+			{
+				throw new DAOException("VendorDAO : update() phone number already exists "+vendorInterface.getContactNumber());
+			}
+			valid =true;
+			try
+			{	
+				vVendorInterface= getByEmailId(vendorInterface.getEmailId());
+				
 				if(vendorInterface.getCode()!=vVendorInterface.getCode())
 				{
-				throw new DAOException("VendorDAO : update() --> Vendor with same contactNumber Already Exists");									
+				valid=false;
 				}
 			}
 			catch(DAOException dAOException)
 			{
 
 			}
-			try
-			{	
-				vVendorInterface= getByEmailId(vendorInterface.getEmailId());
-				if(vendorInterface.getCode()!=vVendorInterface.getCode())
-				{
-				throw new DAOException("VendorDAO : update() --> Vendor with same email id Already Exists");									
-				}
-			}
-			catch(DAOException dAOException)
+			if(!valid)
 			{
-			
+			throw new DAOException("VendorDAO : update() --> Vendor with same email id Already Exists : "+vendorInterface.getEmailId());
 			}
+			
 			if(!(new CityDAO().exists(vendorInterface.getCityCode())))
 			{
 			throw new DAOException("VendorDAO : update() invalid city code : " + vendorInterface.getCityCode());	
@@ -330,6 +344,7 @@ public class VendorDAO implements VendorDAOInterface
 	}
 
 
+/*
 	public int getCountByUsername(String username) throws DAOException
 	{
 		try
@@ -351,7 +366,7 @@ public class VendorDAO implements VendorDAOInterface
 
 	}
 
-
+*/
 		public int getCountByContactNumber(String contactNumber) throws DAOException
 	{
 		try
@@ -394,7 +409,7 @@ public class VendorDAO implements VendorDAOInterface
 				resultSet.close();
 				callableStatement.close();
 				connection.close();
-				throw new DAOException("VendorDAO : getByEmailId() --> Invalid emailId "+emailId);
+				throw new DAOException("VendorDAO : getByEmailId() --> Invalid emailId "+ emailId);
 			}
 			VendorInterface vendorInterface = new Vendor();
 			vendorInterface.setCode(resultSet.getInt("code"));
