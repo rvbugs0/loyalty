@@ -17,6 +17,15 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		{	
 		throw new DAOException("VendorOutletDAO : add() invalid vendor code : " + vendorOutletInterface.getVendorCode());	
 		}
+		if(existsByCoordinates(vendorOutletInterface.getLatitude(),vendorOutletInterface.getLongitude()))
+		{
+		throw new DAOException("VendorOutletDAO : add() Outlet exists with same Coordinates: " + vendorOutletInterface.getLatitude()+" , " + vendorOutletInterface.getLongitude());	
+		}
+		if(getCountByContactNumber(vendorOutletInterface.getContactNumber())>0)
+		{
+				throw new DAOException("VendorOutletDAO : add() Outlet exists with same Contact Number: " + vendorOutletInterface.getContactNumber());	
+		}
+
 		Connection connection=DAOConnection.getConnection();
 		String job="{ call add_vendor_outlet(?,?,?,?,?,?,?) }";
 		CallableStatement callableStatement=connection.prepareCall(job);
@@ -39,6 +48,138 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		}
 	}
 	
+	public boolean existsByCoordinates(String latitude,String longitude) throws DAOException
+	{
+		try
+		{
+			boolean exists=false;
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call vendor_outlet_exists_by_coordinates(?,?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,latitude);
+			callableStatement.setString(2,longitude);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorOutletDAO :existsByCoordinates() --> No records in generated result");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			exists=resultSet.next();
+			resultSet.close();
+			callableStatement.close();
+			connection.close();
+			return exists;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorDAO : existsByCoordinates() " + exception.getMessage());
+		}
+
+	}
+
+	public int getCountByContactNumber(String contactNumber) throws DAOException
+	{
+		try
+		{
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call get_vendor_outlet_count_by_contact_number(?,?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,contactNumber);
+			callableStatement.registerOutParameter(2, java.sql.Types.INTEGER);
+			callableStatement.execute();
+			int count=callableStatement.getInt(2);
+			callableStatement.close();
+			connection.close();
+			return count;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorOutletDAO : getCountByContactNumber() " + exception.getMessage());
+		}
+
+	}
+
+	public VendorOutletInterface getByCoordinates(String latitude,String longitude) throws DAOException
+	{
+	try
+		{
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call get_vendor_outlet_by_coordinates(?,?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,latitude);
+			callableStatement.setString(2,longitude);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorOutletDAO : getByCoordinates() --> No ResultSet object");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			if(resultSet.next()==false)
+			{
+				resultSet.close();
+				callableStatement.close();
+				connection.close();
+				throw new DAOException("VendorOutletDAO : getByCoordinates() --> Invalid Coordinates "+ latitude +" , "+longitude);
+			}
+			VendorOutletInterface vendorOutletInterface = new VendorOutlet();
+			vendorOutletInterface.setCode(resultSet.getInt("code"));
+			vendorOutletInterface.setVendorCode(resultSet.getInt("vendor_code"));
+			vendorOutletInterface.setCityCode(resultSet.getInt("city_code"));
+			vendorOutletInterface.setAddress(resultSet.getString("address").trim());
+			vendorOutletInterface.setContactNumber(resultSet.getString("contact_number").trim());
+			vendorOutletInterface.setLatitude(resultSet.getString("latitude").trim());
+			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());
+			callableStatement.close();
+			connection.close();
+			return vendorOutletInterface;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorOutletDAO : getByCoordinates() "+exception.getMessage());
+		}	
+	}
+
+	public VendorOutletInterface getByContactNumber(String contactNumber) throws DAOException
+	{
+		try
+		{
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call get_vendor_outlet_by_contact_number(?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,contactNumber);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorOutletDAO : getByContactNumber() --> No ResultSet object");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			if(resultSet.next()==false)
+			{
+				resultSet.close();
+				callableStatement.close();
+				connection.close();
+				throw new DAOException("VendorOutletDAO : getByContactNumber() --> Invalid contactNumber " + contactNumber);
+			}
+			VendorOutletInterface vendorOutletInterface = new VendorOutlet();
+			vendorOutletInterface.setCode(resultSet.getInt("code"));
+			vendorOutletInterface.setVendorCode(resultSet.getInt("vendor_code"));
+			vendorOutletInterface.setCityCode(resultSet.getInt("city_code"));
+			vendorOutletInterface.setAddress(resultSet.getString("address").trim());
+			vendorOutletInterface.setContactNumber(resultSet.getString("contact_number").trim());
+			vendorOutletInterface.setLatitude(resultSet.getString("latitude").trim());
+			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());
+			callableStatement.close();
+			connection.close();
+			return vendorOutletInterface;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorOutletDAO : getByContactNumber() " + exception.getMessage());
+		}
+
+	}
 
 	public void update(VendorOutletInterface vendorOutletInterface) throws DAOException
 	{
@@ -67,12 +208,41 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	{
 		try
 		{
-
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call get_vendor_outlet_by_code(?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setInt(1,code);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorOutletDAO : getByCode() --> No ResultSet object");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			if(resultSet.next()==false)
+			{
+				resultSet.close();
+				callableStatement.close();
+				connection.close();
+				throw new DAOException("VendorOutletDAO : getByCode() --> Invalid code " + code);
+			}
+			VendorOutletInterface vendorOutletInterface = new VendorOutlet();
+			vendorOutletInterface.setCode(resultSet.getInt("code"));
+			vendorOutletInterface.setVendorCode(resultSet.getInt("vendor_code"));
+			vendorOutletInterface.setCityCode(resultSet.getInt("city_code"));
+			vendorOutletInterface.setAddress(resultSet.getString("address").trim());
+			vendorOutletInterface.setContactNumber(resultSet.getString("contact_number").trim());
+			vendorOutletInterface.setLatitude(resultSet.getString("latitude").trim());
+			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());
+			callableStatement.close();
+			connection.close();
+			return vendorOutletInterface;
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorOutletDAO : getByCode() "+exception.getMessage());
 		}
-	return null;
+	
 	}
 
 
@@ -122,12 +292,50 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	{
 		try
 		{
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call get_all_vendor_outlets() }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorOutletDAO : getAll() --> No ResultSet object");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			if(resultSet.next()==false)
+			{
+				resultSet.close();
+				callableStatement.close();
+				connection.close();
+				throw new DAOException("VendorOutletDAO : getAll() --> No records ");
+			}
+
+			ArrayList<VendorOutletInterface> vendorOutlets;
+			vendorOutlets=new ArrayList<VendorOutletInterface>();
+			VendorOutletInterface vendorOutletInterface; 
+			do
+			{
+			vendorOutletInterface = new VendorOutlet();
+			vendorOutletInterface.setCode(resultSet.getInt("code"));
+			vendorOutletInterface.setVendorCode(resultSet.getInt("vendor_code"));
+			vendorOutletInterface.setCityCode(resultSet.getInt("city_code"));
+			vendorOutletInterface.setAddress(resultSet.getString("address").trim());
+			vendorOutletInterface.setContactNumber(resultSet.getString("contact_number").trim());
+			vendorOutletInterface.setLatitude(resultSet.getString("latitude").trim());
+			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());			
+			vendorOutlets.add(vendorOutletInterface);
+			}while(resultSet.next());
+			resultSet.close();
+			connection.close();
+			return vendorOutlets;
+
 
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorOutletDAO : getAll() "+exception.getMessage());
 		}
-	return null;
+
 	}
 
 
@@ -136,11 +344,49 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		try
 		{
 
+			Connection connection=DAOConnection.getConnection();
+			String job="{ call get_all_vendor_outlets_by_city(?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setInt(1,cityCode);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorOutletDAO : getByCity() --> No ResultSet object");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			if(resultSet.next()==false)
+			{
+				resultSet.close();
+				callableStatement.close();
+				connection.close();
+				throw new DAOException("VendorOutletDAO : getByCity() --> No records ");
+			}
+
+			ArrayList<VendorOutletInterface> vendorOutlets;
+			vendorOutlets=new ArrayList<VendorOutletInterface>();
+			VendorOutletInterface vendorOutletInterface; 
+			do
+			{
+			vendorOutletInterface = new VendorOutlet();
+			vendorOutletInterface.setCode(resultSet.getInt("code"));
+			vendorOutletInterface.setVendorCode(resultSet.getInt("vendor_code"));
+			vendorOutletInterface.setCityCode(resultSet.getInt("city_code"));
+			vendorOutletInterface.setAddress(resultSet.getString("address").trim());
+			vendorOutletInterface.setContactNumber(resultSet.getString("contact_number").trim());
+			vendorOutletInterface.setLatitude(resultSet.getString("latitude").trim());
+			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());			
+			vendorOutlets.add(vendorOutletInterface);
+			}while(resultSet.next());
+			resultSet.close();
+			connection.close();
+			return vendorOutlets;
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorOutletDAO : getByCity() "+exception.getMessage());
 		}
-	return null;
+
 	}
 
 
