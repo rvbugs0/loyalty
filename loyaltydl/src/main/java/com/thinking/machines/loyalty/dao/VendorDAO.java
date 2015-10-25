@@ -12,7 +12,7 @@ public class VendorDAO implements VendorDAOInterface
 		{
 		if(existsByUsername(vendorInterface.getUsername()))
 		{
-		throw new DAOException("VendorDAO : add() Username :" +vendorInterface.getUsername()+" already exists");
+	throw new DAOException("VendorDAO : add() Username :" +vendorInterface.getUsername()+" already exists");
 		}
 		if(existsByEmailId(vendorInterface.getEmailId()))
 		{
@@ -169,6 +169,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
 			vendorInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
+			resultSet.close();
 			callableStatement.close();
 			connection.close();
 			return vendorInterface;
@@ -213,6 +214,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
 			vendorInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
+			resultSet.close();
 			callableStatement.close();
 			connection.close();
 			return vendorInterface;
@@ -311,6 +313,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendors.add(vendorInterface);
 			}while(resultSet.next());
 			resultSet.close();
+			callableStatement.close();
 			connection.close();
 			return vendors;
 
@@ -421,6 +424,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
 			vendorInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
+			resultSet.close();
 			callableStatement.close();
 			connection.close();
 			return vendorInterface;
@@ -463,6 +467,7 @@ public class VendorDAO implements VendorDAOInterface
 			vendorInterface.setPasswordKey(resultSet.getString("password_key").trim());
 			vendorInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorInterface.setPassword(resultSet.getString("password").trim());
+			resultSet.close();
 			callableStatement.close();
 			connection.close();
 			return vendorInterface;

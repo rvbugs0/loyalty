@@ -131,6 +131,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			vendorOutletInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorOutletInterface.setLatitude(resultSet.getString("latitude").trim());
 			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());
+			resultSet.close();
 			callableStatement.close();
 			connection.close();
 			return vendorOutletInterface;
@@ -171,6 +172,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			vendorOutletInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorOutletInterface.setLatitude(resultSet.getString("latitude").trim());
 			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());
+			resultSet.close();
 			callableStatement.close();
 			connection.close();
 			return vendorOutletInterface;
@@ -295,6 +297,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			vendorOutletInterface.setContactNumber(resultSet.getString("contact_number").trim());
 			vendorOutletInterface.setLatitude(resultSet.getString("latitude").trim());
 			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());
+			resultSet.close();
 			callableStatement.close();
 			connection.close();
 			return vendorOutletInterface;
@@ -387,6 +390,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			vendorOutlets.add(vendorOutletInterface);
 			}while(resultSet.next());
 			resultSet.close();
+			callableStatement.close();
 			connection.close();
 			return vendorOutlets;
 
@@ -440,6 +444,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			vendorOutlets.add(vendorOutletInterface);
 			}while(resultSet.next());
 			resultSet.close();
+			callableStatement.close();
 			connection.close();
 			return vendorOutlets;
 		}catch(Exception exception)
