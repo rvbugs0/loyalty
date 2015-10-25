@@ -1,4 +1,5 @@
-//add city
+/*  add city */
+
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS `loyalty`.`add_city`$$
@@ -10,8 +11,9 @@ END$$
 
 DELIMITER ;
 
+/* update city  */
 
-//updateCity()
+
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS `loyalty`.`update_city`$$
@@ -22,7 +24,8 @@ END$$
 
 DELIMITER ;
 
-//deleteCity
+/*  remove city */
+
 
 DELIMITER $$
 
@@ -35,7 +38,7 @@ END$$
 
 DELIMITER ;
 
-//city exists by name
+/* city exists by name  */
 
 DELIMITER $$
 
@@ -47,8 +50,8 @@ END$$
 
 DELIMITER ;
 
+/*  get all cities */
 
-//getAllCities
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS `loyalty`.`get_all_cities`$$
@@ -61,8 +64,7 @@ DELIMITER ;
 
 
 
-//getCityByCode()
-
+/* get city by code  */
 
 DELIMITER $$
 
@@ -74,8 +76,7 @@ END$$
 
 DELIMITER ;
 
-
-//remove all cities
+/* remove all cities  */
 
 DELIMITER $$
 
@@ -88,7 +89,8 @@ END$$
 DELIMITER ;
 
 
-//get city count
+/* get city count  */
+
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS `loyalty`.`get_city_count`$$
@@ -101,12 +103,11 @@ END$$
 
 DELIMITER ;
 
+/* get city count  by name */
 
-
-//get city count by name
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `loyalty`.`get_count_by_name`$$
+DROP PROCEDURE IF EXISTS `loyalty`.`get_city_count_by_name`$$
 CREATE PROCEDURE `loyalty`.`get_city_count_by_name` (in v_name char(30),out v_count int)
 BEGIN
 DECLARE city_count int;
@@ -117,7 +118,8 @@ END$$
 DELIMITER ;
 
 
-//city exists by code
+
+/* city exists by code  */
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS `loyalty`.`city_exists_by_code`$$
@@ -129,12 +131,11 @@ END$$
 DELIMITER ;
 
 
-//get city by name
-
+/* get cities by name  */
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `loyalty`.`get_city_by_name`$$
-CREATE PROCEDURE `loyalty`.`get_city_by_name` (in v_name char(30))
+DROP PROCEDURE IF EXISTS `loyalty`.`get_cities_by_name`$$
+CREATE PROCEDURE `loyalty`.`get_cities_by_name` (in v_name char(30))
 BEGIN
 select * from city where name=v_name;
 END$$

@@ -1,10 +1,12 @@
-//vendor_view
+/*vendor_view*/
 
 create view vendor_view as 
 select vendor.code as code  , trim(name_of_firm) as name_of_firm , trim(username) as username , trim(password) as password, trim(password_key) as password_key, city_code ,trim(address) as address, trim(contact_number) as contact_number,trim(mail_id) as mail_id, trim(city.name)  as city_name , trim(state) as state_name , trim(country) as country_name  from vendor inner join city on vendor.city_code = city.code;  
 
 
-//add vendor
+/*add vendor */
+
+
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS `loyalty`.`add_vendor`$$
@@ -17,7 +19,8 @@ END$$
 DELIMITER ;
 
 
-//update vendor
+/*update vendor*/
+
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS `loyalty`.`update_vendor`$$
@@ -30,7 +33,7 @@ DELIMITER ;
 
 
 
-//get vendor count
+/*get vendor count*/
 
 DELIMITER $$
 
@@ -45,7 +48,7 @@ END$$
 DELIMITER ;
 
 
-//get vendor count by contact number
+/*get vendor count by contact number*/
 
 DELIMITER $$
 
@@ -60,7 +63,7 @@ END$$
 DELIMITER ;
 
 
-//get vendor count by username
+/*get vendor count by username*/
 
 DELIMITER $$
 
@@ -77,7 +80,7 @@ DELIMITER ;
 
 
 
-//vendor exists by username
+/*vendor exists by username*/
 
 DELIMITER $$
 
@@ -90,7 +93,7 @@ END$$
 DELIMITER ;
 
 
-//vendor exists by code
+/*vendor exists by code*/
 
 DELIMITER $$
 
@@ -103,7 +106,7 @@ END$$
 DELIMITER ;
 
 
-//vendor exists by mail_id
+/*vendor exists by mail_id*/
 
 DELIMITER $$
 
@@ -116,8 +119,7 @@ END$$
 DELIMITER ;
 
 
-
-//get vendor by contact number
+/*get vendor by contact number */
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS `loyalty`.`get_vendor_by_contact_number`$$
@@ -128,7 +130,7 @@ END$$
 
 DELIMITER ;
 
-//get vendor by email id
+/*get vendor by email id */
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS `loyalty`.`get_vendor_by_mail_id`$$

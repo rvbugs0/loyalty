@@ -105,12 +105,12 @@ throw new DAOException("CityDAO --> getByCode() --> "+exception.getMessage());
 }
 
 }
-public CityInterface getByName(String name) throws DAOException
+public ArrayList<CityInterface> getByName(String name) throws DAOException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
-String job="{ call get_city_by_name(?) }";
+String job="{ call get_cities_by_name(?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.setString(1,name);
 boolean resultGenerated=callableStatement.execute();
@@ -128,15 +128,22 @@ if(resultSet.next()==false)
 	connection.close();
 	throw new DAOException("CityDAO : getByName() --> Invalid Name "+name);
 }
-CityInterface cityInterface=new City();
+ArrayList<CityInterface> cities;
+cities=new ArrayList<CityInterface>();
+CityInterface cityInterface; 
+do
+{
+cityInterface=new City();
 cityInterface.setCode(resultSet.getInt("code"));
 cityInterface.setName(resultSet.getString("name").trim());
 cityInterface.setState(resultSet.getString("state").trim());
 cityInterface.setCountry(resultSet.getString("country").trim());
+cities.add(cityInterface);
+}while(resultSet.next());
 resultSet.close();
 callableStatement.close();
 connection.close();
-return cityInterface;
+return cities;
 }
 catch(Exception exception)
 {
