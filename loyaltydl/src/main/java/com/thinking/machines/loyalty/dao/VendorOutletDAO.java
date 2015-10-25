@@ -185,6 +185,66 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	{
 		try
 		{
+			boolean valid =true;
+			if(!exists(vendorOutletInterface.getCode()))
+			{
+			throw new DAOException("VendorOutletDAO : update() --> Invalid vendorOutlet Code :"+vendorOutletInterface.getCode());
+			}
+
+			VendorOutletInterface vVendorOutletInterface;
+			try
+			{	
+				vVendorOutletInterface = getByContactNumber(vendorOutletInterface.getContactNumber());
+
+				if(vendorOutletInterface.getCode()!= vVendorOutletInterface.getCode())
+				{
+					valid=false;			
+				}
+			}
+			catch(DAOException daoException)
+			{
+
+			}
+			if(!valid)
+			{
+				throw new DAOException("VendorOutletDAO : update() phone number already exists "+vendorOutletInterface.getContactNumber());
+			}
+			valid =true;
+			try
+			{	
+				vVendorOutletInterface= getByCoordinates(vendorOutletInterface.getLatitude(),vendorOutletInterface.getLongitude());
+				
+				if(vendorOutletInterface.getCode()!=vVendorOutletInterface.getCode())
+				{
+				valid=false;
+				}
+			}
+			catch(DAOException dAOException)
+			{
+
+			}
+			if(!valid)
+			{
+			throw new DAOException("VendorOutletDAO : update() --> VendorOutlet with same Coordinates Already Exists : "+vendorOutletInterface.getLatitude()+", "+vendorOutletInterface.getLongitude());
+			}
+			
+			if(!(new CityDAO().exists(vendorOutletInterface.getCityCode())))
+			{
+			throw new DAOException("VendorOutletDAO : update() invalid city code : " + vendorOutletInterface.getCityCode());	
+			}
+		Connection connection=DAOConnection.getConnection();
+		String job="{ call update_vendor_outlet(?,?,?,?,?,?,?) }";
+		CallableStatement callableStatement=connection.prepareCall(job);
+		callableStatement.setInt(1,vendorOutletInterface.getCode());
+		callableStatement.setInt(2,vendorOutletInterface.getVendorCode());
+		callableStatement.setString(3,vendorOutletInterface.getAddress());
+		callableStatement.setString(4,vendorOutletInterface.getLatitude());
+		callableStatement.setString(5,vendorOutletInterface.getLongitude());
+		callableStatement.setInt(6,vendorOutletInterface.getCityCode());
+		callableStatement.setString(7,vendorOutletInterface.getContactNumber());
+		callableStatement.execute();
+		callableStatement.close();
+		connection.close();
 
 		}catch(Exception exception)
 		{
