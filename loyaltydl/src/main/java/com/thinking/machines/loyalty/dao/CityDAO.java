@@ -218,7 +218,7 @@ try
 {
 boolean exists=false;
 Connection connection=DAOConnection.getConnection();
-String job="{ call city_exists_by_primary_key(?) }";
+String job="{ call city_exists_by_code(?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.setInt(1,code);
 boolean resultGenerated=callableStatement.execute();

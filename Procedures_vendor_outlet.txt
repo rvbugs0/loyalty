@@ -1,0 +1,148 @@
+//add outlet
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`add_vendor_outlet`$$
+CREATE PROCEDURE `loyalty`.`add_vendor_outlet` (in v_vendor_code int,in v_address Varchar(500),in v_latitude char(30),in v_longitude char(30),in v_city_code int , in v_contact_number char(100),out v_code int)
+BEGIN
+insert into vendor_outlet (vendor_code ,address, latitude,longitude ,city_code , contact_number ) values (v_vendor_code,v_address, v_latitude,v_longitude ,v_city_code , v_contact_number);
+set v_code = last_insert_id();
+END$$
+
+DELIMITER ;
+
+
+
+//update outlet
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`update_vendor_outlet`$$
+CREATE PROCEDURE `loyalty`.`update_vendor_outlet` (in v_code int,in v_vendor_code int,in v_address Varchar(500),in v_latitude char(30),in v_longitude char(30),in v_city_code int , in v_contact_number char(100))
+BEGIN
+update vendor_outlet set vendor_code = v_vendor_code, address = v_address, latitude = v_latitude,longitude = v_longitude ,city_code = v_city_code ,contact_number =  v_contact_number where code = v_code;
+END$$
+
+DELIMITER ;
+
+
+//vendor exists by coordinates
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`vendor_outlet_exists_by_coordinates`$$
+CREATE PROCEDURE `loyalty`.`vendor_outlet_exists_by_coordinates` (in v_latitude char(30),in v_longitude char(30))
+BEGIN
+select code from vendor_outlet_view where latitude = v_latitude and longitude = v_longitude ; 
+END$$
+
+DELIMITER ;
+
+
+
+//get count by contact number
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`get_vendor_outlet_count_by_contact_number`$$
+CREATE PROCEDURE `loyalty`.`get_vendor_outlet_count_by_contact_number` (in v_contact_number char(100),out v_count int)
+BEGIN
+DECLARE outlet_count int;
+select count(*)  into outlet_count from vendor_view where contact_number = v_contact_number;
+set v_count = outlet_count; 
+END$$
+
+DELIMITER ;
+
+
+//get by coordinates
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`get_vendor_outlet_by_coordinates`$$
+CREATE PROCEDURE `loyalty`.`get_vendor_outlet_by_coordinates` (in v_latiude char(30),in v_longitude char(30))
+BEGIN
+select code ,vendor_code ,address, latitude,longitude ,city_code , contact_number from vendor_outlet_view where latitude = v_latitude and longitude = v_longitude ;
+END$$
+
+DELIMITER ;
+
+
+
+//get by contact number
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`get_vendor_outlet_by_contact_number`$$
+CREATE PROCEDURE `loyalty`.`get_vendor_outlet_by_contact_number` (in v_contact_number char(100))
+BEGIN
+select code ,vendor_code ,address, latitude,longitude ,city_code , contact_number from vendor_outlet_view where contact_number = v_contact_number; 
+END$$
+
+DELIMITER ;
+
+
+//get by code
+
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`get_vendor_outlet_by_code`$$
+CREATE PROCEDURE `loyalty`.`get_vendor_outlet_by_code` (in v_code int)
+BEGIN
+select code ,vendor_code ,address, latitude,longitude ,city_code , contact_number from vendor_outlet_view where code = v_code;
+END$$
+
+DELIMITER ;
+
+
+//exists by code
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`vendor_outlet_exists_by_code`$$
+CREATE PROCEDURE `loyalty`.`vendor_outlet_exists_by_code` (in v_code int)
+BEGIN
+select code  from vendor_outlet_view where code = v_code;
+END$$
+
+DELIMITER ;
+
+
+//get all
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`get_all_vendor_outlets`$$
+CREATE PROCEDURE `loyalty`.`get_all_vendor_outlets` ()
+BEGIN
+select code ,vendor_code ,address, latitude,longitude ,city_code , contact_number from vendor_outlet_view ;
+END$$
+
+DELIMITER ;
+
+
+//get by city
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`get_all_vendor_outlets_by_city`$$
+CREATE PROCEDURE `loyalty`.`get_all_vendor_outlets_by_city` (in v_city_code int)
+BEGIN
+select code ,vendor_code ,address, latitude,longitude ,city_code , contact_number from vendor_outlet_view where city_code = v_city_code;
+END$$
+
+DELIMITER ;
+
+
+//get count
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`get_vendor_outlet_count`$$
+CREATE PROCEDURE `loyalty`.`get_vendor_outlet_count` (out v_count int)
+BEGIN
+DECLARE outlet_count int;
+select count(*)  into outlet_count from vendor_view ;
+set v_count = outlet_count; 
+END$$
+
+DELIMITER ;
+
