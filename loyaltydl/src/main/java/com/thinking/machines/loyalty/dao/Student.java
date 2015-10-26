@@ -34,22 +34,14 @@ return this.courseDetails;
 }
 
 public boolean equals(Object object)
-
 { 
-
 if(!(object instanceof StudentInterface))
-
 {
-
 return false;
-
 }
-
 StudentInterface studentInterface;
 studentInterface=(StudentInterface)object;
-
 return this.customerCode==studentInterface.getCustomerCode();
-
 }
 
 /*

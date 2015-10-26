@@ -1,66 +1,39 @@
 package com.thinking.machines.loyalty.dao; 
-
 import java.util.*; 
-
 import java.sql.*; 
-
 import com.thinking.machines.loyalty.interfaces.*;
- 
 import com.thinking.machines.loyalty.exceptions.*; 
 
 public class StudentDAO implements StudentDAOInterface
-
 {
-
 public void add(StudentInterface studentInterface) throws DAOException
-
 {
-
 try
-
 {
-
 if(exists(studentInterface.getCustomerCode()))
-
 {
-
 throw new DAOException("StudentDAO : add()" +studentInterface.getCustomerCode()+" already exists");
- 
 }
 
 
 if(!(new CustomerDAO().exists(studentInterface.getCustomerCode())))
-
 {
 throw new DAOException("StudentDAO : add() invalid customer code : " + studentInterface.getCustomerCode());	
-		}
-
+}
 Connection connection=DAOConnection.getConnection();
- 
 String job="{ call add_student(?,?,?) }"; 
-
 CallableStatement callableStatement=connection.prepareCall(job); 
-
 callableStatement.setInt(1,studentInterface.getCustomerCode()); 
-
 callableStatement.setString(2,studentInterface.getStream()); 
-
 callableStatement.setString(3,studentInterface.getCourseDetails()); 
-
 callableStatement.execute();
 callableStatement.close();
- 
 connection.close(); 
-
 }
 catch(Exception exception)
-
 {
-
 throw new DAOException("StudentDAO --> add() --> "+exception.getMessage());
- 
 }
-
 }
 
 
@@ -508,70 +481,44 @@ throw new DAOException("StudentDAO --> getCount() --> "+exception.getMessage());
 
 
 public void removeAll() throws DAOException
-
 {
-
 try
-
 {
-
-	Connection connection=DAOConnection.getConnection(); 
-
+Connection connection=DAOConnection.getConnection(); 
 String job="{ call remove_all_students() }";
- 
 CallableStatement callableStatement=connection.prepareCall(job); 
-
 callableStatement.execute();
- 
 callableStatement.close();
- 
 connection.close();
- 
 }
 catch(Exception exception)
-
 {
-
 throw new DAOException("StudentDAO --> removeAll() --> "+exception.getMessage()); 
-
 }
-
-
 }
 
 
 
 
 public void remove(int customerCode) throws DAOException
-
 {
-
 try
-
 {
-
-	Connection connection=DAOConnection.getConnection(); 
-
+Connection connection=DAOConnection.getConnection(); 
 String job="{ call remove_student_by_customer_code(?) }";
- 
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.setInt(1,customerCode);
 callableStatement.execute();
- 
 callableStatement.close();
- 
 connection.close();
- 
+}
+catch(SQLException sqlException)
+{
+throw new DAOException("StudentDAO --> remove() --> "+sqlException.getMessage()); 
 }
 catch(Exception exception)
-
 {
-
-throw new DAOException("StudentDAO --> remove() --> "+exception.getMessage()); 
-
+throw new DAOException(exception.getMessage()); 
 }
-
-
-
 }
 }

@@ -89,7 +89,7 @@ Create table student (
 	UNIQUE (customer_code),
  Primary Key (customer_code)) ENGINE = InnoDB;
 
-Create table marital_status (
+Create table marital_details (
 	customer_code Int NOT NULL,
 	spouse_name Char(50),
 	spouse_date_of_birth Date,
@@ -102,7 +102,7 @@ Create table marital_status (
 
 
 Alter table student add Constraint Relationship8 Foreign Key (customer_code) references customer (code) on delete  restrict on update  restrict;
-Alter table marital_status add Constraint Relationship9 Foreign Key (customer_code) references customer (code) on delete  restrict on update  restrict;
+Alter table marital_details add Constraint Relationship9 Foreign Key (customer_code) references customer (code) on delete  restrict on update  restrict;
 Alter table operator add Constraint Relationship5 Foreign Key (vendor_outlet_code) references vendor_outlet (code) on delete  restrict on update  restrict;
 Alter table vendor_outlet add Constraint Relationship4 Foreign Key (vendor_code) references vendor (code) on delete  restrict on update  restrict;
 Alter table customer add Constraint Relationship1 Foreign Key (city_code) references city (code) on delete  restrict on update  restrict;

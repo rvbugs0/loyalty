@@ -11,6 +11,7 @@ private java.util.Date anniversaryDate;
 private String spouseOccupation;
 private int numberOfGirlChild;
 private int numberOfBoyChild;
+
 public void setCustomerCode(int customerCode)
 {
 this.customerCode=customerCode;

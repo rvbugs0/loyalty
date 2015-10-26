@@ -7,6 +7,7 @@ public class CustomerDAO implements CustomerDAOInterface
 {
 
 //tested - works fine
+//if customer is a student ,record should be inserted in student table ,same goes for customer who is married.
 public void add(CustomerInterface customerInterface) throws DAOException
 {
 try
@@ -52,9 +53,16 @@ callableStatement.setString(13,customerInterface.getContactNumber());
 callableStatement.setString(14,customerInterface.getEmailId()); 
 callableStatement.registerOutParameter(15,Types.INTEGER); 
 callableStatement.execute();
-//int code=callableStatement.getInt(15); 
+int customerCode=callableStatement.getInt(15); 
 callableStatement.close();
 connection.close(); 
+if(customerInterface.getIsMarried())
+{
+	MaritalDetailsDAOInterface maritalDetailsDAOInterface= new MaritalDetailsDAO();
+	MaritalDetailsInterface maritalDetailsInterface=new MaritalDetails();
+	maritalDetailsInterface.setCustomerCode(customerCode);
+	maritalDetailsDAOInterface.add(maritalDetailsInterface);
+}
 }
 catch(Exception exception)
 {
