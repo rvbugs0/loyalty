@@ -124,10 +124,20 @@ throw new DAOException(exception.getMessage());
 }
 }
 
+//tested -works fine
 public void remove(int customerCode) throws DAOException
 {
 try
 {
+CustomerDAOInterface customerDAOInterface=new CustomerDAO();	
+if(!customerDAOInterface.exists(customerCode))	
+{
+throw new DAOException("MaritalDetailsDAO --> remove() --> invalid customer code"); 	
+}
+if(customerDAOInterface.getByCode(customerCode).getIsMarried())
+{
+throw new DAOException("MaritalDetailsDAO --> remove() --> Customer is married - cannot remove details");
+}
 Connection connection=DAOConnection.getConnection(); 
 String job="{ call remove__marital_details_by_customer_code(?) }";
 CallableStatement callableStatement=connection.prepareCall(job); 
@@ -147,7 +157,7 @@ throw new DAOException("MaritalDetailsDAO --> remove() --> "+exception.getMessag
 }
 
 
-
+//how to handle null values
 public MaritalDetailsInterface getByCustomerCode(int customerCode) throws DAOException
 {
 try
@@ -172,17 +182,27 @@ connection.close();
 throw new DAOException("MaritalDetailsDAO : getByCustomerCode() --> Invalid  Customer Code "+customerCode); 
 }
 MaritalDetailsInterface maritalDetailsInterface=new MaritalDetails();
+
+
+try
+{
 maritalDetailsInterface.setCustomerCode(resultSet.getInt("customer_code"));
-maritalDetailsInterface.setSpouseName(resultSet.getString("name").trim()); 
+maritalDetailsInterface.setNumberOfGirlChild(resultSet.getInt("number_of_girl_child"));
+maritalDetailsInterface.setSpouseName(resultSet.getString("spouse_name").trim()); 
+maritalDetailsInterface.setSpouseOccupation(resultSet.getString("spouse_occupation").trim());
 java.sql.Date sqlDateOfBirth=resultSet.getDate("spouse_date_of_birth");
 java.util.Date utilDateOfBirth=new java.util.Date(sqlDateOfBirth.getYear(),sqlDateOfBirth.getMonth(),sqlDateOfBirth.getDate());
-maritalDetailsInterface.setSpouseDateOfBirth(utilDateOfBirth);
+maritalDetailsInterface.setSpouseDateOfBirth(utilDateOfBirth);	
 java.sql.Date sqlDateOfBirth1=resultSet.getDate("anniversary_date");
 java.util.Date utilDateOfBirth1=new java.util.Date(sqlDateOfBirth1.getYear(),sqlDateOfBirth1.getMonth(),sqlDateOfBirth1.getDate());
- maritalDetailsInterface.setAnniversaryDate(utilDateOfBirth1);
-maritalDetailsInterface.setSpouseOccupation(resultSet.getString("spouse_occupation").trim());
-maritalDetailsInterface.setNumberOfGirlChild(resultSet.getInt("number_of_girl_child"));
+maritalDetailsInterface.setAnniversaryDate(utilDateOfBirth1);
 maritalDetailsInterface.setNumberOfBoyChild(resultSet.getInt("number_of_boy_child"));
+}
+catch(Exception e)
+{
+
+}
+
 callableStatement.close(); 
 connection.close(); 
 return maritalDetailsInterface;
@@ -193,7 +213,7 @@ throw new DAOException("MaritalDetailsDAO --> getByCustomerCode() --> "+sqlExcep
 }
 catch(Exception exception)
 {
-throw new DAOException(exception.getMessage());
+throw new DAOException("MaritalDetailsDAO --> getByCustomerCode() --> "+exception.getMessage());
 }
 }
 
