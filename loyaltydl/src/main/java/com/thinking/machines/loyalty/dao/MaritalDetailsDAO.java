@@ -625,107 +625,66 @@ throw new DAOException("MaritalDetailsDAO : getAllByAnniversaryDate() --> "+exce
 
 
 }
+
+
 public ArrayList<MaritalDetailsInterface> getAllBySpouseOccupation(String spouseOccupation) throws DAOException
 {
 try
-
 {
-
 Connection connection=DAOConnection.getConnection();
- 
 String job="{ call get_all_married_customers_by_spouse_occupation(?) }"; 
-
 CallableStatement callableStatement=connection.prepareCall(job); 
-
 callableStatement.setString(1,spouseOccupation);
 boolean resultGenerated=callableStatement.execute();
- 
 if(!resultGenerated)
-
 {
-
 callableStatement.close();
- 
 connection.close(); 
-
 throw new DAOException("MaritalDetailsDAO : getAllBySpouseOccupation() --> No ResultSet object"); 
-
 }
-
 ResultSet resultSet=callableStatement.getResultSet();
- 
 if(resultSet.next()==false)
-
 {
-
 resultSet.close(); 
-	callableStatement.close();
- connection.close(); 
-	
+callableStatement.close();
+connection.close(); 
 throw new DAOException("MaritalDetailsDAO : getAllBySpouseOccupation() --> No records ");
- 
 }
-
-
 ArrayList<MaritalDetailsInterface> maritalDetails;
- 
 maritalDetails=new ArrayList<MaritalDetailsInterface>(); 
-
 MaritalDetailsInterface maritalDetailsInterface;
-  
 do
-
 {
-
 maritalDetailsInterface=new MaritalDetails(); 
-
-
- 
 maritalDetailsInterface.setCustomerCode(resultSet.getInt("customer_code"));
- 
 maritalDetailsInterface.setSpouseName(resultSet.getString("name").trim()); 
-
-
 java.sql.Date sqlDateOfBirth=resultSet.getDate("spouse_date_of_birth");
 java.util.Date utilDateOfBirth=new java.util.Date(sqlDateOfBirth.getYear(),sqlDateOfBirth.getMonth(),sqlDateOfBirth.getDate());
 maritalDetailsInterface.setSpouseDateOfBirth(utilDateOfBirth);
 java.sql.Date sqlDateOfBirth1=resultSet.getDate("anniversary_date");
 java.util.Date utilDateOfBirth1=new java.util.Date(sqlDateOfBirth1.getYear(),sqlDateOfBirth1.getMonth(),sqlDateOfBirth1.getDate());
- maritalDetailsInterface.setAnniversaryDate(utilDateOfBirth1);
+maritalDetailsInterface.setAnniversaryDate(utilDateOfBirth1);
 maritalDetailsInterface.setSpouseOccupation(resultSet.getString("spouse_occupation").trim());
 maritalDetailsInterface.setNumberOfGirlChild(resultSet.getInt("number_of_girl_child"));
 maritalDetailsInterface.setNumberOfBoyChild(resultSet.getInt("number_of_boy_child"));
- maritalDetails.add(maritalDetailsInterface);
- 
+maritalDetails.add(maritalDetailsInterface);
 }
 while(resultSet.next());
- 
 resultSet.close();callableStatement.close();
- 
 connection.close(); 
-
 return maritalDetails;
- 
 }
 catch(SQLException sqlException)
-
 {
-
 throw new DAOException("MaritalDetailsDAO : getAllBySpouseOccupation() --> "+sqlException.getMessage());
- 
 }
- 
 catch(Exception exception)
-
 {
-
 throw new DAOException("MaritalDetailsDAO : getAllBySpouseOccupation() --> "+exception.getMessage()); 
-
+}
 }
 
 
-
-}
 public int getCountBySpouseDateOfBirth(java.util.Date spouseDateOfBirth) throws DAOException
 {
 try
@@ -767,49 +726,32 @@ throw new DAOException("MaritalDetailsDAO --> getCountBySpouseDateOfBirth() --> 
 
 
 }
+
+
 public int getCountByAnniversaryDate(java.util.Date anniversaryDate) throws DAOException
 {
 try
-
 {
-
 Connection connection=DAOConnection.getConnection();
- 
 String job="{ call get_married_customer_count_by_anniversary_date(?,?) }"; 
-
 CallableStatement callableStatement=connection.prepareCall(job); 
-
 java.util.Date utilDateOfBirth=anniversaryDate;
 java.sql.Date sqlDateOfBirth=new java.sql.Date(utilDateOfBirth.getYear(),utilDateOfBirth.getMonth(),utilDateOfBirth.getDate());
 callableStatement.setDate(1,sqlDateOfBirth); 
-
 callableStatement.registerOutParameter(2,Types.INTEGER); 
-
 callableStatement.execute(); 
-
 int count=callableStatement.getInt(2);
- 
 callableStatement.close();
- 
 connection.close();
- 
 return count;
- 
 }
-
 catch(Exception exception)
-
 {
-
 throw new DAOException("MaritalDetailsDAO --> getCountByAnniversaryDate() --> "+exception.getMessage()); 
-
+}
 }
 
-
-
-}
-
-
+//tested - works fine
 public int getCountBySpouseOccupation(String spouseOccupation) throws DAOException
 {
 try

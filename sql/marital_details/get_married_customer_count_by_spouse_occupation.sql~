@@ -5,7 +5,7 @@ CREATE PROCEDURE `loyalty`.`get_married_customer_count_by_spouse_occupation` (in
 BEGIN
 DECLARE c_count int;
 select count(*) into c_count from marital_details where spouse_occupation = v_spouse_occupation;
-set v_customer_count = c_count ;
+set v_count = c_count ;
 END $$
 
 DELIMITER ;

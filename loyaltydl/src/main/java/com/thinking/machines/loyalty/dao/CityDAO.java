@@ -5,16 +5,12 @@ import com.thinking.machines.loyalty.interfaces.*;
 import com.thinking.machines.loyalty.exceptions.*;
 public class CityDAO implements CityDAOInterface
 {
+
+//tested	
 public void add(CityInterface cityInterface) throws DAOException
 {
 try
 {
-	/*
-if(existsByName(cityInterface.getName()))
-{
-throw new DAOException("CityDAO : add()" +cityInterface.getName()+" already exists");
-}
-*/
 Connection connection=DAOConnection.getConnection();
 String job="{ call add_city(?,?,?,?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
@@ -34,7 +30,7 @@ throw new DAOException("CityDAO --> add() --> "+exception.getMessage());
 }
 }
 
-
+//tested
 public void update(CityInterface cityInterface) throws DAOException
 {
 try
@@ -42,11 +38,6 @@ try
 if(!exists(cityInterface.getCode()))
 {
 throw new DAOException("CityDAO : update() --> Invalid City Code :"+cityInterface.getCode());
-}
-
-if(getCountByName(cityInterface.getName())>1)
-{
-throw new DAOException("CityDAO : update() --> City Already Exists");
 }
 Connection connection=DAOConnection.getConnection();
 String job="{ call update_city(?,?,?,?) }";
@@ -63,9 +54,9 @@ catch(Exception exception)
 {
 throw new DAOException("CityDAO --> update() --> "+exception.getMessage());
 }
-
 }
 
+//tested
 public CityInterface getByCode(int code) throws DAOException
 {
 try
@@ -103,8 +94,10 @@ catch(Exception exception)
 {
 throw new DAOException("CityDAO --> getByCode() --> "+exception.getMessage());
 }
-
 }
+
+
+//tested
 public ArrayList<CityInterface> getByName(String name) throws DAOException
 {
 try
@@ -152,7 +145,7 @@ throw new DAOException("CityDAO --> getByName() --> "+exception.getMessage());
 }
 
 
-
+//tested
 public ArrayList<CityInterface> getAll() throws DAOException
 {
 try
@@ -202,6 +195,7 @@ throw new DAOException("CityDAO : getAll() --> "+exception.getMessage());
 }
 }
 
+/*
 public int getCountByName(String name) throws DAOException
 {
 try
@@ -222,6 +216,9 @@ catch(Exception exception)
 throw new DAOException("CityDAO --> getCountByName() --> "+exception.getMessage());
 }
 }
+*/
+
+//tested
 public boolean exists(int code) throws DAOException
 {
 try
@@ -251,6 +248,8 @@ throw new DAOException("CityDAO --> exists() --> "+exception.getMessage());
 }
 }
 
+
+//tested
 public long getCount() throws DAOException
 {
 try
@@ -272,7 +271,7 @@ throw new DAOException("CityDAO --> getCount() --> "+exception.getMessage());
 }
 }
 
-
+/*
 public boolean existsByName(String name) throws DAOException
 {
 try
@@ -301,19 +300,12 @@ catch(Exception exception)
 throw new DAOException("CityDAO --> existsByName() --> "+exception.getMessage());
 }
 }
+*/
 
 public void removeAll() throws DAOException
 {
 try
 {
-	/*
-Connection connection=DAOConnection.getConnection();
-String job="{ call remove_all_cities() }";
-CallableStatement callableStatement=connection.prepareCall(job);
-callableStatement.execute();
-callableStatement.close();
-connection.close();
-*/
 
 }
 catch(Exception exception)
@@ -325,6 +317,14 @@ throw new DAOException("CityDAO --> removeAll() --> "+exception.getMessage());
 
 public void remove(int code) throws DAOException
 {
+try
+{
+
+}
+catch(Exception exception)
+{
+throw new DAOException("CityDAO --> remove() --> "+exception.getMessage());
+}
 
 }
 
