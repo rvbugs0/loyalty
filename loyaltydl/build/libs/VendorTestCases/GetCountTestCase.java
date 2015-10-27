@@ -1,18 +1,17 @@
 import com.thinking.machines.loyalty.dao.*;
 import com.thinking.machines.loyalty.interfaces.*;
-class GetCityCountByName
+class GetCountTestCase
 {
 public static void main(String data[])
 {
 try
 {
-CityDAOInterface cityDAOInterface=new CityDAO();
-
-System.out.println(cityDAOInterface.getCountByName(data[0]));
+VendorDAOInterface vendorDAOInterface=new VendorDAO();
+System.out.println(vendorDAOInterface.getCount());
 }
 catch(Exception e)
 {
-System.out.println(e);
+System.out.println(e.getMessage());
 }
 }
 }

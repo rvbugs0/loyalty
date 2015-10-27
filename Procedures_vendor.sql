@@ -1,5 +1,5 @@
 /*vendor_view*/
-
+DROP VIEW IF EXISTS 'vendor_view';
 create view vendor_view as 
 select vendor.code as code  , trim(name_of_firm) as name_of_firm , trim(username) as username , trim(password) as password, trim(password_key) as password_key, city_code ,trim(address) as address, trim(contact_number) as contact_number,trim(mail_id) as mail_id, trim(city.name)  as city_name , trim(state) as state_name , trim(country) as country_name  from vendor inner join city on vendor.city_code = city.code;  
 
@@ -41,7 +41,7 @@ DROP PROCEDURE IF EXISTS `loyalty`.`get_vendor_count`$$
 CREATE PROCEDURE `loyalty`.`get_vendor_count` (out v_vendor_count int)
 BEGIN
 DECLARE vendor_count Int;
-select count(*) into vendor_count from vendor; 
+select count(*) into vendor_count from vendor_view; 
 set v_vendor_count = vendor_count;
 END$$
 
@@ -114,6 +114,19 @@ DROP PROCEDURE IF EXISTS `loyalty`.`vendor_exists_by_mail_id`$$
 CREATE PROCEDURE `loyalty`.`vendor_exists_by_mail_id` (in v_mail_id char(100))
 BEGIN
 select code from vendor_view where mail_id = v_mail_id;
+END$$
+
+DELIMITER ;
+
+
+/*vendor exists by contact_number*/
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `loyalty`.`vendor_exists_by_contact_number`$$
+CREATE PROCEDURE `loyalty`.`vendor_exists_by_mail_id` (in v_contact_number char(20))
+BEGIN
+select code from vendor_view where contact_number = v_contact_number;
 END$$
 
 DELIMITER ;

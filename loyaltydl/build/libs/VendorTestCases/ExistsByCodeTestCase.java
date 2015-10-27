@@ -1,13 +1,15 @@
 import com.thinking.machines.loyalty.dao.*;
 import com.thinking.machines.loyalty.interfaces.*;
-class ExistsByNameTestCase
+class ExistsByCodeTestCase
 {
 public static void main(String data[])
 {
 try
 {
-CityDAOInterface cityDAOInterface=new CityDAO();
-System.out.println(cityDAOInterface.existsByName(data[0]));
+VendorDAOInterface vendorDAOInterface=new VendorDAO();
+
+System.out.println(vendorDAOInterface.exists(1));
+
 }
 catch(Exception e)
 {

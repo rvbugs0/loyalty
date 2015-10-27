@@ -1,14 +1,14 @@
 import com.thinking.machines.loyalty.dao.*;
 import com.thinking.machines.loyalty.interfaces.*;
-class GetCityCountTestCase
+class ExistsByUsernameTestCase
 {
 public static void main(String data[])
 {
 try
 {
-CityDAOInterface cityDAOInterface=new CityDAO();
+VendorDAOInterface vendorDAOInterface=new VendorDAO();
+System.out.println(vendorDAOInterface.existsByUsername(data[0]));
 
-System.out.println(cityDAOInterface.getCount());
 }
 catch(Exception e)
 {
