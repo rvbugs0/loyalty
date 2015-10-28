@@ -47,7 +47,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		//int code=callableStatement.getInt(4);
 		callableStatement.close();
 		//System.out.println(code);
-		connection.close();
+		if(closeConnection)
+{
+	connection.close();
+}
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorOutletDAO : add() "+exception.getMessage());
@@ -81,7 +84,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			exists=resultSet.next();
 			resultSet.close();
 			callableStatement.close();
-			connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 			return exists;
 		}catch(Exception exception)
 		{
@@ -117,7 +123,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			exists=resultSet.next();
 			resultSet.close();
 			callableStatement.close();
-			connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 			return exists;
 		}catch(Exception exception)
 		{
@@ -144,7 +153,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			callableStatement.execute();
 			int count=callableStatement.getInt(2);
 			callableStatement.close();
-			connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 			return count;
 		}catch(Exception exception)
 		{
@@ -192,7 +204,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());
 			resultSet.close();
 			callableStatement.close();
-			connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 			return vendorOutletInterface;
 		}catch(Exception exception)
 		{
@@ -238,7 +253,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());
 			resultSet.close();
 			callableStatement.close();
-			connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 			return vendorOutletInterface;
 		}catch(Exception exception)
 		{
@@ -316,7 +334,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		callableStatement.setString(7,vendorOutletInterface.getContactNumber());
 		callableStatement.execute();
 		callableStatement.close();
-		connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 
 		}catch(Exception exception)
 		{
@@ -335,6 +356,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		closeConnection=true;
 		}
 
+if(closeConnection)
+{
+	connection.close();
+}
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorOutletDAO : remove() "+exception.getMessage());
@@ -380,7 +405,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());
 			resultSet.close();
 			callableStatement.close();
-			connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 			return vendorOutletInterface;
 		}catch(Exception exception)
 		{
@@ -400,7 +428,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		connection=DAOConnection.getConnection();	
 		closeConnection=true;
 		}
-
+if(closeConnection)
+{
+	connection.close();
+}
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorOutletDAO : removeAll() "+exception.getMessage());
@@ -434,7 +465,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			exists=resultSet.next();
 			resultSet.close();
 			callableStatement.close();
-			connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 			return exists;
 		}catch(Exception exception)
 		{
@@ -489,7 +523,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			}while(resultSet.next());
 			resultSet.close();
 			callableStatement.close();
-			connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 			return vendorOutlets;
 
 
@@ -547,7 +584,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			}while(resultSet.next());
 			resultSet.close();
 			callableStatement.close();
-			connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 			return vendorOutlets;
 		}catch(Exception exception)
 		{
@@ -573,7 +613,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			callableStatement.execute();
 			long count=callableStatement.getInt(1);
 			callableStatement.close();
-			connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 			return count;
 		}catch(Exception exception)
 		{
