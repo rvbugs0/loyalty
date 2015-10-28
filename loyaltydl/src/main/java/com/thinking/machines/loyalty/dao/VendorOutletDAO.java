@@ -15,7 +15,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		connection=DAOConnection.getConnection();	
 		closeConnection=true;
 		}
-			if(!(new CityDAO().exists(vendorOutletInterface.getCityCode(),connection)))
+		if(!(new CityDAO().exists(vendorOutletInterface.getCityCode(),connection)))
 		{	
 		throw new DAOException("VendorOutletDAO : add() invalid city code : " + vendorOutletInterface.getCityCode());	
 		}
