@@ -7,11 +7,16 @@ public class CityDAO implements CityDAOInterface
 {
 
 //tested	
-public void add(CityInterface cityInterface) throws DAOException
+public void add(CityInterface cityInterface,Connection connection) throws DAOException
 {
+boolean closeConnection=false;
 try
 {
-Connection connection=DAOConnection.getConnection();
+if(connection==null)
+{
+connection=DAOConnection.getConnection();	
+closeConnection=true;
+}	
 String job="{ call add_city(?,?,?,?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.setString(1,cityInterface.getName());
@@ -22,7 +27,10 @@ callableStatement.execute();
 //int code=callableStatement.getInt(4);
 callableStatement.close();
 //System.out.println(code);
-connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 }
 catch(Exception exception)
 {
@@ -31,15 +39,21 @@ throw new DAOException("CityDAO --> add() --> "+exception.getMessage());
 }
 
 //tested
-public void update(CityInterface cityInterface) throws DAOException
+public void update(CityInterface cityInterface,Connection connection) throws DAOException
 {
+boolean closeConnection=false;
 try
 {
-if(!exists(cityInterface.getCode()))
+if(connection==null)
+{
+connection=DAOConnection.getConnection();	
+closeConnection=true;
+}
+if(!exists(cityInterface.getCode(),connection))
 {
 throw new DAOException("CityDAO : update() --> Invalid City Code :"+cityInterface.getCode());
 }
-Connection connection=DAOConnection.getConnection();
+	
 String job="{ call update_city(?,?,?,?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.setInt(1,cityInterface.getCode());
@@ -48,7 +62,10 @@ callableStatement.setString(3,cityInterface.getState());
 callableStatement.setString(4,cityInterface.getCountry());
 callableStatement.execute();
 callableStatement.close();
-connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 }
 catch(Exception exception)
 {
@@ -57,11 +74,16 @@ throw new DAOException("CityDAO --> update() --> "+exception.getMessage());
 }
 
 //tested
-public CityInterface getByCode(int code) throws DAOException
+public CityInterface getByCode(int code,Connection connection) throws DAOException
 {
+boolean closeConnection=false;
 try
 {
-Connection connection=DAOConnection.getConnection();
+if(connection==null)
+{
+connection=DAOConnection.getConnection();	
+closeConnection=true;
+}	
 String job="{ call get_city_by_code(?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.setInt(1,code);
@@ -87,7 +109,10 @@ cityInterface.setState(resultSet.getString("state").trim());
 cityInterface.setCountry(resultSet.getString("country").trim());
 resultSet.close();
 callableStatement.close();
-connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 return cityInterface;
 }
 catch(Exception exception)
@@ -98,11 +123,17 @@ throw new DAOException("CityDAO --> getByCode() --> "+exception.getMessage());
 
 
 //tested
-public ArrayList<CityInterface> getByName(String name) throws DAOException
+public ArrayList<CityInterface> getByName(String name,Connection connection) throws DAOException
 {
+boolean closeConnection=false;
 try
 {
-Connection connection=DAOConnection.getConnection();
+	
+if(connection==null)
+{
+connection=DAOConnection.getConnection();	
+closeConnection=true;
+}	
 String job="{ call get_cities_by_name(?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.setString(1,name);
@@ -135,7 +166,10 @@ cities.add(cityInterface);
 }while(resultSet.next());
 resultSet.close();
 callableStatement.close();
-connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 return cities;
 }
 catch(Exception exception)
@@ -146,11 +180,17 @@ throw new DAOException("CityDAO --> getByName() --> "+exception.getMessage());
 
 
 //tested
-public ArrayList<CityInterface> getAll() throws DAOException
+public ArrayList<CityInterface> getAll(Connection connection) throws DAOException
 {
+boolean closeConnection=false;
 try
 {
-Connection connection=DAOConnection.getConnection();
+	
+if(connection==null)
+{
+connection=DAOConnection.getConnection();	
+closeConnection=true;
+}	
 String job="{ call get_all_cities() }";
 CallableStatement callableStatement=connection.prepareCall(job);
 boolean resultGenerated=callableStatement.execute();
@@ -183,7 +223,10 @@ cities.add(cityInterface);
 }while(resultSet.next());
 resultSet.close();
 callableStatement.close();
-connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 return cities;
 }catch(SQLException sqlException)
 {
@@ -219,12 +262,18 @@ throw new DAOException("CityDAO --> getCountByName() --> "+exception.getMessage(
 */
 
 //tested
-public boolean exists(int code) throws DAOException
+public boolean exists(int code,Connection connection) throws DAOException
 {
+boolean closeConnection=false;
 try
 {
 boolean exists=false;
-Connection connection=DAOConnection.getConnection();
+	
+if(connection==null)
+{
+connection=DAOConnection.getConnection();	
+closeConnection=true;
+}	
 String job="{ call city_exists_by_code(?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.setInt(1,code);
@@ -239,7 +288,10 @@ ResultSet resultSet=callableStatement.getResultSet();
 exists=resultSet.next();
 resultSet.close();
 callableStatement.close();
-connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 return exists;
 }
 catch(Exception exception)
@@ -250,18 +302,26 @@ throw new DAOException("CityDAO --> exists() --> "+exception.getMessage());
 
 
 //tested
-public long getCount() throws DAOException
+public long getCount(Connection connection) throws DAOException
 {
 try
 {
-Connection connection=DAOConnection.getConnection();
+boolean closeConnection=false;	
+if(connection==null)
+{
+connection=DAOConnection.getConnection();	
+closeConnection=true;
+}	
 String job="{ call get_city_count(?) }";
 CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
 callableStatement.execute();
 long count=callableStatement.getInt(1);
 callableStatement.close();
-connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 return count;
 }
 catch(Exception exception)
@@ -302,11 +362,22 @@ throw new DAOException("CityDAO --> existsByName() --> "+exception.getMessage())
 }
 */
 
-public void removeAll() throws DAOException
+public void removeAll(Connection connection) throws DAOException
 {
 try
 {
+boolean closeConnection=false;	
+if(connection==null)
+{
+connection=DAOConnection.getConnection();	
+closeConnection=true;
+}
 
+
+if(closeConnection)
+{
+	connection.close();
+}	
 }
 catch(Exception exception)
 {
@@ -315,11 +386,22 @@ throw new DAOException("CityDAO --> removeAll() --> "+exception.getMessage());
 }
 
 
-public void remove(int code) throws DAOException
+public void remove(int code,Connection connection) throws DAOException
 {
 try
 {
+boolean closeConnection=false;	
+if(connection==null)
+{
+connection=DAOConnection.getConnection();	
+closeConnection=true;
+}
 
+
+if(closeConnection)
+{
+	connection.close();
+}	
 }
 catch(Exception exception)
 {

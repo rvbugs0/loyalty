@@ -12,6 +12,7 @@ public void add(CustomerInterface customerInterface) throws DAOException
 {
 try
 {
+Connection connection=DAOConnection.getConnection();
 if(existsByUsername(customerInterface.getUsername()))
 {
 throw new DAOException("CustomerDAO : add() : Username :" +customerInterface.getUsername()+" already exists");
@@ -27,12 +28,12 @@ if(existsByContactNumber(customerInterface.getContactNumber()))
 throw new DAOException("CustomerDAO : add(): contact Number :" +customerInterface.getContactNumber()+" already exists");
 }
 
-if(!(new CityDAO().exists(customerInterface.getCityCode())))
+if(!(new CityDAO().exists(customerInterface.getCityCode(),connection)))
 {
 throw new DAOException("CustomerDAO : add() invalid city code : " + customerInterface.getCityCode());	
 }
 
-Connection connection=DAOConnection.getConnection();
+
 String job="{ call add_customer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }"; 
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.setString(1,customerInterface.getName()); 

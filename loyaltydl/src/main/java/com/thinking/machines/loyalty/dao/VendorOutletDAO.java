@@ -9,11 +9,12 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	{
 		try
 		{
-		if(!(new CityDAO().exists(vendorOutletInterface.getCityCode())))
+		Connection connection=DAOConnection.getConnection();
+		if(!(new CityDAO().exists(vendorOutletInterface.getCityCode(),connection)))
 		{	
 		throw new DAOException("VendorOutletDAO : add() invalid city code : " + vendorOutletInterface.getCityCode());	
 		}
-		if(!(new VendorDAO().exists(vendorOutletInterface.getVendorCode())))
+		if(!(new VendorDAO().exists(vendorOutletInterface.getVendorCode(),connection)))
 		{	
 		throw new DAOException("VendorOutletDAO : add() invalid vendor code : " + vendorOutletInterface.getVendorCode());	
 		}
@@ -26,7 +27,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 				throw new DAOException("VendorOutletDAO : add() Outlet exists with same Contact Number: " + vendorOutletInterface.getContactNumber());	
 		}
 
-		Connection connection=DAOConnection.getConnection();
+
 		String job="{ call add_vendor_outlet(?,?,?,?,?,?,?) }";
 		CallableStatement callableStatement=connection.prepareCall(job);
 		callableStatement.setInt(1,vendorOutletInterface.getVendorCode());
@@ -77,6 +78,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		}
 
 	}
+
 
 	public int getCountByContactNumber(String contactNumber) throws DAOException
 	{
@@ -229,12 +231,12 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			{
 			throw new DAOException("VendorOutletDAO : update() --> VendorOutlet with same Coordinates Already Exists : "+vendorOutletInterface.getLatitude()+", "+vendorOutletInterface.getLongitude());
 			}
-			
-			if(!(new CityDAO().exists(vendorOutletInterface.getCityCode())))
+		Connection connection=DAOConnection.getConnection();		
+			if(!(new CityDAO().exists(vendorOutletInterface.getCityCode(),connection)))
 			{
 			throw new DAOException("VendorOutletDAO : update() invalid city code : " + vendorOutletInterface.getCityCode());	
 			}
-		Connection connection=DAOConnection.getConnection();
+	
 		String job="{ call update_vendor_outlet(?,?,?,?,?,?,?) }";
 		CallableStatement callableStatement=connection.prepareCall(job);
 		callableStatement.setInt(1,vendorOutletInterface.getCode());
