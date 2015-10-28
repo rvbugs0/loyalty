@@ -5,12 +5,17 @@ import java.util.*;
 import java.sql.*;
 public class VendorOutletDAO implements VendorOutletDAOInterface
 {
-	public void add(VendorOutletInterface vendorOutletInterface) throws DAOException
+	public void add(VendorOutletInterface vendorOutletInterface,Connection connection) throws DAOException
 	{
+		boolean closeConnection=false;
 		try
 		{
-		Connection connection=DAOConnection.getConnection();
-		if(!(new CityDAO().exists(vendorOutletInterface.getCityCode(),connection)))
+		if(connection==null)
+		{
+		connection=DAOConnection.getConnection();	
+		closeConnection=true;
+		}
+			if(!(new CityDAO().exists(vendorOutletInterface.getCityCode(),connection)))
 		{	
 		throw new DAOException("VendorOutletDAO : add() invalid city code : " + vendorOutletInterface.getCityCode());	
 		}
@@ -18,11 +23,11 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		{	
 		throw new DAOException("VendorOutletDAO : add() invalid vendor code : " + vendorOutletInterface.getVendorCode());	
 		}
-		if(existsByCoordinates(vendorOutletInterface.getLatitude(),vendorOutletInterface.getLongitude()))
+		if(existsByCoordinates(vendorOutletInterface.getLatitude(),vendorOutletInterface.getLongitude(),connection))
 		{
 		throw new DAOException("VendorOutletDAO : add() Outlet exists with same Coordinates: " + vendorOutletInterface.getLatitude()+" , " + vendorOutletInterface.getLongitude());	
 		}
-		if(getCountByContactNumber(vendorOutletInterface.getContactNumber())>0)
+		if(existsByContactNumber(vendorOutletInterface.getContactNumber(),connection))
 		{
 				throw new DAOException("VendorOutletDAO : add() Outlet exists with same Contact Number: " + vendorOutletInterface.getContactNumber());	
 		}
@@ -49,12 +54,18 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		}
 	}
 	
-	public boolean existsByCoordinates(String latitude,String longitude) throws DAOException
+	public boolean existsByCoordinates(String latitude,String longitude,Connection connection) throws DAOException
 	{
-		try
-		{
+		boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
 			boolean exists=false;
-			Connection connection=DAOConnection.getConnection();
+			
 			String job="{ call vendor_outlet_exists_by_coordinates(?,?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setString(1,latitude);
@@ -80,11 +91,52 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	}
 
 
-	public int getCountByContactNumber(String contactNumber) throws DAOException
+	public boolean existsByContactNumber(String contactNumber,Connection connection) throws DAOException
 	{
-		try
+		boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
+			boolean exists=false;
+			
+			String job="{ call vendor_outlet_exists_by_contact_number(?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setString(1,contactNumber);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorOutletDAO :existsByContactNumber() --> No records in generated result");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			exists=resultSet.next();
+			resultSet.close();
+			callableStatement.close();
+			connection.close();
+			return exists;
+		}catch(Exception exception)
 		{
-			Connection connection=DAOConnection.getConnection();
+			throw new DAOException("VendorDAO : existsByContactNumber() " + exception.getMessage());
+		}
+
+	}
+
+
+	public int getCountByContactNumber(String contactNumber,Connection connection) throws DAOException
+	{
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
 			String job="{ call get_vendor_outlet_count_by_contact_number(?,?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setString(1,contactNumber);
@@ -101,11 +153,16 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 
 	}
 
-	public VendorOutletInterface getByCoordinates(String latitude,String longitude) throws DAOException
+	public VendorOutletInterface getByCoordinates(String latitude,String longitude,Connection connection) throws DAOException
 	{
-	try
-		{
-			Connection connection=DAOConnection.getConnection();
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
 			String job="{ call get_vendor_outlet_by_coordinates(?,?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setString(1,latitude);
@@ -143,11 +200,16 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		}	
 	}
 
-	public VendorOutletInterface getByContactNumber(String contactNumber) throws DAOException
+	public VendorOutletInterface getByContactNumber(String contactNumber,Connection connection) throws DAOException
 	{
-		try
-		{
-			Connection connection=DAOConnection.getConnection();
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
 			String job="{ call get_vendor_outlet_by_contact_number(?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setString(1,contactNumber);
@@ -185,12 +247,18 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 
 	}
 
-	public void update(VendorOutletInterface vendorOutletInterface) throws DAOException
+	public void update(VendorOutletInterface vendorOutletInterface,Connection connection) throws DAOException
 	{
-		try
-		{
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
 			boolean valid =true;
-			if(!exists(vendorOutletInterface.getCode()))
+			if(!exists(vendorOutletInterface.getCode(),connection))
 			{
 			throw new DAOException("VendorOutletDAO : update() --> Invalid vendorOutlet Code :"+vendorOutletInterface.getCode());
 			}
@@ -198,7 +266,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			VendorOutletInterface vVendorOutletInterface;
 			try
 			{	
-				vVendorOutletInterface = getByContactNumber(vendorOutletInterface.getContactNumber());
+				vVendorOutletInterface = getByContactNumber(vendorOutletInterface.getContactNumber(),connection);
 
 				if(vendorOutletInterface.getCode()!= vVendorOutletInterface.getCode())
 				{
@@ -216,7 +284,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			valid =true;
 			try
 			{	
-				vVendorOutletInterface= getByCoordinates(vendorOutletInterface.getLatitude(),vendorOutletInterface.getLongitude());
+				vVendorOutletInterface= getByCoordinates(vendorOutletInterface.getLatitude(),vendorOutletInterface.getLongitude(),connection);
 				
 				if(vendorOutletInterface.getCode()!=vVendorOutletInterface.getCode())
 				{
@@ -231,7 +299,7 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			{
 			throw new DAOException("VendorOutletDAO : update() --> VendorOutlet with same Coordinates Already Exists : "+vendorOutletInterface.getLatitude()+", "+vendorOutletInterface.getLongitude());
 			}
-		Connection connection=DAOConnection.getConnection();		
+
 			if(!(new CityDAO().exists(vendorOutletInterface.getCityCode(),connection)))
 			{
 			throw new DAOException("VendorOutletDAO : update() invalid city code : " + vendorOutletInterface.getCityCode());	
@@ -256,10 +324,16 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		}
 	}
 	
-	public void remove(int code) throws DAOException
+	public void remove(int code,Connection connection) throws DAOException
 	{
+		boolean closeConnection=false;
 		try
 		{
+		if(connection==null)
+		{
+		connection=DAOConnection.getConnection();	
+		closeConnection=true;
+		}
 
 		}catch(Exception exception)
 		{
@@ -268,11 +342,16 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	}
 
 
-	public VendorOutletInterface getByCode(int code) throws DAOException
+	public VendorOutletInterface getByCode(int code,Connection connection) throws DAOException
 	{
-		try
-		{
-			Connection connection=DAOConnection.getConnection();
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
 			String job="{ call get_vendor_outlet_by_code(?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setInt(1,code);
@@ -311,10 +390,16 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	}
 
 
-	public void removeAll() throws DAOException
+	public void removeAll(Connection connection) throws DAOException
 	{
+		boolean closeConnection=false;
 		try
 		{
+		if(connection==null)
+		{
+		connection=DAOConnection.getConnection();	
+		closeConnection=true;
+		}
 
 		}catch(Exception exception)
 		{
@@ -323,12 +408,18 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	}
 
 
-	public boolean exists(int code) throws DAOException
+	public boolean exists(int code,Connection connection) throws DAOException
 	{
-		try
-		{
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
 			boolean exists=false;
-			Connection connection=DAOConnection.getConnection();
+
 			String job="{ call vendor_outlet_exists_by_code(?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setInt(1,code);
@@ -353,11 +444,16 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	}
 
 
-	public ArrayList<VendorOutletInterface> getAll() throws DAOException
+	public ArrayList<VendorOutletInterface> getAll(Connection connection) throws DAOException
 	{
-		try
-		{
-			Connection connection=DAOConnection.getConnection();
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
 			String job="{ call get_all_vendor_outlets() }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			boolean resultGenerated=callableStatement.execute();
@@ -405,12 +501,16 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	}
 
 
-	public ArrayList<VendorOutletInterface> getByCity(int cityCode) throws DAOException
+	public ArrayList<VendorOutletInterface> getByCity(int cityCode,Connection connection) throws DAOException
 	{
-		try
-		{
-
-			Connection connection=DAOConnection.getConnection();
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
 			String job="{ call get_all_vendor_outlets_by_city(?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.setInt(1,cityCode);
@@ -457,11 +557,16 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 	}
 
 
-	public long getCount() throws DAOException
+	public long getCount(Connection connection) throws DAOException
 	{
-		try
-		{
-			Connection connection=DAOConnection.getConnection();
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
 			String job="{ call get_vendor_outlet_count(?) }";
 			CallableStatement callableStatement=connection.prepareCall(job);
 			callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);

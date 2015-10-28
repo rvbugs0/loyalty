@@ -7,7 +7,7 @@ class GetCountTestCase
 	{
 		try
 		{
-			System.out.println(new CityDAO().getCount());
+			System.out.println(new CityDAO().getCount(null));
 			
 			
 		}

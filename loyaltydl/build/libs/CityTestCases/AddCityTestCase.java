@@ -10,7 +10,7 @@ class AddCityTestCase
 			cityInterface.setName("Ujjain");
 			cityInterface.setState("Maharashtra");
 			cityInterface.setCountry("India");
-			new CityDAO().add(cityInterface);
+			new CityDAO().add(cityInterface,null);
 			System.out.println("Added");
 		}
 		catch(Exception e)

@@ -6,7 +6,7 @@ class GetByCodeTestCase
 	{
 		try
 		{
-			CityInterface cityInterface=new CityDAO().getByCode(777);
+			CityInterface cityInterface=new CityDAO().getByCode(777,null);
 			System.out.println(cityInterface.getCode());
 			System.out.println(cityInterface.getName());
 			System.out.println(cityInterface.getState());

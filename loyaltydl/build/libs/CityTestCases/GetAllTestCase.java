@@ -7,7 +7,7 @@ class GetAllTestCase
 	{
 		try
 		{
-			ArrayList<CityInterface> cities=new CityDAO().getAll();
+			ArrayList<CityInterface> cities=new CityDAO().getAll(null);
 			int s= cities.size();
 			int x=0;
 			while(x<s)

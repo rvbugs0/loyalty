@@ -7,7 +7,7 @@ class ExistsByCodeTestCase
 	{
 		try
 		{
-			System.out.println(new CityDAO().exists(777));
+			System.out.println(new CityDAO().exists(777,null));
 			
 			
 		}

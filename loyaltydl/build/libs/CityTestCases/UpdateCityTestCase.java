@@ -11,7 +11,7 @@ class UpdateCityTestCase
 			cityInterface.setName("Ujjain");
 			cityInterface.setState("Madhya Pradesh");
 			cityInterface.setCountry("India");
-			new CityDAO().update(cityInterface);
+			new CityDAO().update(cityInterface,null);
 			System.out.println("updated");
 		}
 		catch(Exception e)
