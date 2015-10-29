@@ -243,6 +243,7 @@ if(closeConnection)
 
 	}
 
+//tested
 	public void update(VendorOutletInterface vendorOutletInterface,Connection connection) throws DAOException
 	{
 			boolean closeConnection=false;
@@ -363,6 +364,7 @@ if(closeConnection)
 	}
 
 
+//tested
 	public VendorOutletInterface getByCode(int code,Connection connection) throws DAOException
 	{
 			boolean closeConnection=false;
@@ -447,7 +449,7 @@ if(closeConnection)
 	}
 
 
-	
+	//tested
 	public boolean exists(int code,Connection connection) throws DAOException
 	{
 			boolean closeConnection=false;
@@ -486,7 +488,7 @@ if(closeConnection)
 
 	}
 
-
+//tested
 	public ArrayList<VendorOutletInterface> getAll(Connection connection) throws DAOException
 	{
 			boolean closeConnection=false;
@@ -546,7 +548,7 @@ if(closeConnection)
 
 	}
 
-
+//tested
 	public ArrayList<VendorOutletInterface> getByCity(int cityCode,Connection connection) throws DAOException
 	{
 			boolean closeConnection=false;
@@ -605,7 +607,7 @@ if(closeConnection)
 
 	}
 
-
+//tested
 	public long getCount(Connection connection) throws DAOException
 	{
 			boolean closeConnection=false;
