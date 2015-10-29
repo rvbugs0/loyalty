@@ -13,7 +13,7 @@ public interface VendorOutletDAOInterface
 	public VendorOutletInterface getByCoordinates(String latitude,String longitude,Connection connection) throws DAOException;
 	public void removeAll(Connection connection) throws DAOException;
 	public boolean exists(int code,Connection connection) throws DAOException;
-	public int getCountByContactNumber(String contactNumber,Connection connection) throws DAOException;
+
 	public boolean existsByCoordinates(String latitude,String longitude,Connection connection) throws DAOException;
 	public boolean existsByContactNumber(String contactNumber,Connection connection) throws DAOException;
 	public ArrayList<VendorOutletInterface> getAll(Connection connection) throws DAOException;

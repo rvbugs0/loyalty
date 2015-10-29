@@ -17,7 +17,7 @@ vendorInterface.setCityCode(Integer.parseInt(data[4]));
 vendorInterface.setAddress(data[5]);
 vendorInterface.setEmailId(data[6]);
 vendorInterface.setContactNumber(data[7]);
-vendorDAOInterface.update(vendorInterface);
+vendorDAOInterface.update(vendorInterface,null);
 System.out.println("Updated");
 }
 catch(Exception e)

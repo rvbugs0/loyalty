@@ -9,7 +9,7 @@ try
 {
 CityDAOInterface cityDAOInterface=new CityDAO();
 int x=0;
-ArrayList<CityInterface> cities=cityDAOInterface.getAll();
+ArrayList<CityInterface> cities=cityDAOInterface.getAll(null);
 int s=cities.size();
 while(x<s)
 {

@@ -8,7 +8,7 @@ try
 {
 CityDAOInterface cityDAOInterface=new CityDAO();
 
-System.out.println(cityDAOInterface.getCount());
+System.out.println(cityDAOInterface.getCount(null));
 }
 catch(Exception e)
 {

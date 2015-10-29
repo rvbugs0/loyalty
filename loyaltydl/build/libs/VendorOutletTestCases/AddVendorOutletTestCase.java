@@ -17,7 +17,7 @@ vendorOutletInterface.setLatitude(data[2]);
 vendorOutletInterface.setLongitude(data[3]);
 vendorOutletInterface.setCityCode(Integer.parseInt(data[4]));
 vendorOutletInterface.setContactNumber(data[5]);
-vendorOutletDAOInterface.add(vendorOutletInterface);
+vendorOutletDAOInterface.add(vendorOutletInterface,null);
 System.out.println("added");
 }
 catch(Exception e)

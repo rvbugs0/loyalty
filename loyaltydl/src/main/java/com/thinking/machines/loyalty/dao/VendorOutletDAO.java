@@ -5,6 +5,7 @@ import java.util.*;
 import java.sql.*;
 public class VendorOutletDAO implements VendorOutletDAOInterface
 {
+	//tested-unique constraint fails for latitude and longitude
 	public void add(VendorOutletInterface vendorOutletInterface,Connection connection) throws DAOException
 	{
 		boolean closeConnection=false;
@@ -57,6 +58,8 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 		}
 	}
 	
+
+	//tested
 	public boolean existsByCoordinates(String latitude,String longitude,Connection connection) throws DAOException
 	{
 		boolean closeConnection=false;
@@ -96,7 +99,7 @@ if(closeConnection)
 
 	}
 
-
+	//tested
 	public boolean existsByContactNumber(String contactNumber,Connection connection) throws DAOException
 	{
 		boolean closeConnection=false;
@@ -136,35 +139,9 @@ if(closeConnection)
 	}
 
 
-	public int getCountByContactNumber(String contactNumber,Connection connection) throws DAOException
-	{
-			boolean closeConnection=false;
-			try
-			{
-			if(connection==null)
-			{
-			connection=DAOConnection.getConnection();	
-			closeConnection=true;
-			}
-			String job="{ call get_vendor_outlet_count_by_contact_number(?,?) }";
-			CallableStatement callableStatement=connection.prepareCall(job);
-			callableStatement.setString(1,contactNumber);
-			callableStatement.registerOutParameter(2, java.sql.Types.INTEGER);
-			callableStatement.execute();
-			int count=callableStatement.getInt(2);
-			callableStatement.close();
-if(closeConnection)
-{
-	connection.close();
-}
-			return count;
-		}catch(Exception exception)
-		{
-			throw new DAOException("VendorOutletDAO : getCountByContactNumber() " + exception.getMessage());
-		}
 
-	}
 
+	//tested
 	public VendorOutletInterface getByCoordinates(String latitude,String longitude,Connection connection) throws DAOException
 	{
 			boolean closeConnection=false;
@@ -215,6 +192,7 @@ if(closeConnection)
 		}	
 	}
 
+//tested
 	public VendorOutletInterface getByContactNumber(String contactNumber,Connection connection) throws DAOException
 	{
 			boolean closeConnection=false;
@@ -345,6 +323,8 @@ if(closeConnection)
 		}
 	}
 	
+
+
 	public void remove(int code,Connection connection) throws DAOException
 	{
 		boolean closeConnection=false;
@@ -355,11 +335,27 @@ if(closeConnection)
 		connection=DAOConnection.getConnection();	
 		closeConnection=true;
 		}
+		
+		if(!exists(code,null))
+		{
+			throw new DAOException("VendorOutletDAO : remove() -> invalid vendor code :"+code);
+		}
+		/*
+		if(new OperatorDAO().getCountByVendorCode(code,null)>0)
+		{
+			throw new DAOException("VendorOutletDAO : remove() ->operator exists against this vendor code :"+code);
+		}
 
-if(closeConnection)
-{
-	connection.close();
-}
+		String job="{ call remove_vendor_outlet(?) }";
+		CallableStatement callableStatement=connection.prepareCall(job);
+		callableStatement.setInt(1,code);
+		callableStatement.execute();
+		callableStatement.close();
+		*/
+		if(closeConnection)
+		{
+			connection.close();
+		}
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorOutletDAO : remove() "+exception.getMessage());
@@ -395,6 +391,7 @@ if(closeConnection)
 				connection.close();
 				throw new DAOException("VendorOutletDAO : getByCode() --> Invalid code " + code);
 			}
+		
 			VendorOutletInterface vendorOutletInterface = new VendorOutlet();
 			vendorOutletInterface.setCode(resultSet.getInt("code"));
 			vendorOutletInterface.setVendorCode(resultSet.getInt("vendor_code"));
@@ -428,6 +425,17 @@ if(closeConnection)
 		connection=DAOConnection.getConnection();	
 		closeConnection=true;
 		}
+		/*
+		if(new OperatorDAO().getCount(null)>0)
+		{
+			throw new DAOException("VendorOutletDAO : removeAll() : operators exists against vendor outlets");
+		}
+		String job="{ call remove_all_vendor_outlets() }";
+		CallableStatement callableStatement=connection.prepareCall(job);
+		callableStatement.execute();
+		callableStatement.close();
+
+		*/
 if(closeConnection)
 {
 	connection.close();
@@ -439,6 +447,7 @@ if(closeConnection)
 	}
 
 
+	
 	public boolean exists(int code,Connection connection) throws DAOException
 	{
 			boolean closeConnection=false;
