@@ -637,11 +637,10 @@ throw new DAOException("CustomerDAO --> getCountByOccupation() --> "+exception.g
 }
 
 //tested - works fine
-public int getCountByCity(int cityCode) throws DAOException
+public int getCountByCity(int cityCode,Connection connection) throws DAOException
 {
 try
 {
-Connection connection=DAOConnection.getConnection();
 String job="{ call get_customer_count_by_city(?,?) }"; 
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.setInt(1,cityCode); 
@@ -895,11 +894,10 @@ throw new DAOException("CustomerDAO --> remove() --> "+exception.getMessage());
 
 
 //tested -works fine
-public long getCount() throws DAOException
+public long getCount(Connection connection) throws DAOException
 {
 try
 {
-Connection connection=DAOConnection.getConnection(); 
 String job="{ call get_customer_count(?) }"; 
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.registerOutParameter(1,Types.INTEGER);

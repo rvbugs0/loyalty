@@ -25,7 +25,7 @@ public ArrayList<CustomerInterface> getAllByCustomerType(CustomerType customerTy
 public ArrayList<CustomerInterface> getAllByOccupation(String occupation) throws DAOException;
 public ArrayList<CustomerInterface> getAllByCity(int cityCode) throws DAOException;
 public ArrayList<CustomerInterface> getAllByDateOfBirth(java.util.Date dateOfBirth) throws DAOException;
-public long getCount() throws DAOException;
+public long getCount(Connection connection) throws DAOException;
 
 public int getCountByName(String name) throws DAOException;
 
@@ -33,7 +33,7 @@ public int getCountByCustomerType(CustomerType customerType) throws DAOException
 
 public int getCountByOccupation(String occupation) throws DAOException;
 
-public int getCountByCity(int cityCode) throws DAOException;
+public int getCountByCity(int cityCode,Connection connection) throws DAOException;
 
 public int getCountByDateOfBirth(java.util.Date dateOfBirth) throws DAOException;
 

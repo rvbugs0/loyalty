@@ -607,6 +607,36 @@ if(closeConnection)
 
 	}
 
+public long getCountByCity(int cityCode,Connection connection) throws DAOException
+{
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
+			String job="{ call get_vendor_outlet_count_by_city(?,?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setInt(1,cityCode);
+			callableStatement.registerOutParameter(2, java.sql.Types.INTEGER);
+			callableStatement.execute();
+			long count=callableStatement.getInt(2);
+			callableStatement.close();
+if(closeConnection)
+{
+	connection.close();
+}
+			return count;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorOutletDAO : getCountByCity() "+exception.getMessage());
+		}
+}
+
+
+
 //tested
 	public long getCount(Connection connection) throws DAOException
 	{

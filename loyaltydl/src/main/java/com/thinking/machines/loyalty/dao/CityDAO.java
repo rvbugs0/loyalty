@@ -331,36 +331,6 @@ throw new DAOException("CityDAO --> getCount() --> "+exception.getMessage());
 }
 }
 
-/*
-public boolean existsByName(String name) throws DAOException
-{
-try
-{
-boolean exists=false;
-Connection connection=DAOConnection.getConnection();
-String job="{ call city_exists_by_name(?) }";
-CallableStatement callableStatement=connection.prepareCall(job);
-callableStatement.setString(1,name);
-boolean resultGenerated=callableStatement.execute();
-if(!resultGenerated)
-{
-callableStatement.close();
-connection.close();
-throw new DAOException("existsByName() --> No records in generated result");
-}
-ResultSet resultSet=callableStatement.getResultSet();
-exists=resultSet.next();
-resultSet.close();
-callableStatement.close();
-connection.close();
-return exists;
-}
-catch(Exception exception)
-{
-throw new DAOException("CityDAO --> existsByName() --> "+exception.getMessage());
-}
-}
-*/
 
 public void removeAll(Connection connection) throws DAOException
 {
@@ -372,8 +342,22 @@ if(connection==null)
 connection=DAOConnection.getConnection();	
 closeConnection=true;
 }
-
-
+if(new CustomerDAO().getCount(connection)>0)
+{
+throw new DAOException("CityDAO --> removeAll() --> Records present in customer");	
+}
+if(new VendorDAO().getCount(connection)>0)
+{
+throw new DAOException("CityDAO --> removeAll() --> Records present in Vendor");	
+}
+if(new VendorOutletDAO().getCount(connection)>0)
+{
+throw new DAOException("CityDAO --> removeAll() --> Records present in Vendor outlet");	
+}
+String job="{ call remove_all_cities() }";
+CallableStatement callableStatement=connection.prepareCall(job);
+callableStatement.execute();
+callableStatement.close();
 if(closeConnection)
 {
 	connection.close();
@@ -396,8 +380,27 @@ if(connection==null)
 connection=DAOConnection.getConnection();	
 closeConnection=true;
 }
-
-
+if(!exists(code,connection))
+{
+throw new DAOException("CityDAO --> remove() --> Invalid Code "+ code);	
+}
+if(new CustomerDAO().getCountByCity(code,connection)>0)
+{
+throw new DAOException("CityDAO --> remove() --> Cannot remove city - used against customer(s) ");		
+}
+if(new VendorDAO().getCountByCity(code,connection)>0)
+{
+throw new DAOException("CityDAO --> remove() --> Cannot remove city - used against vendor(s) ");			
+}
+if(new VendorOutletDAO().getCountByCity(code,connection)>0)
+{
+throw new DAOException("CityDAO --> remove() --> Cannot remove city - used against vendor outlet(s)");			
+}
+String job="{ call remove_city(?) }";
+CallableStatement callableStatement=connection.prepareCall(job);
+callableStatement.setInt(1, code);
+callableStatement.execute();
+callableStatement.close();
 if(closeConnection)
 {
 	connection.close();

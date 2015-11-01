@@ -11,6 +11,7 @@ public interface VendorDAOInterface
 	
 	
 	public long getCount(Connection connection) throws DAOException;
+	public long getCountByCity(int cityCode,Connection connection) throws DAOException;
 
 	public ArrayList<VendorInterface> getAll(Connection connection) throws DAOException;
 	public void removeAll(Connection connection) throws DAOException;
@@ -21,6 +22,7 @@ public interface VendorDAOInterface
 	public VendorInterface getByCode(int code,Connection connection) throws DAOException;
 	public VendorInterface getByEmailId(String emailId,Connection connection) throws DAOException;
 	
+
 	public boolean exists(int code,Connection connection) throws DAOException;
 	public boolean existsByUsername(String username,Connection connection) throws DAOException;
 	public boolean existsByEmailId(String emailId,Connection connection) throws DAOException;
