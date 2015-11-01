@@ -172,10 +172,34 @@ public class VendorDAO implements VendorDAOInterface
 		if(connection==null)
 		{
 		connection=DAOConnection.getConnection();	
+		closeConnection=true;			
+		}
+		if(!exists(code,connection))
+		{
+			throw new DAOException("VendorDAO : remove() Invalid vendor code "+code);			
+		}
+		try
+		{
+		ArrayList<VendorOutletDAOInterface> vendors=new VendorOutletDAO().getByVendor(code,connection);
+		}
+		catch(DAOException daoException)
+		{
+			vendors=new ArrayList<VendorOutletDAOInterface>();
+		}
+		if(vendors.size()>0)
+		{
+		throw new DAOException("VendorDAO : remove() VendorOutlet Exists against  vendor-code "+code);		
+		}
+		String job="{ call remove_vendor(?) }";
+		CallableStatement callableStatement=connection.prepareCall(job);
+		callableStatement.setInt(1,code);
+		callableStatement.execute();
+		callableStatement.close();
 		if(closeConnection)
 		{
 		connection.close();
 		}
+
 		}		
 		}catch(Exception exception)
 		{
@@ -201,6 +225,18 @@ public class VendorDAO implements VendorDAOInterface
 			connection=DAOConnection.getConnection();	
 			closeConnection=true;
 			}
+			if(new VendorOutletDAO().getCount()>0)
+			{
+			throw new DAOException("VendorDAO : removeAll() : Records present in vendor outlets" );	
+			}
+		String job="{ call remove_all_vendors() }";
+		CallableStatement callableStatement=connection.prepareCall(job);
+		
+		callableStatement.execute();
+		callableStatement.close();
+
+
+
 			if(closeConnection)
 			{
 			connection.close();

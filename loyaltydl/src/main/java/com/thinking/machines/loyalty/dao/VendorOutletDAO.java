@@ -337,12 +337,12 @@ if(closeConnection)
 		closeConnection=true;
 		}
 		
-		if(!exists(code,null))
+		if(!exists(code,connection))
 		{
 			throw new DAOException("VendorOutletDAO : remove() -> invalid vendor code :"+code);
 		}
-		/*
-		if(new OperatorDAO().getCountByVendorCode(code,null)>0)
+		
+		if(new OperatorDAO().getCountByVendorCode(code,connection)>0)
 		{
 			throw new DAOException("VendorOutletDAO : remove() ->operator exists against this vendor code :"+code);
 		}
@@ -352,7 +352,7 @@ if(closeConnection)
 		callableStatement.setInt(1,code);
 		callableStatement.execute();
 		callableStatement.close();
-		*/
+		
 		if(closeConnection)
 		{
 			connection.close();
@@ -427,8 +427,8 @@ if(closeConnection)
 		connection=DAOConnection.getConnection();	
 		closeConnection=true;
 		}
-		/*
-		if(new OperatorDAO().getCount(null)>0)
+		
+		if(new OperatorDAO().getCount(connection)>0)
 		{
 			throw new DAOException("VendorOutletDAO : removeAll() : operators exists against vendor outlets");
 		}
@@ -437,7 +437,7 @@ if(closeConnection)
 		callableStatement.execute();
 		callableStatement.close();
 
-		*/
+		
 if(closeConnection)
 {
 	connection.close();
@@ -606,6 +606,66 @@ if(closeConnection)
 		}
 
 	}
+
+
+	public ArrayList<VendorOutletInterface> getByVendor(int vendorCode,Connection connection) throws DAOException
+	{
+			boolean closeConnection=false;
+			try
+			{
+			if(connection==null)
+			{
+			connection=DAOConnection.getConnection();	
+			closeConnection=true;
+			}
+			String job="{ call get_all_vendor_outlets_by_vendor_code(?) }";
+			CallableStatement callableStatement=connection.prepareCall(job);
+			callableStatement.setInt(1,vendorCode);
+			boolean resultGenerated=callableStatement.execute();
+			if(!resultGenerated)
+			{
+			callableStatement.close();
+			connection.close();
+			throw new DAOException("VendorOutletDAO : getByVendor() --> No ResultSet object");
+			}
+			ResultSet resultSet=callableStatement.getResultSet();
+			if(resultSet.next()==false)
+			{
+				resultSet.close();
+				callableStatement.close();
+				connection.close();
+				throw new DAOException("VendorOutletDAO : getByVendor() --> No records ");
+			}
+
+			ArrayList<VendorOutletInterface> vendorOutlets;
+			vendorOutlets=new ArrayList<VendorOutletInterface>();
+			VendorOutletInterface vendorOutletInterface; 
+			do
+			{
+			vendorOutletInterface = new VendorOutlet();
+			vendorOutletInterface.setCode(resultSet.getInt("code"));
+			vendorOutletInterface.setVendorCode(resultSet.getInt("vendor_code"));
+			vendorOutletInterface.setCityCode(resultSet.getInt("city_code"));
+			vendorOutletInterface.setAddress(resultSet.getString("address").trim());
+			vendorOutletInterface.setContactNumber(resultSet.getString("contact_number").trim());
+			vendorOutletInterface.setLatitude(resultSet.getString("latitude").trim());
+			vendorOutletInterface.setLongitude(resultSet.getString("longitude").trim());			
+			vendorOutlets.add(vendorOutletInterface);
+			}while(resultSet.next());
+			resultSet.close();
+			callableStatement.close();
+if(closeConnection)
+{
+	connection.close();
+}
+			return vendorOutlets;
+		}catch(Exception exception)
+		{
+			throw new DAOException("VendorOutletDAO : getByVendor() "+exception.getMessage());
+		}
+
+	}
+
 
 public long getCountByCity(int cityCode,Connection connection) throws DAOException
 {

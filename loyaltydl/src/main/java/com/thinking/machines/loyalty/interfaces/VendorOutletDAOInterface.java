@@ -14,10 +14,12 @@ public interface VendorOutletDAOInterface
 	public void removeAll(Connection connection) throws DAOException;
 	public boolean exists(int code,Connection connection) throws DAOException;
 
+
 	public boolean existsByCoordinates(String latitude,String longitude,Connection connection) throws DAOException;
 	public boolean existsByContactNumber(String contactNumber,Connection connection) throws DAOException;
 	public ArrayList<VendorOutletInterface> getAll(Connection connection) throws DAOException;
 	public ArrayList<VendorOutletInterface> getByCity(int cityCode,Connection connection) throws DAOException;
+	public ArrayList<VendorOutletInterface> getByVendor(int vendorCode,Connection connection) throws DAOException;
 	public long getCount(Connection connection) throws DAOException;
 	public long getCountByCity(int cityCode,Connection connection) throws DAOException;	
 }
