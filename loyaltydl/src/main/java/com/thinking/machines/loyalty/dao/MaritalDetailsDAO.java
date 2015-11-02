@@ -7,26 +7,32 @@ import com.thinking.machines.loyalty.exceptions.*;
 public class MaritalDetailsDAO implements MaritalDetailsDAOInterface
 {
 //tested- works fine	
-public void add(MaritalDetailsInterface maritalDetailsInterface) throws DAOException
+public void add(MaritalDetailsInterface maritalDetailsInterface,Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-if(exists(maritalDetailsInterface.getCustomerCode()))
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
+if(exists(maritalDetailsInterface.getCustomerCode(),connection))
 {
 throw new DAOException("MaritalDetailsDAO : add()" +maritalDetailsInterface.getCustomerCode()+" already exists");
 }
-if(!(new CustomerDAO().exists(maritalDetailsInterface.getCustomerCode())))
+if(!(new CustomerDAO().exists(maritalDetailsInterface.getCustomerCode(),connection)))
 {
 throw new DAOException("MaritalDetailsDAO : add() invalid customer code : " + maritalDetailsInterface.getCustomerCode());	
 }
 	
-boolean isMarried=new CustomerDAO().getByCode(maritalDetailsInterface.getCustomerCode()).getIsMarried();
+boolean isMarried=new CustomerDAO().getByCode(maritalDetailsInterface.getCustomerCode(),connection).getIsMarried();
 if(!isMarried)
 {
 throw new DAOException("MaritalDetailsDAO : add() : Customer with code " +maritalDetailsInterface.getCustomerCode()+" is not married");
 }
 
-Connection connection=DAOConnection.getConnection();
 String job="{ call add_marital_details(?,?,?,?,?,?,?) }"; 
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.setInt(1,maritalDetailsInterface.getCustomerCode()); 
@@ -56,8 +62,10 @@ callableStatement.setInt(6,maritalDetailsInterface.getNumberOfGirlChild());
 callableStatement.setInt(7,maritalDetailsInterface.getNumberOfBoyChild()); 
 callableStatement.execute();
 callableStatement.close();
-connection.close(); 
-}
+if(closeConnection)
+		{
+			connection.close();
+		}}
 catch(SQLException sqlException)
 {
 throw new DAOException("MaritalDetailsDAO --> add() --> "+sqlException.getMessage());
@@ -69,20 +77,30 @@ throw new DAOException("MaritalDetailsDAO --> add() --> "+exception.getMessage()
 }
 
 
-public void update(MaritalDetailsInterface maritalDetailsInterface) throws DAOException
+
+
+
+
+public void update(MaritalDetailsInterface maritalDetailsInterface,Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-if(!exists(maritalDetailsInterface.getCustomerCode()))
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
+if(!exists(maritalDetailsInterface.getCustomerCode(),connection))
 {
 throw new DAOException("MaritalDetailsDAO : update() --> Invalid MaritalDetails Code :"+maritalDetailsInterface.getCustomerCode());
 }
-boolean isMarried=new CustomerDAO().getByCode(maritalDetailsInterface.getCustomerCode()).getIsMarried();
+boolean isMarried=new CustomerDAO().getByCode(maritalDetailsInterface.getCustomerCode(),connection).getIsMarried();
 if(!isMarried)
 {
 throw new DAOException("MaritalDetailsDAO : update() : Customer with code " +maritalDetailsInterface.getCustomerCode()+" is not married");
 }
-Connection connection=DAOConnection.getConnection(); 
 String job="{ call update_marital_details(?,?,?,?,?,?,?) }"; 
 CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.setInt(1,maritalDetailsInterface.getCustomerCode()); 
@@ -112,8 +130,10 @@ callableStatement.setInt(6,maritalDetailsInterface.getNumberOfGirlChild());
 callableStatement.setInt(7,maritalDetailsInterface.getNumberOfBoyChild()); 
 callableStatement.execute(); 
 callableStatement.close(); 
-connection.close();
-}
+if(closeConnection)
+		{
+			connection.close();
+		}}
 catch(SQLException sqlException)
 {
 throw new DAOException("MaritalDetailsDAO --> update() --> "+sqlException.getMessage()); 
@@ -124,28 +144,40 @@ throw new DAOException(exception.getMessage());
 }
 }
 
+
+
+
+
 //tested -works fine
-public void remove(int customerCode) throws DAOException
+public void remove(int customerCode,Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();	
-if(!customerDAOInterface.exists(customerCode))	
+if(!customerDAOInterface.exists(customerCode,connection))	
 {
 throw new DAOException("MaritalDetailsDAO --> remove() --> invalid customer code"); 	
 }
-if(customerDAOInterface.getByCode(customerCode).getIsMarried())
+if(customerDAOInterface.getByCode(customerCode,connection).getIsMarried())
 {
 throw new DAOException("MaritalDetailsDAO --> remove() --> Customer is married - cannot remove details");
 }
-Connection connection=DAOConnection.getConnection(); 
-String job="{ call remove__marital_details_by_customer_code(?) }";
+String job="{ call remove_marital_details_by_customer_code(?) }";
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.setInt(1,customerCode);
 callableStatement.execute();
 callableStatement.close();
-connection.close();
-}
+if(closeConnection)
+		{
+			connection.close();
+		}}
 catch(SQLException sqlException)
 {
 throw new DAOException("MaritalDetailsDAO --> remove() --> "+sqlException.getMessage()); 
@@ -158,11 +190,17 @@ throw new DAOException("MaritalDetailsDAO --> remove() --> "+exception.getMessag
 
 
 //how to handle null values
-public MaritalDetailsInterface getByCustomerCode(int customerCode) throws DAOException
+public MaritalDetailsInterface getByCustomerCode(int customerCode,Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-Connection connection=DAOConnection.getConnection();
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
 String job="{ call get_marital_details_by_customer_code(?) }";
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.setInt(1,customerCode);
@@ -204,8 +242,10 @@ catch(Exception e)
 }
 
 callableStatement.close(); 
-connection.close(); 
-return maritalDetailsInterface;
+if(closeConnection)
+		{
+			connection.close();
+		}return maritalDetailsInterface;
 }
 catch(SQLException sqlException)
 {
@@ -219,11 +259,17 @@ throw new DAOException("MaritalDetailsDAO --> getByCustomerCode() --> "+exceptio
 
 
 
-public ArrayList<MaritalDetailsInterface> getAll() throws DAOException
+public ArrayList<MaritalDetailsInterface> getAll(Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-Connection connection=DAOConnection.getConnection();
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
  
 String job="{ call get_all_marital_details() }"; 
 
@@ -292,8 +338,10 @@ maritalDetailsInterface.setNumberOfBoyChild(resultSet.getInt("number_of_boy_chil
 while(resultSet.next());
  
 resultSet.close();callableStatement.close();
- 
-connection.close(); 
+ if(closeConnection)
+		{
+			connection.close();
+		}
 
 return maritalDetails;
  
@@ -318,13 +366,17 @@ throw new DAOException("MaritalDetailsDAO : getAll() --> "+exception.getMessage(
 
 
 
-public long getCount() throws DAOException
+public long getCount(Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
 
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
 
-Connection connection=DAOConnection.getConnection(); 
+}
 
 String job="{ call get_marital_details_count(?) }"; 
 
@@ -337,9 +389,10 @@ callableStatement.execute();
 long count=callableStatement.getInt(1); 
 
 callableStatement.close(); 
-
-connection.close(); 
-
+if(closeConnection)
+		{
+			connection.close();
+		}
 return count; 
 
 }
@@ -354,12 +407,18 @@ throw new DAOException("MaritalDetailsDAO --> getCount() --> "+exception.getMess
 }
 
 //tested - works fine
-public boolean exists(int customerCode) throws DAOException
+public boolean exists(int customerCode,Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
 boolean exists=false;
-Connection connection=DAOConnection.getConnection(); 
 String job="{ call marital_details_exists_by_customer_code(?) }"; 
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.setInt(1,customerCode); 
@@ -372,8 +431,10 @@ throw new DAOException("exists() --> No records in generated result");
 }
 ResultSet resultSet=callableStatement.getResultSet(); 
 exists=resultSet.next(); 
-resultSet.close(); 
-callableStatement.close(); 
+resultSet.close(); if(closeConnection)
+		{
+			connection.close();
+		} 
 return exists;
 }
 catch(Exception exception)
@@ -384,14 +445,17 @@ throw new DAOException("MaritalDetailsDAO --> exists() --> "+exception.getMessag
 
 
 
-public void removeAll() throws DAOException
+public void removeAll(Connection connection) throws DAOException
 {
+boolean closeConnection=false;
+try{
 
-try
-
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
 
-	Connection connection=DAOConnection.getConnection(); 
+}
 
 String job="{ call remove_all_marital_details() }";
  
@@ -400,9 +464,10 @@ CallableStatement callableStatement=connection.prepareCall(job);
 callableStatement.execute();
  
 callableStatement.close();
- 
-connection.close();
- 
+ if(closeConnection)
+		{
+			connection.close();
+		}
 }
 catch(Exception exception)
 
@@ -415,14 +480,18 @@ throw new DAOException("MaritalDetailsDAO --> removeAll() --> "+exception.getMes
 
 }
 
-public ArrayList<MaritalDetailsInterface> getAllBySpouseDateOfBirth(java.util.Date spouseDateOfBirth) throws DAOException
+public ArrayList<MaritalDetailsInterface> getAllBySpouseDateOfBirth(java.util.Date spouseDateOfBirth,Connection connection) throws DAOException
 {
 
-try
+boolean closeConnection=false;
+try{
 
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
 
-Connection connection=DAOConnection.getConnection();
+}
  
 String job="{ call get_all_married_customers_by_spouse_date_of_birth(?) }"; 
 
@@ -495,8 +564,10 @@ maritalDetailsInterface.setNumberOfBoyChild(resultSet.getInt("number_of_boy_chil
 while(resultSet.next());
  
 resultSet.close();callableStatement.close();
- 
-connection.close(); 
+ if(closeConnection)
+		{
+			connection.close();
+		}
 
 return maritalDetails;
  
@@ -520,13 +591,17 @@ throw new DAOException("MaritalDetailsDAO : getAllBySpouseDateOfBirth() --> "+ex
 
 
 }
-public ArrayList<MaritalDetailsInterface> getAllByAnniversaryDate(java.util.Date anniversaryDate) throws DAOException
+public ArrayList<MaritalDetailsInterface> getAllByAnniversaryDate(java.util.Date anniversaryDate,Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
 
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
 
-Connection connection=DAOConnection.getConnection();
+}
  
 String job="{ call get_all_married_customers_by_anniversary_date(?) }"; 
 
@@ -599,8 +674,10 @@ maritalDetailsInterface.setNumberOfBoyChild(resultSet.getInt("number_of_boy_chil
 while(resultSet.next());
  
 resultSet.close();callableStatement.close();
- 
-connection.close(); 
+ if(closeConnection)
+		{
+			connection.close();
+		}
 
 return maritalDetails;
  
@@ -627,11 +704,17 @@ throw new DAOException("MaritalDetailsDAO : getAllByAnniversaryDate() --> "+exce
 }
 
 
-public ArrayList<MaritalDetailsInterface> getAllBySpouseOccupation(String spouseOccupation) throws DAOException
+public ArrayList<MaritalDetailsInterface> getAllBySpouseOccupation(String spouseOccupation,Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-Connection connection=DAOConnection.getConnection();
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
 String job="{ call get_all_married_customers_by_spouse_occupation(?) }"; 
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.setString(1,spouseOccupation);
@@ -671,8 +754,10 @@ maritalDetails.add(maritalDetailsInterface);
 }
 while(resultSet.next());
 resultSet.close();callableStatement.close();
-connection.close(); 
-return maritalDetails;
+if(closeConnection)
+		{
+			connection.close();
+		}return maritalDetails;
 }
 catch(SQLException sqlException)
 {
@@ -685,13 +770,17 @@ throw new DAOException("MaritalDetailsDAO : getAllBySpouseOccupation() --> "+exc
 }
 
 
-public int getCountBySpouseDateOfBirth(java.util.Date spouseDateOfBirth) throws DAOException
+public int getCountBySpouseDateOfBirth(java.util.Date spouseDateOfBirth,Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
 
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
 
-Connection connection=DAOConnection.getConnection();
+}
  
 String job="{ call get_married_customer_count_by_spouse_date_of_birth(?,?) }"; 
 
@@ -708,9 +797,10 @@ callableStatement.execute();
 int count=callableStatement.getInt(2);
  
 callableStatement.close();
- 
-connection.close();
- 
+ if(closeConnection)
+		{
+			connection.close();
+		}
 return count;
  
 }
@@ -728,11 +818,17 @@ throw new DAOException("MaritalDetailsDAO --> getCountBySpouseDateOfBirth() --> 
 }
 
 
-public int getCountByAnniversaryDate(java.util.Date anniversaryDate) throws DAOException
+public int getCountByAnniversaryDate(java.util.Date anniversaryDate,Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-Connection connection=DAOConnection.getConnection();
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
 String job="{ call get_married_customer_count_by_anniversary_date(?,?) }"; 
 CallableStatement callableStatement=connection.prepareCall(job); 
 java.util.Date utilDateOfBirth=anniversaryDate;
@@ -742,8 +838,10 @@ callableStatement.registerOutParameter(2,Types.INTEGER);
 callableStatement.execute(); 
 int count=callableStatement.getInt(2);
 callableStatement.close();
-connection.close();
-return count;
+if(closeConnection)
+		{
+			connection.close();
+		}return count;
 }
 catch(Exception exception)
 {
@@ -752,11 +850,17 @@ throw new DAOException("MaritalDetailsDAO --> getCountByAnniversaryDate() --> "+
 }
 
 //tested - works fine
-public int getCountBySpouseOccupation(String spouseOccupation) throws DAOException
+public int getCountBySpouseOccupation(String spouseOccupation,Connection connection) throws DAOException
 {
-try
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-Connection connection=DAOConnection.getConnection();
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
 String job="{ call get_married_customer_count_by_spouse_occupation(?,?) }"; 
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.setString(1,spouseOccupation); 
@@ -764,8 +868,10 @@ callableStatement.registerOutParameter(2,Types.INTEGER);
 callableStatement.execute(); 
 int count=callableStatement.getInt(2);
 callableStatement.close();
-connection.close();
-return count;
+if(closeConnection)
+		{
+			connection.close();
+		}return count;
 }
 catch(Exception exception)
 {

@@ -1,52 +1,98 @@
 package com.thinking.machines.loyalty.dao; 
+
 import java.util.*; 
+
 import java.sql.*; 
+
 import com.thinking.machines.loyalty.interfaces.*;
+ 
 import com.thinking.machines.loyalty.exceptions.*; 
 
 public class StudentDAO implements StudentDAOInterface
+
 {
-public void add(StudentInterface studentInterface) throws DAOException
+
+public void add(StudentInterface studentInterface,Connection connection) throws DAOException
+
 {
-try
+
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-if(exists(studentInterface.getCustomerCode()))
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
+
+if(exists(studentInterface.getCustomerCode(),connection))
+
 {
+
 throw new DAOException("StudentDAO : add()" +studentInterface.getCustomerCode()+" already exists");
+ 
 }
 
 
-if(!(new CustomerDAO().exists(studentInterface.getCustomerCode())))
+if(!(new CustomerDAO().exists(studentInterface.getCustomerCode(),connection)))
+
 {
 throw new DAOException("StudentDAO : add() invalid customer code : " + studentInterface.getCustomerCode());	
+		}
+
+boolean isStudent=new CustomerDAO().getByCode(studentInterface.getCustomerCode(),connection).getIsStudent();
+if(!isStudent)
+{
+throw new DAOException("StudentDAO : add() : Customer with code " +studentInterface.getCustomerCode()+" is not student");
 }
-Connection connection=DAOConnection.getConnection();
+
+ 
 String job="{ call add_student(?,?,?) }"; 
+
 CallableStatement callableStatement=connection.prepareCall(job); 
+
 callableStatement.setInt(1,studentInterface.getCustomerCode()); 
+
 callableStatement.setString(2,studentInterface.getStream()); 
+
 callableStatement.setString(3,studentInterface.getCourseDetails()); 
+
 callableStatement.execute();
 callableStatement.close();
-connection.close(); 
+if(closeConnection)
+		{
+			connection.close();
+		}
+
 }
 catch(Exception exception)
+
 {
+
 throw new DAOException("StudentDAO --> add() --> "+exception.getMessage());
+ 
 }
+
 }
 
 
 
-public void update(StudentInterface studentInterface) throws DAOException
+public void update(StudentInterface studentInterface,Connection connection) throws DAOException
 
 {
 
-try
+boolean closeConnection=false;
+try{
 
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
 
-if(!exists(studentInterface.getCustomerCode()))
+}
+
+if(!exists(studentInterface.getCustomerCode(),connection))
 
 {
 
@@ -55,9 +101,11 @@ throw new DAOException("StudentDAO : update() --> Invalid Student Code :"+studen
 }
 
 
-
-Connection connection=DAOConnection.getConnection(); 
-
+boolean isStudent=new CustomerDAO().getByCode(studentInterface.getCustomerCode(),connection).getIsStudent();
+if(!isStudent)
+{
+throw new DAOException("StudentDAO: update() : Customer with code "+studentInterface.getCustomerCode()+"is not student");
+}
 String job="{ call update_student(?,?,?) }"; 
 
 CallableStatement callableStatement=connection.prepareCall(job);
@@ -73,7 +121,11 @@ callableStatement.execute();
 
 callableStatement.close(); 
 
-connection.close();
+if(closeConnection)
+		{
+			connection.close();
+		}
+
  
 }
 
@@ -92,15 +144,20 @@ throw new DAOException("StudentDAO --> update() --> "+exception.getMessage());
 
 
 
-public StudentInterface getByCustomerCode(int customerCode) throws DAOException
+public StudentInterface getByCustomerCode(int customerCode,Connection connection) throws DAOException
 
 {
 
-try
+boolean closeConnection=false;
+try{
 
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
 
-Connection connection=DAOConnection.getConnection();
+}
+
  
 String job="{ call get_student_by_customer_code(?) }";
  
@@ -146,8 +203,10 @@ studentInterface.setStream(resultSet.getString("stream").trim());
 studentInterface.setCourseDetails(resultSet.getString("course_details").trim());
  callableStatement.close(); 
 
-connection.close(); 
-
+if(closeConnection)
+		{
+			connection.close();
+		}
 return studentInterface;
  
 }
@@ -164,12 +223,20 @@ throw new DAOException("StudentDAO --> getByCustomerCode() --> "+exception.getMe
 
 
 
-public ArrayList<StudentInterface> getAll() throws DAOException
+public ArrayList<StudentInterface> getAll(Connection connection) throws DAOException
 
 {
-try
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-Connection connection=DAOConnection.getConnection();
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
+
+
  
 String job="{ call get_all_students() }"; 
 
@@ -227,9 +294,10 @@ studentInterface.setCourseDetails(resultSet.getString("course_details").trim());
 while(resultSet.next());
  
 resultSet.close();callableStatement.close();
- 
-connection.close(); 
-
+if(closeConnection)
+		{
+			connection.close();
+		}
 return students;
  
 }
@@ -254,12 +322,19 @@ throw new DAOException("StudentDAO : getAll() --> "+exception.getMessage());
 
 
 
-public ArrayList<StudentInterface> getAllByStream(String stream) throws DAOException
+public ArrayList<StudentInterface> getAllByStream(String stream,Connection connection) throws DAOException
 
+{boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-try
-{
-Connection connection=DAOConnection.getConnection();
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
+
+
  
 String job="{ call get_all_students_by_stream(?) }"; 
 
@@ -318,9 +393,10 @@ studentInterface.setCourseDetails(resultSet.getString("course_details").trim());
 while(resultSet.next());
  
 resultSet.close();callableStatement.close();
- 
-connection.close(); 
-
+if(closeConnection)
+		{
+			connection.close();
+		}
 return students;
  
 }
@@ -345,15 +421,20 @@ throw new DAOException("StudentDAO : getAllByStream() --> "+exception.getMessage
 
 
 
-public int getCountByStream(String stream) throws DAOException
+public int getCountByStream(String stream,Connection connection) throws DAOException
 
 {
 
-try
+boolean closeConnection=false;
+try{
 
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
 
-Connection connection=DAOConnection.getConnection();
+}
+
  
 String job="{ call get_student_count_by_stream(?,?) }"; 
 
@@ -368,8 +449,11 @@ callableStatement.execute();
 int count=callableStatement.getInt(2);
  
 callableStatement.close();
- 
-connection.close();
+if(closeConnection)
+		{
+			connection.close();
+		}
+
  
 return count;
  
@@ -385,18 +469,21 @@ throw new DAOException("StudentDAO --> getCountByStream() --> "+exception.getMes
 
 }
 
-public boolean exists(int customerCode) throws DAOException
+public boolean exists(int customerCode,Connection connection) throws DAOException
 
 {
 
-try
+boolean closeConnection=false;
+try{
 
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
 
 boolean exists=false;
- 
-Connection connection=DAOConnection.getConnection(); 
-
 String job="{ call student_exists_by_customer_code(?) }"; 
 
 CallableStatement callableStatement=connection.prepareCall(job); 
@@ -424,6 +511,11 @@ resultSet.close();
 
 callableStatement.close(); 
 
+if(closeConnection)
+		{
+			connection.close();
+		}
+
 return exists;
  
 }
@@ -439,15 +531,19 @@ throw new DAOException("StudentDAO --> exists() --> "+exception.getMessage());
 }
 
 
-public long getCount() throws DAOException
+public long getCount(Connection connection) throws DAOException
 
 {
 
-try
+boolean closeConnection=false;
+try{
 
+if(connection==null)
 {
+connection=DAOConnection.getConnection();
+closeConnection=true;
 
-Connection connection=DAOConnection.getConnection(); 
+}
 
 String job="{ call get_student_count(?) }"; 
 
@@ -461,8 +557,10 @@ long count=callableStatement.getInt(1);
 
 callableStatement.close(); 
 
-connection.close(); 
-
+if(closeConnection)
+		{
+			connection.close();
+		}
 return count; 
 
 }
@@ -480,45 +578,95 @@ throw new DAOException("StudentDAO --> getCount() --> "+exception.getMessage());
       
 
 
-public void removeAll() throws DAOException
+public void removeAll(Connection connection) throws DAOException
+
 {
-try
+
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-Connection connection=DAOConnection.getConnection(); 
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
+
 String job="{ call remove_all_students() }";
+ 
 CallableStatement callableStatement=connection.prepareCall(job); 
+
 callableStatement.execute();
+ 
 callableStatement.close();
-connection.close();
+if(closeConnection)
+		{
+			connection.close();
+		}
+
+ 
 }
 catch(Exception exception)
+
 {
+
 throw new DAOException("StudentDAO --> removeAll() --> "+exception.getMessage()); 
+
 }
+
+
 }
 
 
 
 
-public void remove(int customerCode) throws DAOException
+public void remove(int customerCode,Connection connection) throws DAOException
+
 {
-try
+
+boolean closeConnection=false;
+try{
+
+if(connection==null)
 {
-Connection connection=DAOConnection.getConnection(); 
+connection=DAOConnection.getConnection();
+closeConnection=true;
+
+}
+
+CustomerDAOInterface customerDAOInterface=new CustomerDAO();	
+if(!customerDAOInterface.exists(customerCode,connection))	
+{
+throw new DAOException("StudentDAO --> remove() --> invalid customer code"); 	
+}
+if(customerDAOInterface.getByCode(customerCode,connection).getIsStudent())
+{
+throw new DAOException("StudentDAO --> remove() --> Customer is student - cannot remove details");
+}
+
 String job="{ call remove_student_by_customer_code(?) }";
+ 
 CallableStatement callableStatement=connection.prepareCall(job); 
 callableStatement.setInt(1,customerCode);
 callableStatement.execute();
+ 
 callableStatement.close();
-connection.close();
-}
-catch(SQLException sqlException)
-{
-throw new DAOException("StudentDAO --> remove() --> "+sqlException.getMessage()); 
+if(closeConnection)
+		{
+			connection.close();
+		}
+
+ 
 }
 catch(Exception exception)
+
 {
-throw new DAOException(exception.getMessage()); 
+
+throw new DAOException("StudentDAO --> remove() --> "+exception.getMessage()); 
+
 }
+
+
+
 }
 }
