@@ -1,0 +1,6 @@
+apply plugin : 'java' 
+
+dependencies
+{
+compile files('c:/uec3sem/loyalty/loyaltydl/build/libs/loyaltydl.jar');
+}

@@ -80,7 +80,10 @@ public class VendorOutletDAO implements VendorOutletDAOInterface
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorOutletDAO :existsByCoordinates() --> No records in generated result");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -119,7 +122,10 @@ if(closeConnection)
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorOutletDAO :existsByContactNumber() --> No records in generated result");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -160,7 +166,10 @@ if(closeConnection)
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorOutletDAO : getByCoordinates() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -168,7 +177,10 @@ if(closeConnection)
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorOutletDAO : getByCoordinates() --> Invalid Coordinates "+ latitude +" , "+longitude);
 			}
 			VendorOutletInterface vendorOutletInterface = new VendorOutlet();
@@ -210,7 +222,10 @@ if(closeConnection)
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorOutletDAO : getByContactNumber() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -218,7 +233,10 @@ if(closeConnection)
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorOutletDAO : getByContactNumber() --> Invalid contactNumber " + contactNumber);
 			}
 			VendorOutletInterface vendorOutletInterface = new VendorOutlet();
@@ -342,7 +360,7 @@ if(closeConnection)
 			throw new DAOException("VendorOutletDAO : remove() -> invalid vendor code :"+code);
 		}
 		
-		if(new OperatorDAO().getCountByVendorCode(code,connection)>0)
+		if(new OperatorDAO().getCountByVendorOutletCode(code,connection)>0)
 		{
 			throw new DAOException("VendorOutletDAO : remove() ->operator exists against this vendor code :"+code);
 		}
@@ -382,7 +400,10 @@ if(closeConnection)
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorOutletDAO : getByCode() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -469,7 +490,10 @@ if(closeConnection)
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorOutletDAO :exists() --> No records in generated result");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -505,7 +529,10 @@ if(closeConnection)
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorOutletDAO : getAll() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -513,7 +540,10 @@ if(closeConnection)
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorOutletDAO : getAll() --> No records ");
 			}
 
@@ -566,7 +596,10 @@ if(closeConnection)
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorOutletDAO : getByCity() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -574,7 +607,10 @@ if(closeConnection)
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorOutletDAO : getByCity() --> No records ");
 			}
 
@@ -625,7 +661,10 @@ if(closeConnection)
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorOutletDAO : getByVendor() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -633,7 +672,10 @@ if(closeConnection)
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorOutletDAO : getByVendor() --> No records ");
 			}
 

@@ -1,0 +1,17 @@
+mkdir src
+cd src
+mkdir main
+cd main
+mkdir java
+cd java
+mkdir com
+cd com
+mkdir thinking
+cd thinking
+mkdir machines
+cd machines
+mkdir loyalty
+cd loyalty
+mkdir exceptions
+mkdir interfaces
+mkdir dao

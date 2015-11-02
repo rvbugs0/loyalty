@@ -91,7 +91,10 @@ boolean resultGenerated=callableStatement.execute();
 if(!resultGenerated)
 {
 callableStatement.close();
-connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 throw new DAOException("CityDAO : getByCode() --> No ResultSet object");
 }
 ResultSet resultSet=callableStatement.getResultSet();
@@ -99,7 +102,10 @@ if(resultSet.next()==false)
 {
 	resultSet.close();
 	callableStatement.close();
+if(closeConnection)
+{
 	connection.close();
+}
 	throw new DAOException("CityDAO : getByCode() --> Invalid Code "+code);
 }
 CityInterface cityInterface=new City();
@@ -141,16 +147,20 @@ boolean resultGenerated=callableStatement.execute();
 if(!resultGenerated)
 {
 callableStatement.close();
-connection.close();
-throw new DAOException("CityDAO : getByName() --> No ResultSet object");
+if(closeConnection)
+{
+	connection.close();
+}throw new DAOException("CityDAO : getByName() --> No ResultSet object");
 }
 ResultSet resultSet=callableStatement.getResultSet();
 if(resultSet.next()==false)
 {
 	resultSet.close();
 	callableStatement.close();
+if(closeConnection)
+{
 	connection.close();
-	throw new DAOException("CityDAO : getByName() --> Invalid Name "+name);
+}	throw new DAOException("CityDAO : getByName() --> Invalid Name "+name);
 }
 ArrayList<CityInterface> cities;
 cities=new ArrayList<CityInterface>();
@@ -197,15 +207,20 @@ boolean resultGenerated=callableStatement.execute();
 if(!resultGenerated)
 {
 callableStatement.close();
-connection.close();
-throw new DAOException("CityDAO : getAll() --> No ResultSet object");
+if(closeConnection)
+{
+	connection.close();
+}throw new DAOException("CityDAO : getAll() --> No ResultSet object");
 }
 ResultSet resultSet=callableStatement.getResultSet();
 if(resultSet.next()==false)
 {
 	resultSet.close();
 	callableStatement.close();
+if(closeConnection)
+{
 	connection.close();
+}
 	throw new DAOException("CityDAO : getAll() --> No records ");
 }
 
@@ -238,28 +253,6 @@ throw new DAOException("CityDAO : getAll() --> "+exception.getMessage());
 }
 }
 
-/*
-public int getCountByName(String name) throws DAOException
-{
-try
-{
-Connection connection=DAOConnection.getConnection();
-String job="{ call get_city_count_by_name(?,?) }";
-CallableStatement callableStatement=connection.prepareCall(job);
-callableStatement.setString(1,name);
-callableStatement.registerOutParameter(2, java.sql.Types.INTEGER);
-callableStatement.execute();
-int count=callableStatement.getInt(2);
-callableStatement.close();
-connection.close();
-return count;
-}
-catch(Exception exception)
-{
-throw new DAOException("CityDAO --> getCountByName() --> "+exception.getMessage());
-}
-}
-*/
 
 //tested
 public boolean exists(int code,Connection connection) throws DAOException
@@ -281,7 +274,10 @@ boolean resultGenerated=callableStatement.execute();
 if(!resultGenerated)
 {
 callableStatement.close();
-connection.close();
+if(closeConnection)
+{
+	connection.close();
+}
 throw new DAOException("exists() --> No records in generated result");
 }
 ResultSet resultSet=callableStatement.getResultSet();

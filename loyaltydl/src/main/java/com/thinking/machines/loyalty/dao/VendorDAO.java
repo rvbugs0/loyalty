@@ -178,13 +178,14 @@ public class VendorDAO implements VendorDAOInterface
 		{
 			throw new DAOException("VendorDAO : remove() Invalid vendor code "+code);			
 		}
+		ArrayList<VendorOutletInterface> vendors;
 		try
 		{
-		ArrayList<VendorOutletDAOInterface> vendors=new VendorOutletDAO().getByVendor(code,connection);
+		vendors=new VendorOutletDAO().getByVendor(code,connection);
 		}
 		catch(DAOException daoException)
 		{
-			vendors=new ArrayList<VendorOutletDAOInterface>();
+			vendors=new ArrayList<VendorOutletInterface>();
 		}
 		if(vendors.size()>0)
 		{
@@ -198,9 +199,7 @@ public class VendorDAO implements VendorDAOInterface
 		if(closeConnection)
 		{
 		connection.close();
-		}
-
-		}		
+		}				
 		}catch(Exception exception)
 		{
 			throw new DAOException("VendorDAO : remove() " + exception.getMessage());
@@ -225,7 +224,7 @@ public class VendorDAO implements VendorDAOInterface
 			connection=DAOConnection.getConnection();	
 			closeConnection=true;
 			}
-			if(new VendorOutletDAO().getCount()>0)
+			if(new VendorOutletDAO().getCount(connection)>0)
 			{
 			throw new DAOException("VendorDAO : removeAll() : Records present in vendor outlets" );	
 			}
@@ -326,7 +325,10 @@ public long getCountByCity(int cityCode,Connection connection) throws DAOExcepti
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO : getAll() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -334,7 +336,10 @@ public long getCountByCity(int cityCode,Connection connection) throws DAOExcepti
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorDAO : getAll() --> No records ");
 			}
 
@@ -389,7 +394,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO : getByCode() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -397,7 +405,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorDAO : getByCode() --> Invalid Code "+code);
 			}
 			VendorInterface vendorInterface = new Vendor();
@@ -443,7 +454,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO : getByContactNumber() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -451,7 +465,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorDAO : getByContactNumber() --> Invalid contactNumber " + contactNumber);
 			}
 			VendorInterface vendorInterface = new Vendor();
@@ -496,7 +513,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO : getByEmailId() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -504,7 +524,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorDAO : getByEmailId() --> Invalid emailId "+ emailId);
 			}
 			VendorInterface vendorInterface = new Vendor();
@@ -549,7 +572,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO : getByUsername() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -557,7 +583,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorDAO : getByUsername() --> Invalid Username "+username);
 			}
 			VendorInterface vendorInterface = new Vendor();
@@ -601,7 +630,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO : getByName() --> No ResultSet object");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -609,7 +641,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			{
 				resultSet.close();
 				callableStatement.close();
-				connection.close();
+				if(closeConnection)
+{
+	connection.close();
+}
 				throw new DAOException("VendorDAO : getByName() --> Invalid name "+name);
 			}
 			VendorInterface vendorInterface = new Vendor();
@@ -654,7 +689,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO :exists() --> No records in generated result");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -694,7 +732,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO :existsByUsername() --> No records in generated result");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -732,7 +773,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO :existsByName() --> No records in generated result");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -770,7 +814,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO :existsByContactNumber() --> No records in generated result");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();
@@ -808,7 +855,10 @@ public VendorInterface getByCode(int code,Connection connection) throws DAOExcep
 			if(!resultGenerated)
 			{
 			callableStatement.close();
-			connection.close();
+			if(closeConnection)
+{
+	connection.close();
+}
 			throw new DAOException("VendorDAO :existsByEmailId() --> No records in generated result");
 			}
 			ResultSet resultSet=callableStatement.getResultSet();

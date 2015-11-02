@@ -13,6 +13,7 @@ public interface VendorDAOInterface
 	public long getCount(Connection connection) throws DAOException;
 	public long getCountByCity(int cityCode,Connection connection) throws DAOException;
 
+
 	public ArrayList<VendorInterface> getAll(Connection connection) throws DAOException;
 	public void removeAll(Connection connection) throws DAOException;
 	
