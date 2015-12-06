@@ -1,6 +1,7 @@
 package com.thinking.machines.loyalty.dao;
 import java.util.*;
 import java.sql.*;
+import com.thinking.machines.logger.*;
 import com.thinking.machines.loyalty.interfaces.*;
 import com.thinking.machines.loyalty.exceptions.*;
 public class CityDAO implements CityDAOInterface
@@ -31,6 +32,11 @@ if(closeConnection)
 {
 	connection.close();
 }
+}
+catch(SQLException sqlException)
+{
+Utility.addToLog("CityDAO : add()--->"+sqlException.getMessage());
+throw new DAOException("CityDAO --> add() --> "+sqlException.getMessage());
 }
 catch(Exception exception)
 {
@@ -66,6 +72,11 @@ if(closeConnection)
 {
 	connection.close();
 }
+}
+catch(SQLException sqlException)
+{
+Utility.addToLog("CityDAO : update()--->"+sqlException.getMessage());
+throw new DAOException("CityDAO --> update() --> "+sqlException.getMessage());
 }
 catch(Exception exception)
 {
@@ -120,6 +131,11 @@ if(closeConnection)
 	connection.close();
 }
 return cityInterface;
+}
+catch(SQLException sqlException)
+{
+Utility.addToLog("CityDAO : getByCode()--->"+sqlException.getMessage());
+throw new DAOException("CityDAO --> getByCode() --> "+sqlException.getMessage());
 }
 catch(Exception exception)
 {
@@ -181,6 +197,11 @@ if(closeConnection)
 	connection.close();
 }
 return cities;
+}
+catch(SQLException sqlException)
+{
+Utility.addToLog("CityDAO : getByName()--->"+sqlException.getMessage());
+throw new DAOException("CityDAO --> getByName() --> "+sqlException.getMessage());
 }
 catch(Exception exception)
 {
@@ -245,7 +266,8 @@ if(closeConnection)
 return cities;
 }catch(SQLException sqlException)
 {
-throw new DAOException("CityDAO : getAll() --> "+sqlException.getMessage());
+Utility.addToLog("CityDAO : getAll()--->"+sqlException.getMessage());
+throw new DAOException("CityDAO --> getAll() --> "+sqlException.getMessage());
 } 
 catch(Exception exception)
 {
@@ -290,6 +312,11 @@ if(closeConnection)
 }
 return exists;
 }
+catch(SQLException sqlException)
+{
+Utility.addToLog("CityDAO : exists()--->"+sqlException.getMessage());
+throw new DAOException("CityDAO --> exists() --> "+sqlException.getMessage());
+}
 catch(Exception exception)
 {
 throw new DAOException("CityDAO --> exists() --> "+exception.getMessage());
@@ -320,9 +347,13 @@ if(closeConnection)
 }
 return count;
 }
+catch(SQLException sqlException)
+{
+Utility.addToLog("CityDAO : getCount()--->"+sqlException.getMessage());
+throw new DAOException("CityDAO --> getCount() --> "+sqlException.getMessage());
+}
 catch(Exception exception)
 {
-
 throw new DAOException("CityDAO --> getCount() --> "+exception.getMessage());
 }
 }
@@ -358,6 +389,11 @@ if(closeConnection)
 {
 	connection.close();
 }	
+}
+catch(SQLException sqlException)
+{
+Utility.addToLog("CityDAO : removeAll()--->"+sqlException.getMessage());
+throw new DAOException("CityDAO --> removeAll() --> "+sqlException.getMessage());
 }
 catch(Exception exception)
 {
@@ -402,12 +438,14 @@ if(closeConnection)
 	connection.close();
 }	
 }
+catch(SQLException sqlException)
+{
+Utility.addToLog("CityDAO : remove()--->"+sqlException.getMessage());
+throw new DAOException("CityDAO --> remove() --> "+sqlException.getMessage());
+}
 catch(Exception exception)
 {
 throw new DAOException("CityDAO --> remove() --> "+exception.getMessage());
 }
-
 }
-
-
 }
