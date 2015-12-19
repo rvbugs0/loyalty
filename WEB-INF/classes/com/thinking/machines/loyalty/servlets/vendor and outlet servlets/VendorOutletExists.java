@@ -1,0 +1,41 @@
+package com.thinking.machines.loyalty.servlets;
+import java.io.*;
+import java.util.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import com.thinking.machines.loyalty.application.*;
+import com.thinking.machines.loyalty.application.exceptions.*;
+import com.thinking.machines.loyalty.bl.*;
+import com.thinking.machines.loyalty.bl.interfaces.*;
+
+public class VendorOutletExists extends HttpServlet
+{
+public void doGet(HttpServletRequest rq,HttpServletResponse rs)
+{
+boolean exists=false;
+PrintWriter pw=null; 
+try
+{
+pw=rs.getWriter();
+rs.setContentType("application/json");
+VendorOutletBLInterface vendorOutletInterface=new VendorOutlet();
+LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
+int code=Integer.parseInt(rq.getParameter("code"));
+exists=loyaltyApplication.vendorOutletExists(code);
+pw.println("{");
+pw.println("\"success\":true,");
+pw.println("\"message\":"+exists);
+pw.println("}");
+}catch(ApplicationException ae)
+{
+pw.println("{");
+pw.println("\"success\":false,");
+pw.println("\"errorMessage\":\""+ae.getMessage()+"\"");
+pw.println("}");
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+}
+}
