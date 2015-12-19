@@ -1,5 +1,5 @@
-package com.thinking.machines.loyalty.interfaces;
-
+package com.thinking.machines.loyalty.dao;
+import com.thinking.machines.loyalty.interfaces.*;
 import java.io.*;
 
 public class Customer implements CustomerInterface 
