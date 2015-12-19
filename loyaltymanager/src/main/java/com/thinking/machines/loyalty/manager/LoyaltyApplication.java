@@ -617,4 +617,103 @@ throw new ApplicationException("loyaltyApplication--->getCountByCityVendor"+blEx
 }
 return count;
 }
+
+
+//admin
+
+//admin
+public void addAdmin(AdminInterface adminInterface) throws ApplicationException
+{
+try{
+AdminManager adminManager=new AdminManager();
+adminManager.add(adminInterface);
+}
+catch(BLException blException)
+{
+throw new ApplicationException("loyaltyApplication--->addAdmin"+blException.getMessage());
+}
+}
+
+public void updateAdmin(AdminInterface adminInterface) throws ApplicationException
+{
+try{
+AdminManager adminManager=new AdminManager();
+adminManager.update(adminInterface);
+}
+catch(BLException blException)
+{
+throw new ApplicationException("loyaltyApplication--->updateAdmin"+blException.getMessage());
+}
+}
+
+public void removeAdmin(int code) throws ApplicationException
+{
+try{
+AdminManager adminManager=new AdminManager();
+adminManager.remove(code);
+}
+catch(BLException blException)
+{
+throw new ApplicationException("loyaltyApplication--->removeAdmin"+blException.getMessage());
+}
+}
+
+public AdminInterface getAdminByCode(int code) throws ApplicationException
+{
+AdminInterface adminInterface;
+try{
+AdminManager adminManager=new AdminManager();
+adminInterface=adminManager.getByCode(code);
+return adminInterface;
+}
+catch(BLException blException)
+{
+throw new ApplicationException("loyaltyApplication--->getAdminByCode"+blException.getMessage());
+}
+}
+
+public AdminInterface getAdminByUsername(String username) throws ApplicationException
+{
+AdminInterface adminInterface;
+try{
+AdminManager adminManager=new AdminManager();
+adminInterface=adminManager.getByUsername(username);
+return adminInterface;
+}
+catch(BLException blException)
+{
+throw new ApplicationException("loyaltyApplication--->getAdminByUsername"+blException.getMessage());
+}
+}
+
+
+public boolean adminExists(int code) throws ApplicationException
+{
+boolean exists=false;
+try{
+AdminManager adminManager=new AdminManager();
+exists=adminManager.exists(code);
+}
+catch(BLException blException)
+{
+throw new ApplicationException("loyaltyApplication--->vendorOutletExists"+blException.getMessage());
+}
+return exists;
+}
+
+public long getCountAdmin() throws ApplicationException
+{
+long count=0;
+try{
+AdminManager adminManager=new AdminManager();
+count=adminManager.getCount();
+}
+catch(BLException blException)
+{
+throw new ApplicationException("loyaltyApplication--->getCountAdmin"+blException.getMessage());
+}
+return count;
+}
+
+
 }
