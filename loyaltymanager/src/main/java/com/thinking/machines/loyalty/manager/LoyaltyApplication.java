@@ -715,5 +715,243 @@ throw new ApplicationException("loyaltyApplication--->getCountAdmin"+blException
 return count;
 }
 
+/*Operator*/
 
+public void addOperator(OperatorBLInterface operatorInterface) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+operatorManager.add(operatorInterface);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public void updateOperator(OperatorBLInterface operatorInterface) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+operatorManager.update(operatorInterface);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public OperatorBLInterface getOperatorByCode(int code) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+return operatorManager.getByCode(code);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public OperatorBLInterface getOperatorByName(String name) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+return operatorManager.getByName(name);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public OperatorBLInterface getOperatorByUsername(String username) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+return operatorManager.getByUsername(username);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public ArrayList<OperatorBLInterface> getAllOperators() throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+return operatorManager.getAll();
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+
+public ArrayList<OperatorBLInterface> getAllOperatorsByVendorOutletCode(int vendorOutletCode) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+return operatorManager.getAllByVendorOutletCode(vendorOutletCode);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public long getOperatorCountByVendorOutletCode(int vendorOutletCode) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+return operatorManager.getCountByVendorOutletCode(vendorOutletCode);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public long getOperatorCount() throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+return operatorManager.getCount();
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public long getOperatorCountByName(String name) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+return operatorManager.getCountByName(name);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public long getOperatorCountByUsername(String username) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+return operatorManager.getCountByUsername(username);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public void removeAllOperators() throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+operatorManager.removeAll();
+
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public void removeOperator(int code) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+operatorManager.remove(code);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public void removeOperatorsByVendorOutletCode(int vendorOutletCode) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+operatorManager.removeAllByVendorOutletCode(vendorOutletCode);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public void removeOperatorByUsername(String username) throws ApplicationException
+{
+try
+{
+OperatorManager operatorManager=new OperatorManager();
+operatorManager.removeByUsername(username);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public boolean operatorExists(int code) throws ApplicationException
+{
+try
+{
+boolean found;
+OperatorManager operatorManager=new OperatorManager();
+found=operatorManager.exists(code);
+
+return found;
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public boolean operatorExistsByUsername(String username) throws ApplicationException
+{
+try
+{
+boolean found;
+OperatorManager operatorManager=new OperatorManager();
+found=operatorManager.existsByUsername(username);
+
+return found;
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
 }
