@@ -7,48 +7,48 @@ import com.thinking.machines.loyalty.interfaces.*;
 import com.thinking.machines.loyalty.bl.exceptions.*;
 public class CustomerManager
 {
-public void add(com.thinking.machines.loyalty.bl.interfaces.CustomerInterface customerInterface) throws BLException
+public void add(CustomerBLInterface customerBLInterface) throws BLException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
 com.thinking.machines.loyalty.interfaces.CustomerInterface customer=new com.thinking.machines.loyalty.dao.Customer();
-customer.setName(customerInterface.getName());
-customer.setUsername(customerInterface.getUsername());
-customer.setPassword(customerInterface.getPassword());
-customer.setPasswordKey(customerInterface.getPasswordKey());
-customer.setPermanentAddress(customerInterface.getPermanentAddress());
-customer.setCurrentAddress(customerInterface.getCurrentAddress());
-customer.setCityCode(customerInterface.getCityCode());
-customer.setDateOfBirth(customerInterface.getDateOfBirth());
-customer.setGender(customerInterface.getGender());
-customer.setOccupation(customerInterface.getOccupation());
-customer.setIsMarried(customerInterface.getIsMarried());
-customer.setIsStudent(customerInterface.getIsStudent());
-customer.setContactNumber(customerInterface.getContactNumber());
-customer.setEmailId(customerInterface.getEmailId());
+customer.setName(customerBLInterface.getName());
+customer.setUsername(customerBLInterface.getUsername());
+customer.setPassword(customerBLInterface.getPassword());
+customer.setPasswordKey(customerBLInterface.getPasswordKey());
+customer.setPermanentAddress(customerBLInterface.getPermanentAddress());
+customer.setCurrentAddress(customerBLInterface.getCurrentAddress());
+customer.setCityCode(customerBLInterface.getCityCode());
+customer.setDateOfBirth(customerBLInterface.getDateOfBirth());
+customer.setGender(customerBLInterface.getGender());
+customer.setOccupation(customerBLInterface.getOccupation());
+customer.setIsMarried(customerBLInterface.getIsMarried());
+customer.setIsStudent(customerBLInterface.getIsStudent());
+customer.setContactNumber(customerBLInterface.getContactNumber());
+customer.setEmailId(customerBLInterface.getEmailId());
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();
 customerDAOInterface.add(customer,connection);
-customerInterface.setCode(customer.getCode());
-if(customerInterface.getIsMarried())
+customerBLInterface.setCode(customer.getCode());
+if(customerBLInterface.getIsMarried())
 {
 MaritalDetailsInterface maritalDetails=new MaritalDetails();
 maritalDetails.setCustomerCode(customer.getCode());
-maritalDetails.setSpouseName(customerInterface.getSpouseName());
-maritalDetails.setSpouseDateOfBirth(customerInterface.getSpouseDateOfBirth());
-maritalDetails.setAnniversaryDate(customerInterface.getAnniversaryDate());
-maritalDetails.setSpouseOccupation(customerInterface.getSpouseOccupation());
-maritalDetails.setNumberOfGirlChild(customerInterface.getNumberOfGirlChild());
-maritalDetails.setNumberOfBoyChild(customerInterface.getNumberOfBoyChild());
+maritalDetails.setSpouseName(customerBLInterface.getSpouseName());
+maritalDetails.setSpouseDateOfBirth(customerBLInterface.getSpouseDateOfBirth());
+maritalDetails.setAnniversaryDate(customerBLInterface.getAnniversaryDate());
+maritalDetails.setSpouseOccupation(customerBLInterface.getSpouseOccupation());
+maritalDetails.setNumberOfGirlChild(customerBLInterface.getNumberOfGirlChild());
+maritalDetails.setNumberOfBoyChild(customerBLInterface.getNumberOfBoyChild());
 MaritalDetailsDAOInterface maritalDetailsDAO=new MaritalDetailsDAO();
 maritalDetailsDAO.add(maritalDetails,connection);
 }
-if(customerInterface.getIsStudent())
+if(customerBLInterface.getIsStudent())
 {
 StudentInterface student=new Student();
 student.setCustomerCode(customer.getCode());
-student.setStream(customerInterface.getStream());
-student.setCourseDetails(customerInterface.getCourseDetails());
+student.setStream(customerBLInterface.getStream());
+student.setCourseDetails(customerBLInterface.getCourseDetails());
 StudentDAOInterface studentDAO=new StudentDAO();
 studentDAO.add(student,connection);
 }
@@ -60,48 +60,48 @@ throw new BLException(exception.getMessage());
 }
 
 
-public void update(com.thinking.machines.loyalty.bl.interfaces.CustomerInterface customerInterface) throws BLException
+public void update(CustomerBLInterface customerBLInterface) throws BLException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
 com.thinking.machines.loyalty.interfaces.CustomerInterface customer=new com.thinking.machines.loyalty.dao.Customer();
-customer.setCode(customerInterface.getCode());
-customer.setName(customerInterface.getName());
-customer.setUsername(customerInterface.getUsername());
-customer.setPassword(customerInterface.getPassword());
-customer.setPasswordKey(customerInterface.getPasswordKey());
-customer.setPermanentAddress(customerInterface.getPermanentAddress());
-customer.setCurrentAddress(customerInterface.getCurrentAddress());
-customer.setCityCode(customerInterface.getCityCode());
-customer.setDateOfBirth(customerInterface.getDateOfBirth());
-customer.setGender(customerInterface.getGender());
-customer.setOccupation(customerInterface.getOccupation());
-customer.setIsMarried(customerInterface.getIsMarried());
-customer.setIsStudent(customerInterface.getIsStudent());
-customer.setContactNumber(customerInterface.getContactNumber());
-customer.setEmailId(customerInterface.getEmailId());
+customer.setCode(customerBLInterface.getCode());
+customer.setName(customerBLInterface.getName());
+customer.setUsername(customerBLInterface.getUsername());
+customer.setPassword(customerBLInterface.getPassword());
+customer.setPasswordKey(customerBLInterface.getPasswordKey());
+customer.setPermanentAddress(customerBLInterface.getPermanentAddress());
+customer.setCurrentAddress(customerBLInterface.getCurrentAddress());
+customer.setCityCode(customerBLInterface.getCityCode());
+customer.setDateOfBirth(customerBLInterface.getDateOfBirth());
+customer.setGender(customerBLInterface.getGender());
+customer.setOccupation(customerBLInterface.getOccupation());
+customer.setIsMarried(customerBLInterface.getIsMarried());
+customer.setIsStudent(customerBLInterface.getIsStudent());
+customer.setContactNumber(customerBLInterface.getContactNumber());
+customer.setEmailId(customerBLInterface.getEmailId());
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();
 customerDAOInterface.update(customer,connection);
-if(customerInterface.getIsMarried())
+if(customerBLInterface.getIsMarried())
 {
 MaritalDetailsInterface maritalDetails=new MaritalDetails();
-maritalDetails.setCustomerCode(customerInterface.getCode());
-maritalDetails.setSpouseName(customerInterface.getSpouseName());
-maritalDetails.setSpouseDateOfBirth(customerInterface.getSpouseDateOfBirth());
-maritalDetails.setAnniversaryDate(customerInterface.getAnniversaryDate());
-maritalDetails.setSpouseOccupation(customerInterface.getSpouseOccupation());
-maritalDetails.setNumberOfGirlChild(customerInterface.getNumberOfGirlChild());
-maritalDetails.setNumberOfBoyChild(customerInterface.getNumberOfBoyChild());
+maritalDetails.setCustomerCode(customerBLInterface.getCode());
+maritalDetails.setSpouseName(customerBLInterface.getSpouseName());
+maritalDetails.setSpouseDateOfBirth(customerBLInterface.getSpouseDateOfBirth());
+maritalDetails.setAnniversaryDate(customerBLInterface.getAnniversaryDate());
+maritalDetails.setSpouseOccupation(customerBLInterface.getSpouseOccupation());
+maritalDetails.setNumberOfGirlChild(customerBLInterface.getNumberOfGirlChild());
+maritalDetails.setNumberOfBoyChild(customerBLInterface.getNumberOfBoyChild());
 MaritalDetailsDAOInterface maritalDetailsDAO=new MaritalDetailsDAO();
 maritalDetailsDAO.update(maritalDetails,connection);
 }
-if(customerInterface.getIsStudent())
+if(customerBLInterface.getIsStudent())
 {
 StudentInterface student=new Student();
-student.setCustomerCode(customerInterface.getCode());
-student.setStream(customerInterface.getStream());
-student.setCourseDetails(customerInterface.getCourseDetails());
+student.setCustomerCode(customerBLInterface.getCode());
+student.setStream(customerBLInterface.getStream());
+student.setCourseDetails(customerBLInterface.getCourseDetails());
 StudentDAOInterface studentDAO=new StudentDAO();
 studentDAO.update(student,connection);
 }
@@ -112,12 +112,12 @@ throw new BLException(exception.getMessage());
 }
 }
 
-public void getByCode(int code) throws BLException
+public CustomerBLInterface getByCode(int code) throws BLException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
-com.thinking.machines.loyalty.bl.interfaces.CustomerInterface customer=new Customer();
+CustomerBLInterface customer=new Customer();
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();
 com.thinking.machines.loyalty.interfaces.CustomerInterface customerInterface=customerDAOInterface.getByCode(code,connection);
 customer.setName(customerInterface.getName());
@@ -152,6 +152,7 @@ StudentInterface studentInterface=studentDAOInterface.getByCustomerCode(code,con
 customer.setStream(studentInterface.getStream());
 customer.setCourseDetails(studentInterface.getCourseDetails());
 }
+return customer;
 }
 catch(Exception exception)
 {
@@ -159,16 +160,16 @@ throw new BLException(exception.getMessage());
 }
 }
 
-public ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> getAll() throws BLException
+public ArrayList<CustomerBLInterface> getAll() throws BLException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
 ArrayList<com.thinking.machines.loyalty.interfaces.CustomerInterface> customerInterfaces;
-ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> customers= new ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface>();
+ArrayList<CustomerBLInterface> customers= new ArrayList<CustomerBLInterface>();
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();
 customerInterfaces=customerDAOInterface.getAll(connection);
-com.thinking.machines.loyalty.bl.interfaces.CustomerInterface customer;
+CustomerBLInterface customer;
 
 MaritalDetailsInterface maritalDetailsInterface;
 MaritalDetailsDAOInterface maritalDetailsDAOInterface= new MaritalDetailsDAO();
@@ -222,16 +223,16 @@ throw new BLException(exception.getMessage());
 }
 }
 
-public ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> getAllByName(String name) throws BLException
+public ArrayList<CustomerBLInterface> getAllByName(String name) throws BLException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
 ArrayList<com.thinking.machines.loyalty.interfaces.CustomerInterface> customerInterfaces;
-ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> customers= new ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface>();
+ArrayList<CustomerBLInterface> customers= new ArrayList<CustomerBLInterface>();
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();
 customerInterfaces=customerDAOInterface.getAllByName(name,connection);
-com.thinking.machines.loyalty.bl.interfaces.CustomerInterface customer;
+CustomerBLInterface customer;
 
 MaritalDetailsInterface maritalDetailsInterface;
 MaritalDetailsDAOInterface maritalDetailsDAOInterface= new MaritalDetailsDAO();
@@ -284,16 +285,16 @@ throw new BLException(exception.getMessage());
 }
 }
 
-public ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> getAllByOccupation(String occupation) throws BLException
+public ArrayList<CustomerBLInterface> getAllByOccupation(String occupation) throws BLException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
 ArrayList<com.thinking.machines.loyalty.interfaces.CustomerInterface> customerInterfaces;
-ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> customers= new ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface>();
+ArrayList<CustomerBLInterface> customers= new ArrayList<CustomerBLInterface>();
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();
 customerInterfaces=customerDAOInterface.getAllByOccupation(occupation,connection);
-com.thinking.machines.loyalty.bl.interfaces.CustomerInterface customer;
+CustomerBLInterface customer;
 
 MaritalDetailsInterface maritalDetailsInterface;
 MaritalDetailsDAOInterface maritalDetailsDAOInterface= new MaritalDetailsDAO();
@@ -346,16 +347,16 @@ throw new BLException(exception.getMessage());
 }
 }
 
-public ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> getAllByCityCode(int cityCode) throws BLException
+public ArrayList<CustomerBLInterface> getAllByCityCode(int cityCode) throws BLException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
 ArrayList<com.thinking.machines.loyalty.interfaces.CustomerInterface> customerInterfaces;
-ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> customers= new ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface>();
+ArrayList<CustomerBLInterface> customers= new ArrayList<CustomerBLInterface>();
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();
 customerInterfaces=customerDAOInterface.getAllByCity(cityCode,connection);
-com.thinking.machines.loyalty.bl.interfaces.CustomerInterface customer;
+CustomerBLInterface customer;
 
 MaritalDetailsInterface maritalDetailsInterface;
 MaritalDetailsDAOInterface maritalDetailsDAOInterface= new MaritalDetailsDAO();
@@ -408,16 +409,16 @@ throw new BLException(exception.getMessage());
 }
 }
 
-public ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> getAllByDateOfBirth(java.util.Date dateOfBirth) throws BLException
+public ArrayList<CustomerBLInterface> getAllByDateOfBirth(java.util.Date dateOfBirth) throws BLException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
 ArrayList<com.thinking.machines.loyalty.interfaces.CustomerInterface> customerInterfaces;
-ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> customers= new ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface>();
+ArrayList<CustomerBLInterface> customers= new ArrayList<CustomerBLInterface>();
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();
 customerInterfaces=customerDAOInterface.getAllByDateOfBirth(dateOfBirth,connection);
-com.thinking.machines.loyalty.bl.interfaces.CustomerInterface customer;
+CustomerBLInterface customer;
 
 MaritalDetailsInterface maritalDetailsInterface;
 MaritalDetailsDAOInterface maritalDetailsDAOInterface= new MaritalDetailsDAO();
@@ -470,16 +471,16 @@ throw new BLException(exception.getMessage());
 }
 }
 
-public ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> getAllByCustomerType(com.thinking.machines.loyalty.interfaces.CustomerDAOInterface.CustomerType customerType) throws BLException
+public ArrayList<CustomerBLInterface> getAllByCustomerType(com.thinking.machines.loyalty.interfaces.CustomerDAOInterface.CustomerType customerType) throws BLException
 {
 try
 {
 Connection connection=DAOConnection.getConnection();
 ArrayList<com.thinking.machines.loyalty.interfaces.CustomerInterface> customerInterfaces;
-ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface> customers= new ArrayList<com.thinking.machines.loyalty.bl.interfaces.CustomerInterface>();
+ArrayList<CustomerBLInterface> customers= new ArrayList<CustomerBLInterface>();
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();
 customerInterfaces=customerDAOInterface.getAllByCustomerType(customerType,connection);
-com.thinking.machines.loyalty.bl.interfaces.CustomerInterface customer;
+CustomerBLInterface customer;
 
 MaritalDetailsInterface maritalDetailsInterface;
 MaritalDetailsDAOInterface maritalDetailsDAOInterface= new MaritalDetailsDAO();

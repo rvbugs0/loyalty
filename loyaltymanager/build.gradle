@@ -1,0 +1,6 @@
+apply plugin:'java'
+dependencies
+{
+compile files('/home/bugs/Desktop/loyalty/loyaltybl/build/libs/loyaltybl.jar')
+compile files('/home/bugs/Desktop/loyalty/loyaltydl/build/libs/loyaltydl.jar')
+}

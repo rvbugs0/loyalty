@@ -1,6 +1,6 @@
 package com.thinking.machines.loyalty.bl;
 import com.thinking.machines.loyalty.bl.interfaces.*;
-public class VendorOutlet implements VendorOutletInterface
+public class VendorOutlet implements VendorOutletBLInterface
 {
 private int code;
 private int cityCode;

@@ -1,7 +1,7 @@
 package com.thinking.machines.loyalty.bl;
 import java.io.*;
 import com.thinking.machines.loyalty.bl.interfaces.*;
-public class Customer implements CustomerInterface 
+public class Customer implements CustomerBLInterface 
 {
 private int code;
 private String name;
@@ -222,7 +222,7 @@ public boolean equals(Object object)
 
 { 
 
-if(!(object instanceof CustomerInterface))
+if(!(object instanceof CustomerBLInterface))
 
 {
 
@@ -230,14 +230,14 @@ return false;
 
 }
 
-CustomerInterface customerInterface;
-customerInterface=(CustomerInterface)object;
+CustomerBLInterface customerInterface;
+customerInterface=(CustomerBLInterface)object;
 
 return this.code==customerInterface.getCode();
 
 }
 
-public int compareTo(CustomerInterface customerInterface)
+public int compareTo(CustomerBLInterface customerInterface)
 
 {
 

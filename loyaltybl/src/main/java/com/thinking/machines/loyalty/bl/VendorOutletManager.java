@@ -1,6 +1,7 @@
 package com.thinking.machines.loyalty.bl;
 import com.thinking.machines.loyalty.dao.*;
 import com.thinking.machines.loyalty.interfaces.*;
+import com.thinking.machines.loyalty.bl.interfaces.*;
 import com.thinking.machines.loyalty.exceptions.*;
 import com.thinking.machines.loyalty.bl.exceptions.*;
 //import com.thinking.machines.loyalty.bl.interfaces.*;
@@ -8,7 +9,7 @@ import java.util.*;
 import java.sql.*;
 public class VendorOutletManager 
 {
-public void add(com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface vendorOutletInterface) throws BLException
+public void add(VendorOutletBLInterface vendorOutletInterface) throws BLException
 {
 try{
 Connection connection=DAOConnection.getConnection();
@@ -32,7 +33,7 @@ throw new BLException("VendorOutletManager-->add()"+daoException.getMessage());
 }
 
 
-public void update(com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface vendorOutletInterface) throws BLException
+public void update(VendorOutletBLInterface vendorOutletInterface) throws BLException
 {
 try{
 Connection connection=DAOConnection.getConnection();
@@ -67,14 +68,14 @@ throw new BLException("VendorOutletManager-->remove()"+daoException.getMessage()
 }
 
 
-public com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface getByCode(int code) throws BLException
+public VendorOutletBLInterface getByCode(int code) throws BLException
 {
 try{
 Connection connection=DAOConnection.getConnection();
 com.thinking.machines.loyalty.interfaces.VendorOutletInterface vendorOutletInterface;
 VendorOutletDAOInterface vendorOutletDAOInterface=new VendorOutletDAO();
 vendorOutletInterface=vendorOutletDAOInterface.getByCode(code,connection);
-com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface vOutletInterface=new com.thinking.machines.loyalty.bl.VendorOutlet();
+VendorOutletBLInterface vOutletInterface=new com.thinking.machines.loyalty.bl.VendorOutlet();
 vOutletInterface.setCode(vendorOutletInterface.getCode());
 vOutletInterface.setVendorCode(vendorOutletInterface.getVendorCode());
 vOutletInterface.setAddress(vendorOutletInterface.getAddress());
@@ -90,18 +91,18 @@ throw new BLException("VendorOutletManager-->getByCode()"+daoException.getMessag
 }
 }
 
-public ArrayList<com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface> getAll() throws BLException
+public ArrayList<VendorOutletBLInterface> getAll() throws BLException
 {
 ArrayList<com.thinking.machines.loyalty.interfaces.VendorOutletInterface> vendorOutlets;
-ArrayList<com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface> vOutlets;
+ArrayList<VendorOutletBLInterface> vOutlets;
 try{
 Connection connection=DAOConnection.getConnection();
 //vendorOutlets=new ArrayList<com.thinking.machines.loyalty.interfaces.VendorOutletInterface>();
-vOutlets=new ArrayList<com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface>();
+vOutlets=new ArrayList<VendorOutletBLInterface>();
 VendorOutletDAOInterface vendorOutletDAOInterface=new VendorOutletDAO();
 vendorOutlets=vendorOutletDAOInterface.getAll(connection);
 System.out.println(vendorOutlets.size());
-com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface vOutletInterface;
+VendorOutletBLInterface vOutletInterface;
 com.thinking.machines.loyalty.interfaces.VendorOutletInterface vendorOutletInterface;
 int x=0;
 while(x<vendorOutlets.size())
@@ -127,18 +128,18 @@ return vOutlets;
 }
 
 
-public ArrayList<com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface> getAllByCityCode(int cityCode) throws BLException
+public ArrayList<VendorOutletBLInterface> getAllByCityCode(int cityCode) throws BLException
 {
 ArrayList<com.thinking.machines.loyalty.interfaces.VendorOutletInterface> vendorOutlets;
-ArrayList<com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface> vOutlets;
+ArrayList<VendorOutletBLInterface> vOutlets;
 try{
 Connection connection=DAOConnection.getConnection();
 //vendorOutlets=new ArrayList<com.thinking.machines.loyalty.interfaces.VendorOutletInterface>();
-vOutlets=new ArrayList<com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface>();
+vOutlets=new ArrayList<VendorOutletBLInterface>();
 VendorOutletDAOInterface vendorOutletDAOInterface=new VendorOutletDAO();
 vendorOutlets=vendorOutletDAOInterface.getByCity(cityCode,connection);
 System.out.println(vendorOutlets.size());
-com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface vOutletInterface;
+VendorOutletBLInterface vOutletInterface;
 com.thinking.machines.loyalty.interfaces.VendorOutletInterface vendorOutletInterface;
 int x=0;
 while(x<vendorOutlets.size())
@@ -163,18 +164,18 @@ throw new BLException("VendorOutletManager-->getAllByCityCode()"+daoException.ge
 return vOutlets;
 }
 
-public ArrayList<com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface> getAllByVendorCode(int vendorCode) throws BLException
+public ArrayList<VendorOutletBLInterface> getAllByVendorCode(int vendorCode) throws BLException
 {
 ArrayList<com.thinking.machines.loyalty.interfaces.VendorOutletInterface> vendorOutlets;
-ArrayList<com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface> vOutlets;
+ArrayList<VendorOutletBLInterface> vOutlets;
 try{
 Connection connection=DAOConnection.getConnection();
 //vendorOutlets=new ArrayList<com.thinking.machines.loyalty.interfaces.VendorOutletInterface>();
-vOutlets=new ArrayList<com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface>();
+vOutlets=new ArrayList<VendorOutletBLInterface>();
 VendorOutletDAOInterface vendorOutletDAOInterface=new VendorOutletDAO();
 vendorOutlets=vendorOutletDAOInterface.getByVendor(vendorCode,connection);
 System.out.println(vendorOutlets.size());
-com.thinking.machines.loyalty.bl.interfaces.VendorOutletInterface vOutletInterface;
+VendorOutletBLInterface vOutletInterface;
 com.thinking.machines.loyalty.interfaces.VendorOutletInterface vendorOutletInterface;
 int x=0;
 while(x<vendorOutlets.size())

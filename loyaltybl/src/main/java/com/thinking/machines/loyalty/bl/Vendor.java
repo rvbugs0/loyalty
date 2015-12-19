@@ -2,7 +2,7 @@ package com.thinking.machines.loyalty.bl;
 import com.thinking.machines.loyalty.bl.interfaces.*;
 import java.util.*;
 
-public class Vendor implements VendorInterface
+public class Vendor implements VendorBLInterface
 {
 	private int code;
 	private String name;
