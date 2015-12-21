@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0" metadata-complete="true">
+  <description>Servlet and JSP Examples.</description> 
+  <display-name>Servlet and JSP Examples</display-name> 
+
+
+ <!-- Admin-->
+     <servlet>
+      <servlet-name>Admin</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.Admin</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Admin</servlet-name>
+        <url-pattern>/Admin</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
+      <servlet-name>AdminLogin</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.AdminLogin</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminLogin</servlet-name>
+        <url-pattern>/AdminLogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>AdminFormCreation</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.AdminFormCreation</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminFormCreation</servlet-name>
+        <url-pattern>/AdminFormCreation</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- Vendor-->
+
+
+    <servlet>
+      <servlet-name>AddVendor</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.AddVendor</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddVendor</servlet-name>
+        <url-pattern>/AddVendor</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+      <servlet-name>UpdateVendor</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.UpdateVendor</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateVendor</servlet-name>
+        <url-pattern>/UpdateVendor</url-pattern>
+    </servlet-mapping>
+
+
+   <servlet>
+      <servlet-name>RemoveVendor</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.RemoveVendor</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RemoveVendor</servlet-name>
+        <url-pattern>/RemoveVendor</url-pattern>
+    </servlet-mapping>
+
+
+   <servlet>
+      <servlet-name>GetVendorByCode</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetVendorByCode</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetVendorByCode</servlet-name>
+        <url-pattern>/GetVendorByCode</url-pattern>
+    </servlet-mapping>
+
+
+   <servlet>
+      <servlet-name>GetVendorByUsername</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetVendorByUsername</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetVendorByUsername</servlet-name>
+        <url-pattern>/GetVendorByUsername</url-pattern>
+    </servlet-mapping>
+
+   <servlet>
+      <servlet-name>GetVendorByName</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetVendorByName</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetVendorByName</servlet-name>
+        <url-pattern>/GetVendorByName</url-pattern>
+    </servlet-mapping>
+   
+<servlet>
+      <servlet-name>GetVendorByContactNumber</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetVendorByContactNumber</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetVendorByContactNumber</servlet-name>
+        <url-pattern>/GetVendorByContactNumber</url-pattern>
+    </servlet-mapping>
+   
+<servlet>
+      <servlet-name>GetVendorByEmailId</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetVendorByEmailId</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetVendorByEmailId</servlet-name>
+        <url-pattern>/GetVendorByEmailId</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
+      <servlet-name>GetAllVendors</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetAllVendors</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetAllVendors</servlet-name>
+        <url-pattern>/GetAllVendors</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+      <servlet-name>GetAllVendorsByCityCode</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetAllVendorsByCityCode</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetAllVendorsByCityCode</servlet-name>
+        <url-pattern>/GetAllVendorsByCityCode</url-pattern>
+    </servlet-mapping>
+
+
+      <servlet>
+      <servlet-name>VendorExists</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.VendorExists</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>VendorExists</servlet-name>
+        <url-pattern>/VendorExists</url-pattern>
+    </servlet-mapping>
+    
+      <servlet>
+      <servlet-name>VendorExistsByUsername</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.VendorExistsByUsername</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>VendorExistsByUsername</servlet-name>
+        <url-pattern>/VendorExistsByUsername</url-pattern>
+    </servlet-mapping>
+
+      <servlet>
+      <servlet-name>VendorExistsByName</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.VendorExistsByName</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>VendorExistsByName</servlet-name>
+        <url-pattern>/VendorExistsByName</url-pattern>
+    </servlet-mapping>
+      
+<servlet>
+      <servlet-name>VendorExistsByContactNumber</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.VendorExistsByContactNumber</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>VendorExistsByContactNumber</servlet-name>
+        <url-pattern>/VendorExistsByContactNumber</url-pattern>
+    </servlet-mapping>
+      
+<servlet>
+      <servlet-name>VendorExistsByEmailId</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.VendorExistsByEmailId</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>VendorExistsByEmailId</servlet-name>
+        <url-pattern>/VendorExistsByEmailId</url-pattern>
+    </servlet-mapping>
+
+
+
+
+<servlet>
+      <servlet-name>VendorGetCount</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.VendorGetCount</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>VendorGetCount</servlet-name>
+        <url-pattern>/VendorGetCount</url-pattern>
+    </servlet-mapping>
+    
+<servlet>
+      <servlet-name>VendorGetCountByCityCode </servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.VendorGetCountByCityCode</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>VendorGetCountByCityCode</servlet-name>
+        <url-pattern>/VendorGetCountByCityCode</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+      <servlet-name>RemoveAllVendors</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.RemoveAllVendors</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RemoveAllVendors</servlet-name>
+        <url-pattern>/RemoveAllVendors</url-pattern>
+    </servlet-mapping>
+
+
+
+
+
+    <!-- Vendor Outlet-->
+
+        <servlet>
+      <servlet-name>AddVendorOutlet</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.AddVendorOutlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddVendorOutlet</servlet-name>
+        <url-pattern>/AddVendorOutlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+      <servlet-name>UpdateVendorOutlet</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.UpdateVendorOutlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateVendorOutlet</servlet-name>
+        <url-pattern>/UpdateVendorOutlet</url-pattern>
+    </servlet-mapping>
+
+
+   <servlet>
+      <servlet-name>RemoveVendorOutlet</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.RemoveVendorOutlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RemoveVendorOutlet</servlet-name>
+        <url-pattern>/RemoveVendorOutlet</url-pattern>
+    </servlet-mapping>
+
+
+   <servlet>
+      <servlet-name>GetVendorOutletByCode</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetVendorOutletByCode</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetVendorOutletByCode</servlet-name>
+        <url-pattern>/GetVendorOutletByCode</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
+      <servlet-name>GetAllVendorOutlets</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetAllVendorOutlets</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetAllVendorOutlets</servlet-name>
+        <url-pattern>/GetAllVendorOutlets</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+      <servlet-name>GetAllVendorOutletsByCityCode</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetAllVendorOutletsByCityCode</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetAllVendorOutletsByCityCode</servlet-name>
+        <url-pattern>/GetAllVendorOutletsByCityCode</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+      <servlet-name>GetAllVendorOutletsByVendorCode</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetAllVendorOutletsByVendorCode</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetAllVendorOutletsByVendorCode</servlet-name>
+        <url-pattern>/GetAllVendorOutletsByVendorCode</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>VendorOutletExists</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.VendorOutletExists</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>VendorOutletExists</servlet-name>
+        <url-pattern>/VendorOutletExists</url-pattern>
+    </servlet-mapping>
+    
+
+<servlet>
+      <servlet-name>GetCountVendorOutlet</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetCountVendorOutlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetCountVendorOutlet</servlet-name>
+        <url-pattern>/GetCountVendorOutlet</url-pattern>
+    </servlet-mapping>
+    
+<servlet>
+      <servlet-name>GetCountByCityVendorOutlet</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetCountByCityVendorOutlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetCountByCityVendorOutlet</servlet-name>
+        <url-pattern>/GetCountByCityVendorOutlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+      <servlet-name>RemoveAllVendorOutlets</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.RemoveAllVendorOutlets</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RemoveAllVendorOutlets</servlet-name>
+        <url-pattern>/RemoveAllVendorOutlets</url-pattern>
+    </servlet-mapping>
+
+
+
+
+<!--Operator -->
+
+<servlet>
+<servlet-name>AddOperator</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.AddOperator</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>AddOperator</servlet-name>
+<url-pattern>/AddOperator</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>UpdateOperator</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.UpdateOperator</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>UpdateOperator</servlet-name>
+<url-pattern>/UpdateOperator</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>GetAllOperators</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.GetAllOperators</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>GetAllOperators</servlet-name>
+<url-pattern>/GetAllOperators</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>GetAllOperatorsByVendorOutletCode</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.GetAllOperatorsByVendorOutletCode</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>GetAllOperatorsByVendorOutletCode</servlet-name>
+<url-pattern>/GetAllOperatorsByVendorOutletCode</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>GetOperatorByCode</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.GetOperatorByCode</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>GetOperatorByCode</servlet-name>
+<url-pattern>/GetOperatorByCode</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>GetOperatorByName</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.GetOperatorByName</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>GetOperatorByName</servlet-name>
+<url-pattern>/GetOperatorByName</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>GetOperatorByUsername</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.GetOperatorByUsername</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>GetOperatorByUsername</servlet-name>
+<url-pattern>/GetOperatorByUsername</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>GetOperatorCount</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.GetOperatorCount</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>GetOperatorCount</servlet-name>
+<url-pattern>/GetOperatorCount</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>GetOperatorCountByName</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.GetOperatorCountByName</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>GetOperatorCountByName</servlet-name>
+<url-pattern>/GetOperatorCountByName</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>GetOperatorCountByUsername</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.GetOperatorCountByUsername</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>GetOperatorCountByUsername</servlet-name>
+<url-pattern>/GetOperatorCountByUsername</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>GetOperatorCountByVendorOutletCode</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.GetOperatorCountByVendorOutletCode</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>GetOperatorCountByVendorOutletCode</servlet-name>
+<url-pattern>/GetOperatorCountByVendorOutletCode</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>OperatorExists</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.OperatorExists</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>OperatorExists</servlet-name>
+<url-pattern>/OperatorExists</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>OperatorExistsByUsername</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.OperatorExistsByUsername</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>OperatorExistsByUsername</servlet-name>
+<url-pattern>/OperatorExistsByUsername</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>RemoveAllOperators</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.RemoveAllOperators</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>RemoveAllOperators</servlet-name>
+<url-pattern>/RemoveAllOperators</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>RemoveOperatorByCode</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.RemoveOperatorByCode</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>RemoveOperatorByCode</servlet-name>
+<url-pattern>/RemoveOperatorByCode</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>RemoveOperatorsByVendorOutletCode</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.RemoveOperatorsByVendorOutletCode</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>RemoveOperatorsByVendorOutletCode</servlet-name>
+<url-pattern>/RemoveOperatorsByVendorOutletCode</url-pattern>
+</servlet-mapping>
+<servlet>
+<servlet-name>RemoveOperatorByUsername</servlet-name>
+<servlet-class>com.thinking.machines.loyalty.servlets.RemoveOperatorByUsername</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>RemoveOperatorByUsername</servlet-name>
+<url-pattern>/RemoveOperatorByUsername</url-pattern>
+</servlet-mapping>
+</web-app>
