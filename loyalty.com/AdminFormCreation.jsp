@@ -1,9 +1,11 @@
 <html>
 <head>
-<h2>Sign up</h2>
+<title>Loyalty Application - Setup new Admin</title>
 <script type="text/javascript" charset="utf-8"></script> 
-<script src='/loyalty.com/jquery-2.1.3.min.js'></script>
-<script src='/loyalty.com/jquery.validate.min.js'></script>
+ <link rel="stylesheet" href='/loyalty.com/css/custom.min.css'>
+<link rel="stylesheet" href='/loyalty.com/css/bootstrap.min.css'>
+<script src='/loyalty.com/jquery/jquery-2.1.3.min.js'></script>
+<script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
 <script>
 function authenticate(){
 $("#signupForm").validate({
@@ -53,10 +55,10 @@ if($('#signupForm').valid())
 {
 $.ajax({
 "url": "/loyalty.com/AdminFormCreation",
-"data":{name:$("name").val(),username:$("username").val(),
-password:$("password").val(),confirmPassword:$("confirmPassword").val(),contactNumber:$("contactNumber").val(),emailId:$("emailId").val()
+"data":{name:$("#name").val(),username:$("#username").val(),
+password:$("#password").val(),confirmPassword:$("#confirmPassword").val(),contactNumber:$("#contactNumber").val(),emailId:$("#emailId").val()
 },
-"type": "GET",
+"type": "POST",
 "success":function(){
 $('#validForm').submit();
 },
@@ -69,23 +71,73 @@ alert("error!!");
 </script>
 </head>
 <body>
-<form id='signupForm' action='/loyalty.com/AdminFormCreation'>
-Name
-<input type='text' name='name' id='name'> 
-<br><br>
-Username
-<input type='text' name='username' id='username'> 
-<br><br>
-Password
-<input type='text' name='password' id='password'><br><br>
-ConfirmPassword
-<input type='text' name='confirmPassword' id='confirmPassword'><br><br>
-ContactNumber
-<input type='text' name='contactNumber' id='contactNumber'><br><br>
-EmailId
-<input type='text' name='emailId' id='emailId'><br><br>
-<button id='submit' value='submit' onclick='authenticate()'>Signup</button>
-</form>
+
+<div class="container">
+<div class="">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header" style="margin-top:-50px;">
+              <h1 id="forms">Admin Signup Form</h1>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="well bs-component">
+              <form class="form-horizontal" id='signupForm' action='/loyalty.com/AdminFormCreation'>
+                <fieldset>
+                  <legend>Admin Details</legend>
+                  <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="name" placeholder="Name" name="name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                   <label for="username" class="col-lg-2 control-label">Username</label>
+                    <div class="col-lg-10">
+                		<input type='text' placeholder='Username' class="form-control" name='username' id='username'>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="col-lg-2 control-label">Password</label>
+                    <div class="col-lg-10">
+                      <input type="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirmPassword" class="col-lg-2 control-label">Confirm Password</label>
+                    <div class="col-lg-10">
+                      <input type="password" class="form-control" id="confirmPassword" placeholder="Repeat Password">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                   <label for="contactNumber" class="col-lg-2 control-label">Contact Number</label>
+                    <div class="col-lg-10">
+                		<input type='text' class="form-control" placeholder='Contact Number' name='contactNumber' id='contactNumber'>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                   <label for="emailId" class="col-lg-2 control-label">Email Id</label>
+                    <div class="col-lg-10">
+                		<input type='email' class="form-control" placeholder='EmailId' name='emailId' id='emailId'>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                      <button type="button" class="btn btn-primary" onclick='authenticate()'>Signup</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+</div> <!-- container-->
+
 <form id='validForm' action='/loyalty.com/AdminLoginForm.jsp'></form>
 </body>
 </html>

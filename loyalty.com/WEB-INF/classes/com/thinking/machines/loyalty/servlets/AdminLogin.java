@@ -8,7 +8,7 @@ import com.thinking.machines.loyalty.bl.*;
 import com.thinking.machines.loyalty.bl.interfaces.*;
 public class AdminLogin extends HttpServlet
 {
-public void doGet(HttpServletRequest rq,HttpServletResponse rs)
+public void doPost(HttpServletRequest rq,HttpServletResponse rs)
 {
 PrintWriter pw=null;
 try
