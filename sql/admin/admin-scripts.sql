@@ -3,13 +3,13 @@
 	name Char(20) NOT NULL,
 	username Char(20) NOT NULL,
 	password Char(50) NOT NULL,
-	passwordKey Char(50) NOT NULL,
-	contactNumber Char(100) NOT NULL,
+	password_key Char(50) NOT NULL,
+	contact_number Char(100) NOT NULL,
 	mail_id Char(100) NOT NULL,
 	UNIQUE (code),
 	UNIQUE (name),
 	UNIQUE (username),
-	UNIQUE (contactNumber),
+	UNIQUE (contact_number),
 	UNIQUE (mail_id),
  Primary Key (code)) ENGINE = InnoDB;
 
