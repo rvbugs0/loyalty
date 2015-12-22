@@ -144,82 +144,37 @@ $.ajax({
 
 $("#AddVendorFormSubmitButton").on("click",function(){
 
+
 	//$("#AddVendorModal").modal("hide");	
-	
-  var name=$("#AddVendorNameOfFirm").val();
-	if(name.trim().length==0)
-	{
-
-  	$("#notificationMessage").html("Please provide a name");
-  	$("#notificationModal").modal('show');		
-	return;
-	}
+if($("#AddVendorForm").valid())
+{
+var username=$("#AddVendorUsername").val();
+var name=$("#AddVendorNameOfFirm").val();
 var email=$("#AddVendorEmail").val();
-  if(email.trim().length==0)
-  {
+var contactNumber=$("#AddVendorPhone").val();
+var password=$("#AddVendorPassword").val();
+var address=$("#AddVendorAddress").val();
+var cityCode=$("#AddVendorCity").val();
 
-    $("#notificationMessage").html("Please provide an Email");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-  var phone=$("#AddVendorPhone").val();
-  if(phone.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please provide a phone number");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-    var password=$("#AddVendorPassword").val();
-  if(password.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please provide a password");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-
-  var address=$("#AddVendorAddress").val();
-  if(address.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please provide an address");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-var city=$("#AddVendorCity").val();
-  if(city==-1)
-  {
-
-    $("#notificationMessage").html("Please Select a City");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-  var username=$("#AddVendorUsername").val();
-  if(username.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please enter a username");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-
-var urlFormed="AddVendor?name="+encodeURI(name)+"&username="+encodeURI(username)+"&email="+encodeURI(email)+"&phone="+encodeURI(phone)+"&city="+encodeURI(city)+"&address="+encodeURI(address)+"&password="+encodeURI(password);
+var urlFormed="AddVendor?name="+encodeURI(name)+"&username="+encodeURI(username)+"&email="+encodeURI(email)+"&contactNumber="+encodeURI(contactNumber)+"&cityCode="+encodeURI(cityCode)+"&address="+encodeURI(address)+"&password="+encodeURI(password);
 $.ajax({
 
   url: urlFormed,
   error : function (jqXHR,textStatus,errorThrown )
   {
-  	$("#notificationMessage").html(errorThrown);
-  	$("#notificationModal").modal('show');
+    $("#notificationMessage").html(errorThrown);
+    $("#notificationModal").modal('show');
   },success : function(data,textStatus,jqXHR)
   {
-  	$("#notificationMessage").html(data);
-  	$("#notificationModal").modal('show');
-  	$("#vendorsTableBody").html("");
-  	loadVendors();
+    $("#AddVendorModal").modal('hide');
+    $("#notificationMessage").html(data);
+    $("#notificationModal").modal('show');
+    $("#vendorsTableBody").html("");
+    loadVendors();
   }
 });
+}
+
 
 });
 

@@ -10,6 +10,14 @@
 <script src='/loyalty.com/jquery/jquery-2.1.3.min.js'></script>
 <script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
 <script src='/loyalty.com/jquery/jquery-ui.js'></script>
+<style>
+  .form-group
+    {
+        width: 300px;
+        margin-right: 20px; 
+        display: inline-block;
+    }
+</style>
 <link rel="stylesheet" href="/loyalty.com/jquery/jquery-ui.css">
 <script src="/loyalty.com/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
@@ -67,45 +75,50 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 
-                <form role="form">
+                <form role="form" id="AddVendorForm">
                   <div class="form-group">
                     <label for="AddVendorNameOfFirm">Name Of Firm</label>
                       <input type="text" class="form-control"
-                      id="AddVendorNameOfFirm" />
+                      id="AddVendorNameOfFirm" name="AddVendorNameOfFirm" />
+     
                   </div>
                   <div class="form-group">
-                    <label for="AddVendorEmail">Email</label>
+                      <label for="AddVendorEmail">Email</label>
                       <input type="email" class="form-control"
-                      id="AddVendorEmail" />
+                      id="AddVendorEmail" name="AddVendorEmail" />               
                   </div>
+                  <br/>
                   <div class="form-group">
                     <label for="AddVendorPhone">Phone Number</label>
                       <input type="text" class="form-control"
-                      id="AddVendorPhone" />
+                      id="AddVendorPhone" name="AddVendorPhone" />
                   </div>
                  <div class="form-group">
                     <label for="AddVendorAddress">Address</label>
                       <input type="text" class="form-control"
-                      id="AddVendorAddress" />
+                      id="AddVendorAddress" name="AddVendorAddress" />
                   </div>
-
+<br/>
                  <div class="form-group">
                     <label for="AddVendorUsername">Username</label>
                       <input type="text" class="form-control"
-                      id="AddVendorUsername" />
+                      id="AddVendorUsername" name="AddVendorUsername" />
                   </div>
 
                   <div class="form-group">
                     <label for="AddVendorPassword">Password</label>
-                      <input type="text" class="form-control"
-                      id="AddVendorPassword" />
+                      <input type="password" class="form-control"
+                      id="AddVendorPassword" name="AddVendorPassword" />
                   </div>
 
+<br/>
 
                   <div class="form-group">
                     <label for="AddVendorCity">City : </label>
-                      <select id="AddVendorCity" >
-			<option value="-1">&lt;select&gt;</option>
+                      <select id="AddVendorCity" class="form-control" name="AddVendorCity" >
+			<option value="-1" selected>&lt;select&gt;</option>
+      <option value="1" >Indore</option>
+      <option value="2" >Ujjain</option>
                     <!--code to dynamically add cities	-->  </select>
                   </div>
                     
@@ -227,6 +240,7 @@
   </div>
 </div>
 </div><!-- container-->
+<script src='/loyalty.com/js/form-rules.js'></script>
 <script src="/loyalty.com/js/manage-vendors.js" type="text/javascript"></script>
 </body>
 </html>

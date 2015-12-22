@@ -6,6 +6,148 @@ import com.thinking.machines.loyalty.bl.exceptions.*;
 import com.thinking.machines.loyalty.bl.interfaces.*;
 public class LoyaltyApplication
 {
+
+/*City*/
+
+
+public void addCity(CityBLInterface cityInterface) throws ApplicationException
+{
+try
+{
+CityManager cityManager=new CityManager();
+cityManager.add(cityInterface);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public void updateCity(CityBLInterface cityInterface) throws ApplicationException
+{
+try
+{
+CityManager cityManager=new CityManager();
+cityManager.update(cityInterface);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public CityBLInterface getByCityCode(int code) throws ApplicationException
+{
+try
+{
+CityManager cityManager=new CityManager();
+return cityManager.getByCityCode(code);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public ArrayList<CityBLInterface> getAllCities() throws ApplicationException
+{
+try
+{
+CityManager cityManager=new CityManager();
+return cityManager.getAllCities();
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+/*
+public ArrayList<CityBLInterface> getByState(String state) throws ApplicationException
+{
+try
+{
+CityManager cityManager=new CityManager();
+return cityManager.getByState(state);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+public ArrayList<CityBLInterface> getByCountry(String country) throws ApplicationException
+{
+try
+{
+CityManager cityManager=new CityManager();
+return cityManager.getByCountry(country);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public int getCountByCountry(String country) throws ApplicationException
+{
+try
+{
+CityManager cityManager=new CityManager();
+return cityManager.getCountByCountry(country);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+*/
+public long getCount() throws ApplicationException
+{
+try
+{
+CityManager cityManager=new CityManager();
+return cityManager.getCount();
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+/*
+public int getCountByState(String state) throws ApplicationException
+{
+try
+{
+CityManager cityManager=new CityManager();
+return cityManager.getCountByState(state);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+*/
+public void removeCity(int code) throws ApplicationException
+{
+try
+{
+CityManager cityManager=new CityManager();
+cityManager.remove(code);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+
+/*Customer */
+
 public void addCustomer(CustomerBLInterface customerInterface) throws ApplicationException
 {
 try
