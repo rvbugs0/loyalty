@@ -219,6 +219,7 @@ vendor.setPasswordKey(vendorInterface.getPasswordKey());
 vendor.setAddress(vendorInterface.getAddress());
 vendor.setContactNumber(vendorInterface.getContactNumber());
 vendor.setEmailId(vendorInterface.getEmailId());
+vendor.setCityCode(vendorInterface.getCityCode());
 vendors.add(vendor);
 x++;
 }

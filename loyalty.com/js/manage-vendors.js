@@ -15,15 +15,13 @@ $(document).on("click",".editButton",function(){
 	{
 		if(objects[i].code==code)
 		{
+
 			name=objects[i].name;
-      institution=objects[i].institution;
+      username=objects[i].username;
 			address=objects[i].address;
-      gender=objects[i].gender;
-      phone=objects[i].phone;
-      email=objects[i].email;
-      dob= objects[i].dateOfBirth;
-      role=objects[i].roleCode;
-      department=objects[i].departmentCode;
+      contactNumber=objects[i].contactNumber;
+      cityCode=objects[i].cityCode;
+      emailId=objects[i].emailId;
 
 
       //alert(name);
@@ -31,16 +29,13 @@ $(document).on("click",".editButton",function(){
 		}
 
 	}
-  $("#EditVendorDepartment").val(department);
-  $("#EditVendorRole").val(role);
-  $("#EditVendorDOB").val(dob); 
-  $("#EditVendorEmail").val(email); 
-  $("#EditVendorPhone").val(phone); 
-  $("#EditVendorGender").val(gender); 
+  $("#EditVendorNameOfFirm").val(name);
+  $("#EditVendorPhone").val(contactNumber);
+  $("#EditVendorEmail").val(emailId); 
   $("#EditVendorAddress").val(address); 
-  $("#EditVendorInstitution").val(institution); 
-	$("#EditVendorName").val(name);	
+	$("#EditVendorUsername").val(username);	
 	$("#EditVendorCode").val(code);
+  $("#EditVendorCity").val(cityCode);
 	$("#EditVendorModal").modal("show");
 });
 
@@ -156,7 +151,7 @@ var password=$("#AddVendorPassword").val();
 var address=$("#AddVendorAddress").val();
 var cityCode=$("#AddVendorCity").val();
 
-var urlFormed="AddVendor?name="+encodeURI(name)+"&username="+encodeURI(username)+"&email="+encodeURI(email)+"&contactNumber="+encodeURI(contactNumber)+"&cityCode="+encodeURI(cityCode)+"&address="+encodeURI(address)+"&password="+encodeURI(password);
+var urlFormed="AddVendor?name="+encodeURI(name)+"&username="+encodeURI(username)+"&emailId="+encodeURI(email)+"&contactNumber="+encodeURI(contactNumber)+"&cityCode="+encodeURI(cityCode)+"&address="+encodeURI(address)+"&password="+encodeURI(password);
 $.ajax({
 
   url: urlFormed,
@@ -166,11 +161,20 @@ $.ajax({
     $("#notificationModal").modal('show');
   },success : function(data,textStatus,jqXHR)
   {
+    if(data.success)
+    {
     $("#AddVendorModal").modal('hide');
-    $("#notificationMessage").html(data);
+    $("#notificationMessage").html("Vendor Added");
     $("#notificationModal").modal('show');
     $("#vendorsTableBody").html("");
     loadVendors();
+    }
+    else
+    {
+      $("#notificationMessage").html(data.errorMessage);
+    $("#notificationModal").modal('show');
+    }
+
   }
 });
 }
@@ -182,7 +186,7 @@ $.ajax({
 
 $(document).on("click",".deleteButton",function(){
 var code=$(this).attr("id").replace("deleteButtonCode","");
-var urlFormed="DeleteVendor.php?code="+code;
+var urlFormed="RemoveVendor?code="+code;
 $.ajax({
 
   url: urlFormed,
@@ -192,10 +196,19 @@ $.ajax({
   	$("#notificationModal").modal('show');
   },success : function(data,textStatus,jqXHR)
   {
-  	$("#notificationMessage").html(data);
-  	$("#notificationModal").modal('show');
-  	$("#vendorsTableBody").html("");
-  	loadVendors();
+    if(data.success)
+    {
+    $("#notificationMessage").html("Vendor Deleted");
+    $("#notificationModal").modal('show');      
+    $("#vendorsTableBody").html("");
+    loadVendors();
+    }else
+    {
+    $("#notificationMessage").html(data.errorMessage);
+    $("#notificationModal").modal('show');
+    }
+
+
   }
 });
 });
@@ -224,44 +237,32 @@ var newText  = document.createTextNode(object.name);
 newCell.appendChild(newText);
 
 var newCell  = newRow.insertCell(2);
-var newText  = document.createTextNode(object.email);
+var newText  = document.createTextNode(object.username);
 newCell.appendChild(newText);
 
 var newCell  = newRow.insertCell(3);
-var newText  = document.createTextNode(object.phone);
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(4);
-var newText  = document.createTextNode(object.roleName);
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(5);
-var newText  = document.createTextNode(object.dateOfBirth);
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(6);
-var newText  = document.createTextNode(object.gender);
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(7);
-var newText  = document.createTextNode(object.departmentName);
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(8);
 var newText  = document.createTextNode(object.address);
 newCell.appendChild(newText);
 
-var newCell  = newRow.insertCell(9);
-var newText  = document.createTextNode(object.institution);
+var newCell  = newRow.insertCell(4);
+var newText  = document.createTextNode(object.cityCode);
+newCell.appendChild(newText);
+
+var newCell  = newRow.insertCell(5);
+var newText  = document.createTextNode(object.contactNumber);
+newCell.appendChild(newText);
+
+var newCell  = newRow.insertCell(6);
+var newText  = document.createTextNode(object.emailId);
 newCell.appendChild(newText);
 
 
-var newCell  = newRow.insertCell(10);
+var newCell  = newRow.insertCell(7);
 //deleteButton
 var a = document.createElement('a');
 var linkText = document.createTextNode("Delete");
 a.appendChild(linkText);
-a.className ="btn btn-warning btn-sm deleteButton";
+a.className ="btn btn-warning btn-sm deleteButton optionButton";
 a.id = "deleteButtonCode"+object.code;
 newCell.appendChild(a);
 
@@ -270,7 +271,7 @@ newCell.appendChild(a);
 var a = document.createElement('a');
 var linkText = document.createTextNode("Edit");
 a.appendChild(linkText);
-a.className ="btn btn-warning btn-sm editButton";
+a.className ="btn btn-warning btn-sm editButton optionButton";
 a.id = "editButtonCode"+object.code;
 
 newCell.appendChild(a);
@@ -297,9 +298,9 @@ $.ajax(
   {
     if(data.success)
     {
-    vendors=$.parseJSON(data);
-    objects=vendors;
-    insertRows(vendors);  
+
+    objects=data.Vendors;
+    insertRows(objects);  
     }
 
   	

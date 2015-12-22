@@ -14,3 +14,8 @@ body{padding-top:50px}body>.navbar{-webkit-transition:background-color 300ms eas
 .my-valid-class {
     color:#00CC00; /* green */
 }
+
+.optionButton
+{
+	margin-right: 5px;
+}

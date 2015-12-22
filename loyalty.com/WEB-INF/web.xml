@@ -3,6 +3,19 @@
   <description>Servlet and JSP Examples.</description> 
   <display-name>Servlet and JSP Examples</display-name> 
 
+<!-- City-->
+     <servlet>
+      <servlet-name>GetAllCities</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetAllCities</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetAllCities</servlet-name>
+        <url-pattern>/GetAllCities</url-pattern>
+    </servlet-mapping>
+
+
+
 
  <!-- Admin-->
      <servlet>

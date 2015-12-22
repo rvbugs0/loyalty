@@ -148,7 +148,7 @@
 
 <div class="modal fade " id="EditVendorModal" tabindex="-1" role="dialog" 
      aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -166,43 +166,48 @@
             <div class="modal-body">
                 
                     
-                <form role="form">
+                <form role="form" id="EditVendorForm">
                   <div class="form-group">
                     <label for="EditVendorNameOfFirm">Name</label>
                       <input type="text" class="form-control"
-                      id="EditVendorNameOfFirm" placeholder="Enter Title"/>
+                      id="EditVendorNameOfFirm" name="EditVendorNameOfFirm" placeholder="Enter Title"/>
                   </div>
                   <div class="form-group">
                     <label for="EditVendorEmail">Email</label>
                       <input type="email" class="form-control"
-                      id="EditVendorEmail" placeholder="Enter Title"/>
+                      id="EditVendorEmail" name="EditVendorEmail" placeholder="Enter Title"/>
                   </div>
+                  <br/>
                   <div class="form-group">
                     <label for="EditVendorPhone">Phone Number</label>
                       <input type="text" class="form-control"
-                      id="EditVendorPhone" placeholder="Enter Title"/>
+                      id="EditVendorPhone" name="EditVendorPhone" placeholder="Enter Title"/>
                   </div>
 
                  <div class="form-group">
                     <label for="EditVendorAddress">Address</label>
                       <input type="text" class="form-control"
-                      id="EditVendorAddress" />
+                      id="EditVendorAddress" name="EditVendorAddress" />
                   </div>
-
+                  <br>
                  <div class="form-group">
                     <label for="EditVendorUsername">Username</label>
                       <input type="text" class="form-control"
-                      id="EditVendorUsername" />
+                      id="EditVendorUsername" name="EditVendorUsername" />
                   </div>
 
 
                   <div class="form-group">
                     <label for="EditVendorCity">City : </label>
-                      <select id="EditVendorCity" >
-			<option value="-1">&lt;select&gt;</option>
+                      <select id="EditVendorCity" name="EditVendorCity" class="form-control">
+			<option value="-1" selected>&lt;select&gt;</option>
                     <!--code to dynamically add cities	-->  </select>
                   </div>
-                    
+                 <br>
+                 <div class="form-group">
+                      <input type="hidden" class="form-control"
+                      id="EditVendorCode" />
+                  </div>                       
                 </form>
                 
                 
