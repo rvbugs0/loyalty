@@ -1,10 +1,8 @@
 var objects=[];
 var vendorTBL="";
 $(document).ready(function(){
-	loadVendors();
-  $("#AddVendorForm").valid();
+	$("#AddVendorForm").valid();
   $("#EditVendorForm").valid();
-loadVendors();
 
 //  $('#vendorTable').DataTable();
 vendorTBL=$('#vendorTable').dataTable({
@@ -48,25 +46,28 @@ $("#AddVendorButton").on("click",function(){
 
 $(document).on("click",".editButton",function(){
 	code=$(this).attr("id").replace("editButtonCode","");
-	//alert(code);
-	for(i=0;i<objects.length;i++)
-	{
-		if(objects[i].code==code)
-		{
-      password=objects[i].password;
-			name=objects[i].name;
-      username=objects[i].username;
-			address=objects[i].address;
-      contactNumber=objects[i].contactNumber;
-      cityCode=objects[i].cityCode;
-      emailId=objects[i].emailId;
+  tbl = $("#vendorTable").dataTable();
+  
+  var rowCount = $('#vendorTable tr').length;
+  x=0;
+  while(x<rowCount)
+  {
+  rowData = tbl.fnGetData(x);
+  if(rowData.code==code)
+  {
+    break;
+  }    
+  x++;
+  }
+      password=rowData.password;
+			name=rowData.name;
+      username=rowData.username;
+			address=rowData.address;
+      contactNumber=rowData.contactNumber;
+      cityCode=rowData.cityCode;
+      emailId=rowData.emailId;
+      code = rowData.code;
 
-
-      //alert(name);
-			break;
-		}
-
-	}
   $("#EditVendorNameOfFirm").val(name);
   $("#EditVendorPhone").val(contactNumber);
   $("#EditVendorPassword").val(password);
@@ -76,6 +77,7 @@ $(document).on("click",".editButton",function(){
 	$("#EditVendorCode").val(code);
   $("#EditVendorCity").val(cityCode);
 	$("#EditVendorModal").modal("show");
+
 });
 
 
@@ -111,7 +113,7 @@ $.ajax({
     $("#notificationMessage").html("Vendor Updated");
     $("#notificationModal").modal('show');
     $("#vendorsTableBody").html("");
-    loadVendors();      
+    refreshTable();     
     }
     else
     {
@@ -156,7 +158,7 @@ $.ajax({
     $("#notificationMessage").html("Vendor Added");
     $("#notificationModal").modal('show');
     $("#vendorsTableBody").html("");
-    loadVendors();
+    refreshTable();
     }
     else
     {
@@ -190,7 +192,7 @@ $.ajax({
     $("#notificationMessage").html("Vendor Deleted");
     $("#notificationModal").modal('show');      
     $("#vendorsTableBody").html("");
-    loadVendors();
+refreshTable();
     }else
     {
     $("#notificationMessage").html(data.errorMessage);
@@ -201,100 +203,5 @@ $.ajax({
   }
 });
 });
-
-
-
-
-function insertRows(objects)
-{
-var tableRef = document.getElementById('vendorsTableBody');
-
-var x=0;
-while(x<objects.length)
-{
-object = objects[x];	
-// Insert a row in the table at the last row
-var newRow   = tableRef.insertRow(tableRef.rows.length);
-
-// Insert a cell in the row at index 0
-var newCell  = newRow.insertCell(0);
-var newText  = document.createTextNode(""+(x+1));
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(1);
-var newText  = document.createTextNode(object.name);
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(2);
-var newText  = document.createTextNode(object.username);
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(3);
-var newText  = document.createTextNode(object.address);
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(4);
-var newText  = document.createTextNode(object.cityCode);
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(5);
-var newText  = document.createTextNode(object.contactNumber);
-newCell.appendChild(newText);
-
-var newCell  = newRow.insertCell(6);
-var newText  = document.createTextNode(object.emailId);
-newCell.appendChild(newText);
-
-
-var newCell  = newRow.insertCell(7);
-//deleteButton
-var a = document.createElement('a');
-var linkText = document.createTextNode("Delete");
-a.appendChild(linkText);
-a.className ="btn btn-warning btn-sm deleteButton optionButton";
-a.id = "deleteButtonCode"+object.code;
-newCell.appendChild(a);
-
-
-//editButton
-var a = document.createElement('a');
-var linkText = document.createTextNode("Edit");
-a.appendChild(linkText);
-a.className ="btn btn-warning btn-sm editButton optionButton";
-a.id = "editButtonCode"+object.code;
-
-newCell.appendChild(a);
-
-x++;
-}
-}
-
-
-
-function loadVendors()
-{
-var vendors;
-$.ajax(
-	{
-		url:"GetAllVendors",
-		  error : function (jqXHR,textStatus,errorThrown )
-  {
-   	$("#notificationMessage").html(errorThrown);
-  	$("#notificationModal").modal('show'); 
-  },
-  	success : function(data,textStatus,jqXHR)
-  {
-    if(data.success)
-    {
-
-    objects=data.Vendors;
-    //    insertRows(objects);  
-    refreshTable();
-    }
-  } 
-	});
-
-}
-
 
 

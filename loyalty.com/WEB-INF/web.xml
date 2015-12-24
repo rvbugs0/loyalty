@@ -14,6 +14,25 @@
         <url-pattern>/GetAllCities</url-pattern>
     </servlet-mapping>
 
+     <servlet>
+      <servlet-name>AddCity</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.AddCity</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCity</servlet-name>
+        <url-pattern>/AddCity</url-pattern>
+    </servlet-mapping>
+
+     <servlet>
+      <servlet-name>RemoveCity</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.RemoveCity</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RemoveCity</servlet-name>
+        <url-pattern>/RemoveCity</url-pattern>
+    </servlet-mapping>
 
 
 

@@ -129,3 +129,36 @@ EditVendorCity:
 },errorClass: "my-error-class",
    validClass: "my-valid-class"
 });
+
+
+
+$("#AddCityForm").validate({
+rules:{
+AddCityName:{
+required:true,
+maxlength:30,
+minlength:1
+},
+AddStateName:{
+required:true,
+maxlength:30,
+minlength:1
+},
+AddCountryName:{
+required:true,
+maxlength:30,
+minlength:1
+}},
+messages:{
+AddCityName:{
+required:"City Name length < 30"
+},
+AddStateName:{
+required:"State Name length  < 30"
+},
+AddCountryName:{
+required:"Country Name length length < 30"
+}
+},errorClass: "my-error-class",
+   validClass: "my-valid-class"
+});

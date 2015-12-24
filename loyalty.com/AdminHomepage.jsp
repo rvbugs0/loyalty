@@ -22,7 +22,7 @@
 <a class="btn btn-default btn-danger" id='button1' href='/loyalty.com/UpdateAdminDetails.jsp'>Change Username/Password</a>
 <br/><br/>
 <a class="btn btn-default btn-primary" id='button2' href='/loyalty.com/ManageVendors.jsp'>Manage Vendors</a><br/><br/>
-<a class="btn btn-default btn-success" id='button3' href='/loyalty.com/CityUI.jsp'>Manage Cities</a>
+<a class="btn btn-default btn-success" id='button3' href='/loyalty.com/ManageCities.jsp'>Manage Cities</a>
 <br/><br/>
 <a class="btn btn-default btn-info" id='button4' href='/loyalty.com/Logout.jsp'>Logout</a><br/>
 </div>

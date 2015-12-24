@@ -5,11 +5,23 @@ body{padding-top:50px}body>.navbar{-webkit-transition:background-color 300ms eas
 		margin-bottom: 100px;
 }
 
+#cityTableSection
+{
+		margin-bottom: 100px;
+}
+
 .paginate_button
 {
 	margin: 5px; 
 }
 #vendorTable
+{
+	width: auto;
+	font-size: 15px;
+	font-weight: 1.5em;
+
+}
+#cityTable
 {
 	width: auto;
 	font-size: 15px;
