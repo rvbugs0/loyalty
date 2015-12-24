@@ -10,6 +10,8 @@
 <script src='/loyalty.com/jquery/jquery-2.1.3.min.js'></script>
 <script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
 <script src='/loyalty.com/jquery/jquery-ui.js'></script>
+<script src='/loyalty.com/jquery/jquery.dataTables.min.js'></script>
+
 <style>
   .form-group
     {
@@ -17,35 +19,70 @@
         margin-right: 20px; 
         display: inline-block;
     }
+
+    .dataTables_filter {
+   display: none;
+}
+
 </style>
 <link rel="stylesheet" href="/loyalty.com/jquery/jquery-ui.css">
 <script src="/loyalty.com/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 <body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/loyalty.com/AdminHomepage.jsp">Home</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <div class="page-header" style="margin-top:-50px;">
+            <div class="page-header" >
               <h1 id="forms">Manage Vendors</h1>
             </div>
           </div>
         </div>
     <section id="vendortablesection" style="margin-top:40px;">
-            <button class="btn btn-md btn-success" id="AddVendorButton"  >Add Vendor</button>
-                    <br><br/>
-                    
+            <div class="row">
+            <div class="col-lg-4">
+            <button class="btn btn-md btn-success" style="display:insline-block;" id="AddVendorButton"  >Add Vendor</button>
+            </div>
+
+            <div class="col-lg-offset-4 col-lg-4">
+                    Search :   <input type="text" class="form-control"
+                      id="vendorTableSearchTextField" />
+     
+            </div>
+            </div>
+
                     <table class="table table-striped table-hover" id="vendorTable">
                 <thead>
                     <tr>
                     <td>S.No.</td>
-                    <td>Name of Firm</td>
+                    <td>Firm Name</td>
                     <td>Username</td>
-                    <td>Address</td>
+                    <td>Phone</td>
                     <td>City</td>
-                    <td>Phone Number</td>
                     <td>Email</td>
-                    
-                    <td>Options</td>
+                    <td>Address</td>
+                       
+                   <td>Options</td>
 
                     </tr>
                 </thead>
@@ -190,17 +227,24 @@
                       id="EditVendorAddress" name="EditVendorAddress" />
                   </div>
                   <br>
-                 <div class="form-group">
+                                   <div class="form-group">
                     <label for="EditVendorUsername">Username</label>
-                      <input type="text" class="form-control"
+                      <input type="text" disabled class="form-control"
                       id="EditVendorUsername" name="EditVendorUsername" />
                   </div>
-
-
+                  <div class="form-group">
+                    <label for="EditVendorPassword">Password</label>
+                      <input type="text"  class="form-control"
+                      id="EditVendorPassword" name="EditVendorPassword" />
+                  </div>
+                
+                  <br/>
                   <div class="form-group">
                     <label for="EditVendorCity">City : </label>
                       <select id="EditVendorCity" name="EditVendorCity" class="form-control">
-			<option value="-1" selected>&lt;select&gt;</option>
+      <option value="-1" selected>&lt;select&gt;</option>
+      <option value="1" >Indore</option>
+      <option value="2" >Ujjain</option>
                     <!--code to dynamically add cities	-->  </select>
                   </div>
                  <br>

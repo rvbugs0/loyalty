@@ -1,8 +1,46 @@
-var objects="";
-
+var objects=[];
+var vendorTBL="";
 $(document).ready(function(){
 	loadVendors();
+  $("#AddVendorForm").valid();
+  $("#EditVendorForm").valid();
+loadVendors();
+
+//  $('#vendorTable').DataTable();
+vendorTBL=$('#vendorTable').dataTable({
+ "sAjaxSource": "GetAllVendors",
+    "sAjaxDataProp": "Vendors",
+    "fnRowCallback" : function(nRow, aData, iDisplayIndex){
+
+                $("td:first", nRow).html(iDisplayIndex +1);
+                $("td:last",nRow).html("<a class='btn btn-warning btn-sm deleteButton optionButton' id='deleteButtonCode"+aData.code+"'>Delete</a>"+"<a class='btn btn-warning btn-sm editButton optionButton' id='editButtonCode"+aData.code+"'>Edit</a>");
+               return nRow;
+            },
+    "aoColumns": [
+        { "mDataProp": "code" },        
+        { "mDataProp": "name" },
+        { "mDataProp": "username" },
+        { "mDataProp": "contactNumber" },
+        { "mDataProp": "cityCode" },
+        { "mDataProp": "emailId" },
+        { "mDataProp": "address" },
+        { "mDataProp": "code" }
+    ]});
+
+
+$('#vendorTableSearchTextField').keyup(function(){
+      vendorTBL.fnFilter(this.value); ;
 });
+
+$("select[name=vendorTable_length]").addClass("form-control");
+
+
+});
+
+function refreshTable () {
+   var vendorTBL=$('#vendorTable').DataTable();
+   vendorTBL.ajax.reload();  
+}
 
 $("#AddVendorButton").on("click",function(){
 	$("#AddVendorModal").modal("show");
@@ -15,7 +53,7 @@ $(document).on("click",".editButton",function(){
 	{
 		if(objects[i].code==code)
 		{
-
+      password=objects[i].password;
 			name=objects[i].name;
       username=objects[i].username;
 			address=objects[i].address;
@@ -31,6 +69,7 @@ $(document).on("click",".editButton",function(){
 	}
   $("#EditVendorNameOfFirm").val(name);
   $("#EditVendorPhone").val(contactNumber);
+  $("#EditVendorPassword").val(password);
   $("#EditVendorEmail").val(emailId); 
   $("#EditVendorAddress").val(address); 
 	$("#EditVendorUsername").val(username);	
@@ -41,99 +80,50 @@ $(document).on("click",".editButton",function(){
 
 
 $("#EditVendorFormSubmitButton").on("click",function(){
-	$("#EditVendorModal").modal("hide");	
 	
-	var name=$("#EditVendorNameOfFirm").val();
-	if(name.trim().length==0)
-	{
-  	$("#notificationMessage").html("Please provide some input");
-  	$("#notificationModal").modal('show');		
-	return;
-	}
-	var code=$("#EditVendorCode").val();
-	var email=$("#EditVendorEmail").val();
-  if(email.trim().length==0)
+  //$("#EditVendorModal").modal("hide");	
+	if($("#EditVendorForm").valid())
   {
-
-    $("#notificationMessage").html("Please provide an Email");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-  var phone=$("#EditVendorPhone").val();
-  if(phone.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please provide a phone number");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-  var dob=$("#EditVendorDOB").val();
-  if(dob.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please provide Birth Date");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-
+  var name=$("#EditVendorNameOfFirm").val();
+  var code=$("#EditVendorCode").val();
+  var emailId=$("#EditVendorEmail").val();
+  var contactNumber=$("#EditVendorPhone").val();
   var address=$("#EditVendorAddress").val();
-  if(address.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please provide an address");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-var role=$("#EditVendorRole").val();
-  if(role.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please Select a role");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-var gender=$("#EditVendorGender").val();
-  if(gender.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please select a gender");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-  var department=$("#EditVendorDepartment").val();
-  if(department.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please select a department");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-    var institution=$("#EditVendorInstitution").val();
-  if(institution.trim().length==0)
-  {
-
-    $("#notificationMessage").html("Please provide institution name");
-    $("#notificationModal").modal('show');    
-  return;
-  }
-
-
-var urlFormed="UpdateVendor.php?name="+encodeURI(name)+"&institution="+encodeURI(institution)+"&email="+encodeURI(email)+"&phone="+encodeURI(phone)+"&dob="+encodeURI(dob)+"&address="+encodeURI(address)+"&role="+encodeURI(role)+"&gender="+encodeURI(gender)+"&department="+encodeURI(department)+"&code="+encodeURI(code);
+  var username=$("#EditVendorUsername").val();
+  var password=$("#EditVendorPassword").val();
+  var cityCode=$("#EditVendorCity").val();
+  var urlFormed="UpdateVendor?name="+encodeURI(name)+"&emailId="+encodeURI(emailId)
+  +"&contactNumber="+encodeURI(contactNumber)+"&cityCode="+encodeURI(cityCode)
+  +"&address="+encodeURI(address)+"&username="+encodeURI(username)
+  +"&password="+encodeURI(password)+"&code="+encodeURI(code);
 $.ajax({
 
   url: urlFormed,
   error : function (jqXHR,textStatus,errorThrown )
   {
-  	$("#notificationMessage").html(errorThrown);
-  	$("#notificationModal").modal('show');
+    $("#notificationMessage").html(errorThrown);
+    $("#notificationModal").modal('show');
   },success : function(data,textStatus,jqXHR)
   {
-  	$("#notificationMessage").html(data);
-  	$("#notificationModal").modal('show');
-  	$("#vendorsTableBody").html("");
-  	loadVendors();
+    if(data.success)
+    {
+    $("#EditVendorModal").modal('hide');  
+    $("#notificationMessage").html("Vendor Updated");
+    $("#notificationModal").modal('show');
+    $("#vendorsTableBody").html("");
+    loadVendors();      
+    }
+    else
+    {
+    $("#notificationMessage").html(data.errorMessage);
+    $("#notificationModal").modal('show');
+    }
+
   }
 });
+  }
+
+
 
 });
 
@@ -150,7 +140,6 @@ var contactNumber=$("#AddVendorPhone").val();
 var password=$("#AddVendorPassword").val();
 var address=$("#AddVendorAddress").val();
 var cityCode=$("#AddVendorCity").val();
-
 var urlFormed="AddVendor?name="+encodeURI(name)+"&username="+encodeURI(username)+"&emailId="+encodeURI(email)+"&contactNumber="+encodeURI(contactNumber)+"&cityCode="+encodeURI(cityCode)+"&address="+encodeURI(address)+"&password="+encodeURI(password);
 $.ajax({
 
@@ -285,7 +274,6 @@ x++;
 function loadVendors()
 {
 var vendors;
-
 $.ajax(
 	{
 		url:"GetAllVendors",
@@ -300,10 +288,9 @@ $.ajax(
     {
 
     objects=data.Vendors;
-    insertRows(objects);  
+    //    insertRows(objects);  
+    refreshTable();
     }
-
-  	
   } 
 	});
 
