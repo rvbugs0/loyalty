@@ -44,29 +44,22 @@ $("#AddVendorButton").on("click",function(){
 	$("#AddVendorModal").modal("show");
 });
 
-$(document).on("click",".editButton",function(){
-	code=$(this).attr("id").replace("editButtonCode","");
-  tbl = $("#vendorTable").dataTable();
+
+$('#vendorTable tbody').on( 'click', 'tr .editButton', function () {
+  code=$(this).attr("id").replace("editButtonCode","");
   
-  var rowCount = $('#vendorTable tr').length;
-  x=0;
-  while(x<rowCount)
-  {
-  rowData = tbl.fnGetData(x);
-  if(rowData.code==code)
-  {
-    break;
-  }    
-  x++;
-  }
-      password=rowData.password;
-			name=rowData.name;
-      username=rowData.username;
-			address=rowData.address;
-      contactNumber=rowData.contactNumber;
-      cityCode=rowData.cityCode;
-      emailId=rowData.emailId;
-      code = rowData.code;
+     $row=$(this).closest("tr");
+      $tds = $row.find("td");
+
+
+
+			name=$tds.get(1).innerHTML;
+      username=$tds.get(2).innerHTML;
+			contactNumber=$tds.get(3).innerHTML;
+      cityCode=$tds.get(4).innerHTML;
+      emailId=$tds.get(5).innerHTML;
+      address=$tds.get(6).innerHTML;
+      password="";
 
   $("#EditVendorNameOfFirm").val(name);
   $("#EditVendorPhone").val(contactNumber);

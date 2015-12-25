@@ -18,6 +18,12 @@ $(document).ready(function(){
         { "mDataProp": "country"},
         { "mDataProp": "code" }]});
 
+  table=$("#cityTable").DataTable();
+
+
+
+    
+
 
 $('#cityTableSearchTextField').keyup(function(){
       cityTBL.fnFilter(this.value); ;
@@ -27,6 +33,26 @@ $("select[name=cityTable_length]").addClass("form-control");
 
 
 });
+
+
+$('#cityTable tbody').on( 'click', 'tr .editButton', function () {
+    
+  code=$(this).attr("id").replace("editButtonCode","");
+  
+     $row=$(this).closest("tr");
+    $tds = $row.find("td");  
+    name =$tds.get(1).innerHTML;
+    state =$tds.get(2).innerHTML;
+    country =$tds.get(3).innerHTML;
+  $("#EditCityName").val(name);
+  $("#EditStateName").val(state);
+  $("#EditCountryName").val(country);
+  $("#EditCityCode").val(code); 
+  $("#EditCityModal").modal("show");
+
+
+} );
+
 
 function refreshTable () {
    var cityTBL=$('#cityTable').DataTable();
@@ -39,54 +65,20 @@ $("#AddCityButton").on("click",function(){
 
 
 
-$(document).on("click",".editButton",function(){
-	code=$(this).attr("id").replace("editButtonCode","");
-	  tbl = $("#cityTable").dataTable();
-  
-  var rowCount = $('#cityTable tr').length;
-  alert(rowCount);
-  x=0;
-  while(x<rowCount)
-  {
-  rowData = tbl.fnGetData(x);
-  if(rowData.code==code)
-  {
-    alert("found");
-    break;
-  }    
-  x++;
-  }
-  name=rowData.name;
-  alert(name);
-  state=rowData.state;
-  country=rowData.country;
-
-
-  $("#EditCityName").val(name);
-  $("#EditStateName").val(state);
-  $("#EditCountryName").val(country);
-  $("#EditCityCode").val(code); 
-	$("#EditCityModal").modal("show");
-});
-
 
 $("#EditCityFormSubmitButton").on("click",function(){
 	
   //$("#EditCityModal").modal("hide");	
 	if($("#EditCityForm").valid())
   {
-  var name=$("#EditCityNameOfFirm").val();
+
   var code=$("#EditCityCode").val();
-  var emailId=$("#EditCityEmail").val();
-  var contactNumber=$("#EditCityPhone").val();
-  var address=$("#EditCityAddress").val();
-  var username=$("#EditCityUsername").val();
-  var password=$("#EditCityPassword").val();
-  var cityCode=$("#EditCityCity").val();
-  var urlFormed="UpdateCity?name="+encodeURI(name)+"&emailId="+encodeURI(emailId)
-  +"&contactNumber="+encodeURI(contactNumber)+"&cityCode="+encodeURI(cityCode)
-  +"&address="+encodeURI(address)+"&username="+encodeURI(username)
-  +"&password="+encodeURI(password)+"&code="+encodeURI(code);
+  var name=$("#EditCityName").val();
+  var state=$("#EditStateName").val();
+  var country=$("#EditCountryName").val();
+  var urlFormed="UpdateCity?name="+encodeURI(name)+"&code="+encodeURI(code)
+  +"&country="+encodeURI(country)+"&state="+encodeURI(state);
+
 $.ajax({
 
   url: urlFormed,
@@ -102,7 +94,7 @@ $.ajax({
     $("#notificationMessage").html("City Updated");
     $("#notificationModal").modal('show');
     $("#citysTableBody").html("");
-    loadCitys();      
+    refreshTable();      
     }
     else
     {

@@ -162,3 +162,37 @@ required:"Country Name length length < 30"
 },errorClass: "my-error-class",
    validClass: "my-valid-class"
 });
+
+
+
+
+$("#EditCityForm").validate({
+rules:{
+EditCityName:{
+required:true,
+maxlength:30,
+minlength:1
+},
+EditStateName:{
+required:true,
+maxlength:30,
+minlength:1
+},
+EditCountryName:{
+required:true,
+maxlength:30,
+minlength:1
+}},
+messages:{
+EditCityName:{
+required:"City Name length < 30"
+},
+EditStateName:{
+required:"State Name length  < 30"
+},
+EditCountryName:{
+required:"Country Name length length < 30"
+}
+},errorClass: "my-error-class",
+   validClass: "my-valid-class"
+});
