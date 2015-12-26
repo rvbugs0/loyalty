@@ -2,8 +2,9 @@
 <head>
 <title>Loyalty Application - Setup new Admin</title>
 <script type="text/javascript" charset="utf-8"></script> 
- <link rel="stylesheet" href='/loyalty.com/css/custom.min.css'>
-<link rel="stylesheet" href='/loyalty.com/css/bootstrap.min.css'>
+
+<link rel="stylesheet" href='/loyalty.com/css/bootstrap/css/bootstrap.min.css'>
+<link rel="stylesheet" href='/loyalty.com/css/custom.min.css'>
 <script src='/loyalty.com/jquery/jquery-2.1.3.min.js'></script>
 <script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
 <script>

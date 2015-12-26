@@ -1,8 +1,9 @@
 <html>
 <head>
 <title>Loyalty Application - Admin Login</title>
+<link rel="stylesheet" href='/loyalty.com/css/styles.css'>
 <link rel="stylesheet" href='/loyalty.com/css/custom.min.css'>
-<link rel="stylesheet" href='/loyalty.com/css/bootstrap.min.css'>
+<link rel="stylesheet" href='/loyalty.com/css/bootstrap/css/bootstrap.min.css'>
 <script src='/loyalty.com/jquery/jquery-2.1.3.min.js'></script>
 <script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
 <script>
@@ -57,7 +58,7 @@ alert("error!!");
 <div class="">
         <div class="row">
           <div class="col-lg-12">
-            <div class="page-header" style="margin-top:-50px;">
+            <div class="page-header" >
               <h1 id="forms">Admin Sign-in</h1>
             </div>
           </div>
@@ -78,7 +79,7 @@ alert("error!!");
                   <div class="form-group">
                     <label for="password" class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-10">
-                      <input type="password" class="form-control" id="password" placeholder="Password">
+                      <input type="password" class="form-control" id="password" placeholder="Password" name="password">
                     </div>
                   </div>
                   

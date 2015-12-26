@@ -1,0 +1,47 @@
+#vendorTableSection
+{
+		margin-bottom: 100px;
+}
+
+#cityTableSection
+{
+		margin-bottom: 100px;
+}
+
+.paginate_button
+{
+	margin: 5px; 
+}
+#vendorTable
+{
+	width: auto;
+	font-size: 15px;
+	font-weight: 1.5em;
+
+}
+#cityTable
+{
+	width: auto;
+	font-size: 15px;
+	font-weight: 1.5em;
+
+}
+
+
+.my-error-class {
+    color:#FFD700;  /* yellow */
+    font-size: 15px;
+}
+.my-valid-class {
+    color:#00CC00; /* green */
+}
+
+.optionButton
+{
+	margin-right: 2px;
+}
+
+body,html
+{
+	height: 100%;
+}
