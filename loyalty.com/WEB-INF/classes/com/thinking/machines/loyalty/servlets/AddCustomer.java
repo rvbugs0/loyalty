@@ -19,7 +19,7 @@ try
 {
 pw=rs.getWriter();
 rs.setContentType("application/json");
-SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy"); 
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
 CustomerBLInterface customerInterface=new Customer();
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
 customerInterface.setName(rq.getParameter("name"));

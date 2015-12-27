@@ -60,6 +60,8 @@ callableStatement.setString(14,customerInterface.getEmailId());
 callableStatement.registerOutParameter(15,Types.INTEGER); 
 callableStatement.execute();
 int customerCode=callableStatement.getInt(15); 
+customerInterface.setCode(customerCode);
+
 callableStatement.close();
 if(closeConnection)
 {
