@@ -175,6 +175,46 @@ throw new ApplicationException(exception.getMessage());
 }
 }
 
+
+public CustomerBLInterface getCustomerByUsername(String username) throws ApplicationException
+{
+try
+{
+CustomerManager customerManager=new CustomerManager();
+return customerManager.getByUsername(username);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public CustomerBLInterface getCustomerByEmailId(String emailId) throws ApplicationException
+{
+try
+{
+CustomerManager customerManager=new CustomerManager();
+return customerManager.getByEmailId(emailId);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
+public CustomerBLInterface getCustomerByContactNumber(String contactNumber) throws ApplicationException
+{
+try
+{
+CustomerManager customerManager=new CustomerManager();
+return customerManager.getByContactNumber(contactNumber);
+}
+catch(Exception exception)
+{
+throw new ApplicationException(exception.getMessage());
+}
+}
+
 public CustomerBLInterface getCustomerByCode(int code) throws ApplicationException
 {
 try
@@ -291,12 +331,12 @@ throw new ApplicationException(exception.getMessage());
 }
 }
 
-public long getCustomerCountByCity(int cityCode) throws ApplicationException
+public long getCustomerCountByCityCode(int cityCode) throws ApplicationException
 {
 try
 {
 CustomerManager customerManager=new CustomerManager();
-return customerManager.getCountByCity(cityCode);
+return customerManager.getCountByCityCode(cityCode);
 }
 catch(Exception exception)
 {

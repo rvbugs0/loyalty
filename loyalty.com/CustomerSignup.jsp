@@ -21,38 +21,6 @@
         display: inline-block;
     }
 </style>
-<script type="text/javascript">
-	function submitBasicInfo()
-	{
-		/*
-		$("#basicInfoForm").hide();
-		$("#progressBar").css("width","50%");
-	*/
-	 $( "#basicInfoForm" ).slideUp( "slow", function() {
-    	$("#progressBar").css("width","50%");  });
-	 $("#studentInfoForm").show();
-	}
-
-	function submitStudentInfo()
-	{
-	/*	$("#studentInfoForm").hide();
-		$("#progressBar").css("width","75%");	
-	*/
-		 $( "#studentInfoForm" ).slideUp( "slow", function() {
-    	$("#progressBar").css("width","75%");  });
-	 $("#marriageInfoForm").show();
-	}
-
-	function submitMarriageInfo()
-	{/*
-		$("#marriageInfoForm").hide();
-		$("#progressBar").css("width","100%");	
-	*/
-		 $( "#marriageInfoForm" ).slideUp( "slow", function() {
-    	$("#progressBar").css("width","100%");  });
-	 $("#accountCreationSection").show();
-	}	
-</script>
 </head>
 <body>
 	
@@ -368,13 +336,7 @@
 
 </div><!--container-->
 
-<script type="text/javascript">
-	$("#studentInfoForm").hide();
-	$("#marriageInfoForm").hide();
-	$("#accountCreationSection").hide();
-
-
-</script>
+<script type="text/javascript" src="/loyalty.com/js/customer-signup.js"></script>
 </body>
 </html>
 
