@@ -117,13 +117,13 @@
       <div class="col-lg-10">
         <div class="radio">
           <label>
-            <input type="radio" name="gender" id="maleOption" value="M" checked="true">
+            <input type="radio" name="gender" id="genderMaleChecked" value="M" checked="true">
             Male
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="gender" id="femaleOption" value="F">
+            <input type="radio" name="gender" id="genderFemaleChecked" value="F">
             Female
           </label>
         </div>
@@ -142,13 +142,13 @@
       <div class="col-lg-10">
         <div class="radio">
           <label>
-            <input type="radio" name="student" id="yesOption" value="Y" checked="true">
+            <input type="radio" name="student" id="studentYesOption" value="true" checked="true">
             Yes
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="student" id="noOption" value="N" >
+            <input type="radio" name="student" id="studentNoOption" value="false" >
             No
           </label>
         </div>
@@ -170,7 +170,7 @@
       	-->
        	 <div class="checkbox" >
           <label>
-            <input type="checkbox"> Is this Current Address your Permanent Address ? 
+            <input type="checkbox" id="sameAddress"> Is this Current Address your Permanent Address ? 
           </label>
         </div>
      
@@ -203,9 +203,9 @@
       <label for="city" class="col-lg-2 control-label">City</label>
       <div class="col-lg-10">
         <select class="form-control" id="city">
-          <option>Indore</option>
-          <option>Ujjain</option>
-          <option>Ratlam</option>
+          <option value="703">Indore</option>
+          <option value="777">Ujjain</option>
+          <option value="748">Ratlam</option>
           
         </select>
       </div>
@@ -215,13 +215,13 @@
       <div class="col-lg-10">
         <div class="radio">
           <label>
-            <input type="radio" name="married" id="noOption" value="N" checked="true">
+            <input type="radio" name="married" id="noMarriedOption" value="false" checked="true">
             No
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="married" id="yesOption" value="Y">
+            <input type="radio" name="married" id="yesMarriedOption" value="true">
             Yes
           </label>
         </div>
