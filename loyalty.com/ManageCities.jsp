@@ -11,7 +11,8 @@
 <script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
 <script src='/loyalty.com/jquery/jquery-ui.js'></script>
 <script src='/loyalty.com/jquery/jquery.dataTables.min.js'></script>
-
+<link rel="stylesheet" href="/loyalty.com/jquery/jquery-ui.css">
+<script src="/loyalty.com/js/bootstrap.min.js" type="text/javascript"></script>
 <style>
   .form-group
     {
@@ -25,8 +26,7 @@
 }
 
 </style>
-<link rel="stylesheet" href="/loyalty.com/jquery/jquery-ui.css">
-<script src="/loyalty.com/js/bootstrap.min.js" type="text/javascript"></script>
+
 </head>
 <body>
 

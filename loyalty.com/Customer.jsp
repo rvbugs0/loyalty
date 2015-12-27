@@ -126,7 +126,7 @@ return false;
           <div class="col-lg-6">
             <div class="well bs-component">
                  <legend>Haven't Registered yet? </legend>
-               <button class="btn btn-default btn-primary">Register now</button>
+               <a class="btn btn-default btn-primary" href="/loyalty.com/CustomerSignup.jsp">Register now</a>
                <br/><br/>
             </div>
           </div><!-- col-lg-6-->
