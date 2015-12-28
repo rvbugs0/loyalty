@@ -3,6 +3,49 @@
   <description>Servlet and JSP Examples.</description> 
   <display-name>Servlet and JSP Examples</display-name> 
 
+<!-- Customer-->
+     <servlet>
+      <servlet-name>AddCustomer</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.AddCustomer</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddCustomer</servlet-name>
+        <url-pattern>/AddCustomer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+      <servlet-name>GetCustomerByContactNumber</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetCustomerByContactNumber</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetCustomerByContactNumber</servlet-name>
+        <url-pattern>/GetCustomerByContactNumber</url-pattern>
+    </servlet-mapping>
+
+
+        <servlet>
+      <servlet-name>GetCustomerByUsername</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetCustomerByUsername</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetCustomerByUsername</servlet-name>
+        <url-pattern>/GetCustomerByUsername</url-pattern>
+    </servlet-mapping>
+
+
+            <servlet>
+      <servlet-name>GetCustomerByEmailId</servlet-name>
+      <servlet-class>com.thinking.machines.loyalty.servlets.GetCustomerByEmailId</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetCustomerByEmailId</servlet-name>
+        <url-pattern>/GetCustomerByEmailId</url-pattern>
+    </servlet-mapping>
+
 <!-- City-->
      <servlet>
       <servlet-name>GetAllCities</servlet-name>

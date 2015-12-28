@@ -1322,7 +1322,6 @@ connection.close();
 throw new DAOException("CustomerDAO : getByContactNumber() --> No ResultSet object");
 }
 ResultSet resultSet=callableStatement.getResultSet();
-System.out.println(resultSet.next());
 if(resultSet.next()==false)
 {
 resultSet.close(); 

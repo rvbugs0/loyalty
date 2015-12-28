@@ -22,13 +22,17 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
 CustomerBLInterface customerInterface=loyaltyApplication.getCustomerByContactNumber(rq.getParameter("contactNumber"));
 pw.println("{");
+pw.println("\"success\":true,");
+pw.println("\"customer\":");
+
+pw.println("{");
 pw.println("\"code\":"+ customerInterface.getCode() );
 pw.println(",\"name\":"+ "\""+customerInterface.getName()+"\"" );
 pw.println(",\"username\":"+ "\""+customerInterface.getUsername() +"\"");
 pw.println(",\"password\":"+ "\""+customerInterface.getPassword() +"\"");
 pw.println(",\"passwordkey\":"+"\""+ customerInterface.getPasswordKey()+"\"" );
-pw.println(",\"permanentAddress\":"+ "\""+customerInterface.getPermanentAddress()+"\"" );
-pw.println(",\"currentAddress\":"+"\""+ customerInterface.getCurrentAddress()+"\"" );
+pw.println(",\"permanentAddress\":"+ "\""+customerInterface.getPermanentAddress().replace("\n", " ").replace("\r", " ")+"\"" );
+pw.println(",\"currentAddress\":"+"\""+ customerInterface.getCurrentAddress().replace("\n", " ").replace("\r", " ")+"\"" );
 pw.println(",\"cityCode\":"+ customerInterface.getCityCode() );
 pw.println(",\"dateOfBirth\":"+ "\""+customerInterface.getDateOfBirth() +"\"");
 pw.println(",\"gender\":"+"\""+ customerInterface.getGender()+"\"" );
@@ -45,6 +49,7 @@ pw.println(",\"numberOfGirlChild\":"+ customerInterface.getNumberOfGirlChild() )
 pw.println(",\"numberOfBoyChild\":"+ customerInterface.getNumberOfBoyChild() );
 pw.println(",\"stream\":"+ "\""+customerInterface.getStream() +"\"");
 pw.println(",\"courseDetails\":"+"\""+ customerInterface.getCourseDetails()+"\"" );
+pw.println("}");
 pw.println("}");
 }catch(ApplicationException ae)
 {

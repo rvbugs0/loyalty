@@ -135,6 +135,7 @@ customer.setIsMarried(customerInterface.getIsMarried());
 customer.setIsStudent(customerInterface.getIsStudent());
 customer.setContactNumber(customerInterface.getContactNumber());
 customer.setEmailId(customerInterface.getEmailId());
+customer.setUsername(customerInterface.getUsername());
 if(customerInterface.getIsMarried())
 {
 MaritalDetailsDAOInterface maritalDetailsDAOInterface=new MaritalDetailsDAO();
@@ -170,6 +171,7 @@ CustomerBLInterface customer=new Customer();
 CustomerDAOInterface customerDAOInterface=new CustomerDAO();
 com.thinking.machines.loyalty.interfaces.CustomerInterface customerInterface=customerDAOInterface.getByEmailId(emailId,connection);
 customer.setName(customerInterface.getName());
+customer.setEmailId(customerInterface.getEmailId());
 customer.setUsername(customerInterface.getUsername());
 customer.setPassword(customerInterface.getPassword());
 customer.setPasswordKey(customerInterface.getPasswordKey());
@@ -230,6 +232,7 @@ customer.setOccupation(customerInterface.getOccupation());
 customer.setIsMarried(customerInterface.getIsMarried());
 customer.setIsStudent(customerInterface.getIsStudent());
 customer.setCode(customerInterface.getCode());
+customer.setContactNumber(customerInterface.getContactNumber());
 customer.setEmailId(customerInterface.getEmailId());
 if(customerInterface.getIsMarried())
 {

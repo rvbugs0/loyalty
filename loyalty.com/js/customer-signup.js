@@ -24,6 +24,108 @@ function Customer()
 	this.boyChild="";
 }
 
+
+$("#sameAddress").change(function() {
+    if(this.checked) {
+        //Do stuff
+     address= $("#currentAddress").val();   
+    $("#permanentAddress").val(address);
+    $("#permanentAddressBlock").hide();
+    }
+});
+
+$("#currentAddress").on("change",function() {
+    address= $("#currentAddress").val();   
+    if($("#sameAddress").prop("checked")==true)
+    {$("#permanentAddress").val(address);
+    
+    $("#permanentAddressBlock").hide();
+    }
+});
+
+
+function checkContactNumberAvailability()
+{
+	vContactNumber=$("#contactNumber").val();
+$.ajax({
+	"url": "/loyalty.com/GetCustomerByContactNumber",
+	"data":{
+	contactNumber:vContactNumber
+	},
+"type": "GET",
+"success":function(data){
+if(!data.success)
+{
+checkUsernameAvailability();
+}
+else
+{
+$("#notificationMessage").html("A User is already registered with Contact Number "
+	+ vContactNumber+" ,please provide a different Contact Number ");	
+$("#notificationModal").modal("show");
+}
+},
+"error":function(){
+alert("error!!");
+}
+});
+}
+
+function checkUsernameAvailability()
+{
+	vUsername=$("#username").val();
+$.ajax({
+	"url": "/loyalty.com/GetCustomerByUsername",
+	"data":{
+	username:vUsername
+	},
+"type": "GET",
+"success":function(data){
+if(!data.success)
+{
+checkEmailIdAvailability();
+}
+else
+{
+$("#notificationMessage").html("A User is already registered with Username "
+	+ vUsername+" ,please provide a different username ");	
+$("#notificationModal").modal("show");
+}
+},
+"error":function(){
+alert("error!!");
+}
+});
+}
+
+function checkEmailIdAvailability()
+{
+	vEmailId=$("#email").val();
+$.ajax({
+	"url": "/loyalty.com/GetCustomerByEmailId",
+	"data":{
+	emailId:vEmailId
+	},
+"type": "GET",
+"success":function(data){
+if(!data.success)
+{
+submitBasicInfo();
+}
+else
+{
+$("#notificationMessage").html("A User is already registered with Email ID "
+	+ vEmailId+" ,please provide a different Email ");	
+$("#notificationModal").modal("show");
+}
+},
+"error":function(){
+alert("error!!");
+}
+});
+}
+
+
 var globalCustomer="";
 
 
@@ -40,7 +142,7 @@ var globalCustomer="";
 		if($("#basicInfoForm").valid())
 		{
 			customer.name=$("#name").val();
-			customer.email=$("#email").val();
+			customer.emailId=$("#email").val();
 			customer.contactNumber=$("#contactNumber").val();
 			customer.username=$("#username").val();
 			customer.password=$("#password").val();
@@ -121,11 +223,7 @@ var globalCustomer="";
 		}/* if valid*/
 }
 
-	function createAccount()
-	{
-	$("#accountCreationSection").show();		
-	console.log(globalCustomer);	
-	}
+
 
 	function submitStudentInfo()
 	{
@@ -158,15 +256,69 @@ var globalCustomer="";
 	
 		globalCustomer.spouseName=$("#spouseName").val();
 		globalCustomer.spouseOccupation=$("#spouseOccupation").val();
-		globalCustomer.spouseDateOfBirth=$("#spouseDateOfBirth").val();
+		globalCustomer.spouseDateOfBirth=$("#spouseDob").val();
 		globalCustomer.anniversaryDate=$("#anniversaryDate").val();
 		globalCustomer.girlChild=$("#girlChild").val();
 		globalCustomer.boyChild=$("#boyChild").val();	
 		$( "#marriageInfoForm" ).slideUp( "slow", function() {
     	$("#progressBar").css("width","100%");
+        createAccount();			
+        });
 
-        });			
 		}
 
 	 
+	}
+
+
+	function createAccount()
+	{
+	
+	
+
+	$("#accountCreationSection").show();		
+	//console.log(globalCustomer);	
+	$.ajax({
+	"url": "/loyalty.com/AddCustomer",
+	"data":{
+	name:globalCustomer.name,
+	username:globalCustomer.username,
+	password:globalCustomer.password,
+	passwordKey:globalCustomer.password,
+	emailId:globalCustomer.emailId,
+	contactNumber:globalCustomer.contactNumber,
+	cityCode:globalCustomer.cityCode,
+	gender:globalCustomer.gender,
+	dateOfBirth:globalCustomer.dateOfBirth,
+	isStudent:globalCustomer.student,
+	occupation:globalCustomer.occupation,
+	currentAddress:globalCustomer.currentAddress,
+	permanentAddress:globalCustomer.permanentAddress,
+	isMarried:globalCustomer.married,
+	stream:globalCustomer.stream,
+	courseDetails:globalCustomer.courseDetails,
+	spouseName:globalCustomer.spouseName,
+	spouseOccupation:globalCustomer.occupation,
+	spouseDateOfBirth:globalCustomer.spouseDateOfBirth,
+	anniversaryDate:globalCustomer.anniversaryDate,
+	numberOfGirlChild:globalCustomer.girlChild,
+	numberOfBoyChild:globalCustomer.boyChild
+	},
+"type": "GET",
+"success":function(data){
+if(data.success)
+{
+$("#accountStatusMessage").html("Account created successfully ,Click <a href='/loyalty.com/Customer.jsp'> here </a>to login to your account.");
+$("#accountProgress").css("width","100%");
+}
+else
+{
+	$("#accountStatusMessage").html(data.errorMessage);
+}
+
+},
+"error":function(){
+alert("error!!");
+}
+});
 	}	

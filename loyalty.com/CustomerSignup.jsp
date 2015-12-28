@@ -10,6 +10,7 @@
 <script src='/loyalty.com/jquery/jquery-2.1.3.min.js'></script>
 <script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
 <script src='/loyalty.com/jquery/jquery-ui.js'></script>
+
 <script src='/loyalty.com/jquery/jquery.dataTables.min.js'></script>
 <link rel="stylesheet" href="/loyalty.com/jquery/jquery-ui.css">
 <script src="/loyalty.com/js/bootstrap.min.js" type="text/javascript"></script>
@@ -109,7 +110,7 @@
     <div class="form-group">
       <label for="password" class="col-lg-2 control-label">Password</label>
       <div class="col-lg-10">
-        <input type="password" class="form-control" id="password" placeholder="Password">
+        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
       </div>
     </div>
     <div class="form-group">
@@ -178,7 +179,7 @@
 
     </div>
      
-    <div class="form-group">
+    <div class="form-group" id="permanentAddressBlock">
       <label for="permanentAddress" class="col-lg-2 control-label">Permanent Address</label>
       <div class="col-lg-10">
         <textarea class="form-control" rows="3" id="permanentAddress" name="permanentAddress"></textarea>
@@ -230,7 +231,7 @@
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
         
-        <button type="button" onclick="submitBasicInfo()" class="btn btn-primary">Proceed</button>
+        <button type="button" onclick="checkContactNumberAvailability()" class="btn btn-primary">Proceed</button>
       </div>
     </div>
   </fieldset>
@@ -326,17 +327,37 @@
 <div class="col-lg-offset-1 col-lg-10">
 <div class="well bs-component">
 <legend>Validating Information and creating Account,</legend>
-<p>please wait for a moment</p>
+<p id="accountStatusMessage">please wait for a moment</p>
 <div class="progress progress-striped active">
-  <div class="progress-bar progress-bar-success" style="width: 40%"></div>
+  <div class="progress-bar progress-bar-success" id="accountProgress" style="width: 40%"></div>
 </div>
 </div>
 </div>
 </div>
+
+<div class="modal fade" id="notificationModal" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Notification</h4>
+        </div>
+        <div class="modal-body">
+          <p id="notificationMessage"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div><!--container-->
-
+<script src='/loyalty.com/js/customer-registration-form-rules.js'></script>
 <script type="text/javascript" src="/loyalty.com/js/customer-signup.js"></script>
+
+
+
 </body>
 </html>
 
