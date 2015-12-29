@@ -24,6 +24,51 @@ function Customer()
 	this.boyChild="";
 }
 
+function City()
+{
+	this.code="";
+	this.name="";
+}
+
+function State()
+{
+	this.name="";
+	this.cities=[];
+	this.cityCount=0;
+}
+
+var globalStates=[];
+
+
+
+function printDistinctStates(arr)
+{
+ var stateCount=0;
+
+	n=sizeof(arr);
+    // Pick all elements one by one
+    for (i=0; i<n; i++)
+    {
+        // Check if the picked element is already printed
+        var j;
+        for (j=0; j<i; j++)
+           if (arr[i].state == arr[j].state)
+               {
+               break;
+               }
+ 
+        // If not printed earlier, then print it
+        if (i == j)
+        {
+        	var state =new State();
+        	state.name=arr[i].state;
+        	globalStates[stateCount]=state;
+        	stateCount++;
+        }
+
+    }
+}
+
 
 $("#sameAddress").change(function() {
     if(this.checked) {
@@ -46,6 +91,8 @@ $("#currentAddress").on("change",function() {
 
 function checkContactNumberAvailability()
 {
+	if($("#basicInfoForm").valid())
+{
 	vContactNumber=$("#contactNumber").val();
 $.ajax({
 	"url": "/loyalty.com/GetCustomerByContactNumber",
@@ -60,8 +107,8 @@ checkUsernameAvailability();
 }
 else
 {
-$("#notificationMessage").html("A User is already registered with Contact Number "
-	+ vContactNumber+" ,please provide a different Contact Number ");	
+$("#notificationMessage").html("Contact Number "
+	+ vContactNumber+" Not available");	
 $("#notificationModal").modal("show");
 }
 },
@@ -69,6 +116,8 @@ $("#notificationModal").modal("show");
 alert("error!!");
 }
 });
+
+}
 }
 
 function checkUsernameAvailability()
@@ -87,8 +136,8 @@ checkEmailIdAvailability();
 }
 else
 {
-$("#notificationMessage").html("A User is already registered with Username "
-	+ vUsername+" ,please provide a different username ");	
+$("#notificationMessage").html("Username "
+	+ vUsername+" not available");	
 $("#notificationModal").modal("show");
 }
 },
@@ -114,8 +163,8 @@ submitBasicInfo();
 }
 else
 {
-$("#notificationMessage").html("A User is already registered with Email ID "
-	+ vEmailId+" ,please provide a different Email ");	
+$("#notificationMessage").html("Email ID "
+	+ vEmailId+" not available");	
 $("#notificationModal").modal("show");
 }
 },

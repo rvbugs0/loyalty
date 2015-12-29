@@ -51,7 +51,8 @@ public class VendorDAO implements VendorDAOInterface
 		callableStatement.registerOutParameter(9, java.sql.Types.INTEGER);
 		//callableStatement.setString(10,);
 		callableStatement.execute();
-		//int code=callableStatement.getInt(4);
+		int code=callableStatement.getInt(9);
+		vendorInterface.setCode(code);
 		callableStatement.close();
 		//System.out.println(code);
 		if(closeConnection)

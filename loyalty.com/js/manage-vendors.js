@@ -22,7 +22,9 @@ vendorTBL=$('#vendorTable').dataTable({
         { "mDataProp": "cityCode" },
         { "mDataProp": "emailId" },
         { "mDataProp": "address" },
+        { "mDataProp": "password" },
         { "mDataProp": "code" }
+
     ]});
 
 
@@ -59,7 +61,7 @@ $('#vendorTable tbody').on( 'click', 'tr .editButton', function () {
       cityCode=$tds.get(4).innerHTML;
       emailId=$tds.get(5).innerHTML;
       address=$tds.get(6).innerHTML;
-      password="";
+      password=$tds.get(7).innerHTML;
 
   $("#EditVendorNameOfFirm").val(name);
   $("#EditVendorPhone").val(contactNumber);
@@ -69,6 +71,7 @@ $('#vendorTable tbody').on( 'click', 'tr .editButton', function () {
 	$("#EditVendorUsername").val(username);	
 	$("#EditVendorCode").val(code);
   $("#EditVendorCity").val(cityCode);
+
 	$("#EditVendorModal").modal("show");
 
 });

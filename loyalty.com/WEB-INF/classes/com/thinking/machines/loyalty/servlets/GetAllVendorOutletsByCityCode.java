@@ -33,7 +33,7 @@ while(x<vendorOutlets.size())
 vendorOutletInterface=vendorOutlets.get(x);
 pw.print("{\"code\":"+vendorOutletInterface.getCode());
 pw.print(",\"vendorCode\":"+vendorOutletInterface.getVendorCode());
-pw.print(",\"address\":\""+vendorOutletInterface.getAddress()+"\"");
+pw.print(",\"address\":\""+vendorOutletInterface.getAddress().replace("\n", " ").replace("\r", " ")+"\"");
 pw.print(",\"latitude\":\""+vendorOutletInterface.getLatitude()+"\"");
 pw.print(",\"longitude\":\""+vendorOutletInterface.getLongitude()+"\"");
 pw.print(",\"cityCode\":"+vendorOutletInterface.getCityCode());
@@ -55,6 +55,8 @@ pw.println("}");
 {
 pw.println("{");
 pw.println("\"success\":false,");
+pw.print("\"VendorOutlets\":");
+pw.print("[],");
 pw.println("\"errorMessage\":\""+ae.getMessage()+"\"");
 pw.println("}");
 }

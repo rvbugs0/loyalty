@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Loyalty Application - Manage Vendors</title>
+<title>Loyalty Application - Manage Outlets</title>
 <link rel="stylesheet" href='/loyalty.com/css/styles.css'>
 <link rel="stylesheet" href='/loyalty.com/css/custom.min.css'>
 <link rel="stylesheet" href='/loyalty.com/css/bootstrap/css/bootstrap.min.css'>
@@ -40,7 +40,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/loyalty.com/AdminHomepage.jsp">Home</a>
+      <a class="navbar-brand" href="/loyalty.com/VendorHomepage.jsp">Home</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -55,46 +55,46 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="page-header" >
-              <h1 id="forms">Manage Vendors</h1>
+              <h1 id="forms">Manage Outlets</h1>
             </div>
           </div>
         </div>
-    <section id="vendortablesection" style="margin-top:40px;">
+    <section id="outletTableSection" style="margin-top:40px;">
             <div class="row">
             <div class="col-lg-4">
-            <button class="btn btn-md btn-success" style="display:insline-block;" id="AddVendorButton"  >Add Vendor</button>
+            <button class="btn btn-md btn-success" style="display:insline-block;" id="AddOutletButton"  >Add Outlet</button>
             </div>
 
             <div class="col-lg-offset-4 col-lg-4">
                     Search :   <input type="text" class="form-control"
-                      id="vendorTableSearchTextField" />
+                      id="outletTableSearchTextField" />
      
             </div>
             </div>
 
-                    <table class="table table-striped table-hover" id="vendorTable">
+
+                    <table class="table table-striped table-hover" id="outletTable">
                 <thead>
                     <tr>
                     <td>S.No.</td>
-                    <td>Firm Name</td>
-                    <td>Username</td>
-                    <td>Phone</td>
-                    <td>City</td>
-                    <td>Email</td>
                     <td>Address</td>
-                    <td>Password</td>   
+                    <td>Contact Number</td>
+                    <td>City Code</td>
+                    <td>Latitude</td>
+                    <td>Longitude</td>
+                       
                    <td>Options</td>
 
                     </tr>
                 </thead>
-                <tbody id="vendorsTableBody">
+                <tbody id="outletTableBody">
 
                 </tbody>
                 </table>
             </section>
 
 
-<div class="modal fade" id="AddVendorModal" tabindex="-1" role="dialog" 
+<div class="modal fade" id="AddOutletModal" tabindex="-1" role="dialog" 
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -106,54 +106,42 @@
                        <span class="sr-only">Close</span>
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    Add Vendor
+                    Add Outlet
                 </h4>
             </div>
             
             <!-- Modal Body -->
             <div class="modal-body">
                 
-                <form role="form" id="AddVendorForm">
+                <form role="form" id="AddOutletForm">
                   <div class="form-group">
-                    <label for="AddVendorNameOfFirm">Name Of Firm</label>
+                    <label for="AddOutletPhone">Phone Number</label>
                       <input type="text" class="form-control"
-                      id="AddVendorNameOfFirm" name="AddVendorNameOfFirm" />
-     
-                  </div>
-                  <div class="form-group">
-                      <label for="AddVendorEmail">Email</label>
-                      <input type="email" class="form-control"
-                      id="AddVendorEmail" name="AddVendorEmail" />               
-                  </div>
-                  <br/>
-                  <div class="form-group">
-                    <label for="AddVendorPhone">Phone Number</label>
-                      <input type="text" class="form-control"
-                      id="AddVendorPhone" name="AddVendorPhone" />
+                      id="AddOutletPhone" name="AddOutletPhone" />
                   </div>
                  <div class="form-group">
-                    <label for="AddVendorAddress">Address</label>
+                    <label for="AddOutletAddress">Address</label>
                       <input type="text" class="form-control"
-                      id="AddVendorAddress" name="AddVendorAddress" />
+                      id="AddOutletAddress" name="AddOutletAddress" />
                   </div>
 <br/>
                  <div class="form-group">
-                    <label for="AddVendorUsername">Username</label>
+                    <label for="AddOutletLatitude">Latitude</label>
                       <input type="text" class="form-control"
-                      id="AddVendorUsername" name="AddVendorUsername" />
+                      id="AddOutletLatitude" name="AddOutletLatitude" />
                   </div>
 
                   <div class="form-group">
-                    <label for="AddVendorPassword">Password</label>
-                      <input type="password" class="form-control"
-                      id="AddVendorPassword" name="AddVendorPassword" />
+                    <label for="AddOutletLongitude">Longitude</label>
+                      <input type="text" class="form-control"
+                      id="AddOutletLongitude" name="AddOutletLongitude" />
                   </div>
 
 <br/>
 
                   <div class="form-group">
-                    <label for="AddVendorCity">City : </label>
-                      <select id="AddVendorCity" class="form-control" name="AddVendorCity" >
+                    <label for="AddOutletCity">City : </label>
+                      <select id="AddOutletCity" class="form-control" name="AddOutletCity" >
 			<option value="-1" selected>&lt;select&gt;</option>
       <option value="1" >Indore</option>
       <option value="2" >Ujjain</option>
@@ -169,8 +157,8 @@
             
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="AddVendorFormSubmitButton">
-                    Add Vendor
+                <button type="button" class="btn btn-primary" id="AddOutletFormSubmitButton">
+                    Add Outlet
                 </button>
 
                 <button type="button" class="btn btn-default"
@@ -184,7 +172,7 @@
 
 
 
-<div class="modal fade " id="EditVendorModal" tabindex="-1" role="dialog" 
+<div class="modal fade " id="EditOutletModal" tabindex="-1" role="dialog" 
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -196,7 +184,7 @@
                        <span class="sr-only">Close</span>
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    Edit Vendor
+                    Edit Outlet
                 </h4>
             </div>
             
@@ -204,45 +192,34 @@
             <div class="modal-body">
                 
                     
-                <form role="form" id="EditVendorForm">
-                  <div class="form-group">
-                    <label for="EditVendorNameOfFirm">Name</label>
+                <form role="form" id="EditOutletForm">
+                     <div class="form-group">
+                    <label for="EditOutletPhone">Phone Number</label>
                       <input type="text" class="form-control"
-                      id="EditVendorNameOfFirm" name="EditVendorNameOfFirm" placeholder="Enter Title"/>
-                  </div>
-                  <div class="form-group">
-                    <label for="EditVendorEmail">Email</label>
-                      <input type="email" class="form-control"
-                      id="EditVendorEmail" name="EditVendorEmail" placeholder="Enter Title"/>
-                  </div>
-                  <br/>
-                  <div class="form-group">
-                    <label for="EditVendorPhone">Phone Number</label>
-                      <input type="text" class="form-control"
-                      id="EditVendorPhone" name="EditVendorPhone" placeholder="Enter Title"/>
+                      id="EditOutletPhone" name="EditOutletPhone" placeholder="Enter Title"/>
                   </div>
 
                  <div class="form-group">
-                    <label for="EditVendorAddress">Address</label>
+                    <label for="EditOutletAddress">Address</label>
                       <input type="text" class="form-control"
-                      id="EditVendorAddress" name="EditVendorAddress" />
+                      id="EditOutletAddress" name="EditOutletAddress" />
                   </div>
                   <br>
-                                   <div class="form-group">
-                    <label for="EditVendorUsername">Username</label>
-                      <input type="text" disabled class="form-control"
-                      id="EditVendorUsername" name="EditVendorUsername" />
+                  <div class="form-group">
+                    <label for="EditOutletLatitude">Latitude</label>
+                      <input type="text" class="form-control"
+                      id="EditOutletLatitude" name="EditOutletLatitude" />
                   </div>
                   <div class="form-group">
-                    <label for="EditVendorPassword">Password</label>
+                    <label for="EditOutletLongitude">Longitude</label>
                       <input type="text"  class="form-control"
-                      id="EditVendorPassword" name="EditVendorPassword" />
+                      id="EditOutletLongitude" name="EditOutletLongitude" />
                   </div>
                 
                   <br/>
                   <div class="form-group">
-                    <label for="EditVendorCity">City : </label>
-                      <select id="EditVendorCity" name="EditVendorCity" class="form-control">
+                    <label for="EditOutletCity">City : </label>
+                      <select id="EditOutletCity" name="EditOutletCity" class="form-control">
       <option value="-1" selected>&lt;select&gt;</option>
       <option value="1" >Indore</option>
       <option value="2" >Ujjain</option>
@@ -251,7 +228,7 @@
                  <br>
                  <div class="form-group">
                       <input type="hidden" class="form-control"
-                      id="EditVendorCode" />
+                      id="EditOutletCode" />
                   </div>                       
                 </form>
                 
@@ -260,8 +237,8 @@
             
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="EditVendorFormSubmitButton">
-                    Update Vendor
+                <button type="button" class="btn btn-primary" id="EditOutletFormSubmitButton">
+                    Update Outlet
                 </button>
 
                 <button type="button" class="btn btn-default"
@@ -291,6 +268,6 @@
 </div>
 </div><!-- container-->
 <script src='/loyalty.com/js/form-rules.js'></script>
-<script src="/loyalty.com/js/manage-vendors.js" type="text/javascript"></script>
+<script src="/loyalty.com/js/manage-vendor-outlets.js" type="text/javascript"></script>
 </body>
 </html>

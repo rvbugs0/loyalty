@@ -36,7 +36,7 @@ pw.print(",\"name\":\""+vendorInterface.getName()+"\"");
 pw.print(",\"username\":\""+vendorInterface.getUsername()+"\"");
 pw.print(",\"password\":\""+vendorInterface.getPassword()+"\"");
 pw.print(",\"passwordKey\":\""+vendorInterface.getPasswordKey()+"\"");
-pw.print(",\"address\":\""+vendorInterface.getAddress()+"\"");
+pw.print(",\"address\":\""+vendorInterface.getAddress().replace("\n", " ").replace("\r", " ")+"\"");
 pw.print(",\"cityCode\":"+vendorInterface.getCityCode());
 pw.print(",\"contactNumber\":\""+vendorInterface.getContactNumber()+"\"");
 pw.print(",\"emailId\":\""+vendorInterface.getEmailId()+"\"");
@@ -57,6 +57,8 @@ pw.println("}");
 {
 pw.println("{");
 pw.println("\"success\":false,");
+pw.print("\"Vendors\":");
+pw.print("[],");
 pw.println("\"errorMessage\":\""+ae.getMessage()+"\"");
 pw.println("}");
 }

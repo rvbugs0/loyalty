@@ -196,3 +196,76 @@ required:"Country Name length length < 30"
 },errorClass: "my-error-class",
    validClass: "my-valid-class"
 });
+
+
+
+$("#AddOutletForm").validate({
+rules:{
+AddOutletPhone:{
+required:true,
+maxlength:20,
+minlength:10
+},
+AddOutletAddress:{
+required:true,
+maxlength:500,
+minlength:1
+},
+AddOutletLatitude:{
+required:true,
+maxlength:30,
+minlength:1
+}
+,
+AddOutletLongitude:{
+required:true,
+maxlength:30,
+minlength:1
+}
+,
+AddOutletCity:{
+required:true
+},
+AddOutletCity: 
+{ valueNotEquals: "-1" 
+}
+},errorClass: "my-error-class",
+   validClass: "my-valid-class"
+});
+
+
+
+
+$("#EditOutletForm").validate({
+rules:{
+EditOutletPhone:{
+required:true,
+maxlength:20,
+minlength:10
+},
+EditOutletAddress:{
+required:true,
+maxlength:500,
+minlength:1
+},
+EditOutletLatitude:{
+required:true,
+maxlength:30,
+minlength:1
+}
+,
+EditOutletLongitude:{
+required:true,
+maxlength:30,
+minlength:1
+}
+,
+EditOutletCity:{
+required:true
+},
+EditOutletCity: 
+{ valueNotEquals: "-1" 
+}
+},errorClass: "my-error-class",
+   validClass: "my-valid-class"
+});

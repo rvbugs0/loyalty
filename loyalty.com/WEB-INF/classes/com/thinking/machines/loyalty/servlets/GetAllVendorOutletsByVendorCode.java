@@ -18,11 +18,18 @@ try
 pw=rs.getWriter();
 rs.setContentType("application/json");
 VendorOutletBLInterface vendorOutletInterface;
-int code=Integer.parseInt(rq.getParameter("code"));
+int code;
+try
+{
+code=Integer.parseInt(rq.getParameter("code"));	
+}
+catch(Exception e)
+{
+throw new ApplicationException("code -> "+e.getMessage());	
+}
 ArrayList<VendorOutletBLInterface> vendorOutlets=new ArrayList<VendorOutletBLInterface>();
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
 vendorOutlets=loyaltyApplication.getAllVendorOutletsByVendorCode(code);
-System.out.println(vendorOutlets.size());
 pw.println("{");
 pw.println("\"success\":true,");
 pw.print("\"VendorOutlets\":");
@@ -33,7 +40,7 @@ while(x<vendorOutlets.size())
 vendorOutletInterface=vendorOutlets.get(x);
 pw.print("{\"code\":"+vendorOutletInterface.getCode());
 pw.print(",\"vendorCode\":"+vendorOutletInterface.getVendorCode());
-pw.print(",\"address\":\""+vendorOutletInterface.getAddress()+"\"");
+pw.print(",\"address\":\""+vendorOutletInterface.getAddress().replace("\n", " ").replace("\r", " ")+"\"");
 pw.print(",\"latitude\":\""+vendorOutletInterface.getLatitude()+"\"");
 pw.print(",\"longitude\":\""+vendorOutletInterface.getLongitude()+"\"");
 pw.print(",\"cityCode\":"+vendorOutletInterface.getCityCode());
@@ -55,6 +62,8 @@ pw.println("}");
 {
 pw.println("{");
 pw.println("\"success\":false,");
+pw.print("\"VendorOutlets\":");
+pw.print("[],");
 pw.println("\"errorMessage\":\""+ae.getMessage()+"\"");
 pw.println("}");
 }

@@ -19,12 +19,21 @@ pw=rs.getWriter();
 rs.setContentType("application/json");
 VendorOutletBLInterface vendorOutletInterface=new VendorOutlet();
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
-vendorOutletInterface.setVendorCode(Integer.parseInt(rq.getParameter("vendorCode")));
+try
+{
+vendorOutletInterface.setVendorCode(Integer.parseInt(rq.getParameter("vendorCode")));	
+vendorOutletInterface.setCityCode(Integer.parseInt(rq.getParameter("cityCode")));
+}
+catch(Exception e)
+{
+throw new ApplicationException(e.getMessage());	
+}
 vendorOutletInterface.setAddress(rq.getParameter("address"));
 vendorOutletInterface.setLatitude(rq.getParameter("latitude"));
 vendorOutletInterface.setLongitude(rq.getParameter("longitude"));
-vendorOutletInterface.setCityCode(Integer.parseInt(rq.getParameter("cityCode")));
+
 vendorOutletInterface.setContactNumber(rq.getParameter("contactNumber"));
+
 loyaltyApplication.addVendorOutlet(vendorOutletInterface);
 int code=vendorOutletInterface.getCode();
 System.out.println(code);

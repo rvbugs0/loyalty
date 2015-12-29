@@ -3,6 +3,11 @@
 		margin-bottom: 100px;
 }
 
+#outletTableSection
+{
+		margin-bottom: 100px;
+}
+
 #cityTableSection
 {
 		margin-bottom: 100px;
@@ -13,6 +18,13 @@
 	margin: 5px; 
 }
 #vendorTable
+{
+	width: auto;
+	font-size: 15px;
+	font-weight: 1.5em;
+
+}
+#outletTable
 {
 	width: auto;
 	font-size: 15px;
