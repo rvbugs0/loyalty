@@ -13,7 +13,7 @@ try
 {
 
 Class.forName("com.mysql.jdbc.Driver");
-connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/loyalty","loyalty","loyalty");
+connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/loyalty","root","ailani");
 System.out.println("Connection established");
 }
 catch(Exception exception)
