@@ -4,16 +4,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Loyalty Application - Manage Vendors</title>
-<link rel="stylesheet" href='/loyalty.com/css/styles.css'>
-<link rel="stylesheet" href='/loyalty.com/css/custom.min.css'>
-<link rel="stylesheet" href='/loyalty.com/css/bootstrap/css/bootstrap.min.css'>
-<script src='/loyalty.com/jquery/jquery-2.1.3.min.js'></script>
-<script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
-<script src='/loyalty.com/jquery/jquery-ui.js'></script>
-<script src='/loyalty.com/jquery/jquery.dataTables.min.js'></script>
+<link rel="stylesheet" href='css/styles.css'>
+<link rel="stylesheet" href='css/custom.min.css'>
+<link rel="stylesheet" href='css/bootstrap/css/bootstrap.min.css'>
+<script src='jquery/jquery-2.1.3.min.js'></script>
+<script src='jquery/jquery.validate.min.js'></script>
+<script src='jquery/jquery-ui.js'></script>
+<script src='jquery/jquery.dataTables.min.js'></script>
 
-<link rel="stylesheet" href="/loyalty.com/jquery/jquery-ui.css">
-<script src="/loyalty.com/js/bootstrap.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="jquery/jquery-ui.css">
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
 
 <style>
   .form-group
@@ -40,7 +40,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/loyalty.com/AdminHomepage.jsp">Home</a>
+      <a class="navbar-brand" href="AdminHomepage.jsp">Home</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -290,7 +290,7 @@
   </div>
 </div>
 </div><!-- container-->
-<script src='/loyalty.com/js/form-rules.js'></script>
-<script src="/loyalty.com/js/manage-vendors.js" type="text/javascript"></script>
+<script src='js/form-rules.js'></script>
+<script src="js/manage-vendors.js" type="text/javascript"></script>
 </body>
 </html>

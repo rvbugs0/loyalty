@@ -3,10 +3,10 @@
 <title>Loyalty Application - Setup new Admin</title>
 <script type="text/javascript" charset="utf-8"></script> 
 
-<link rel="stylesheet" href='/loyalty.com/css/bootstrap/css/bootstrap.min.css'>
-<link rel="stylesheet" href='/loyalty.com/css/custom.min.css'>
-<script src='/loyalty.com/jquery/jquery-2.1.3.min.js'></script>
-<script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
+<link rel="stylesheet" href='css/bootstrap/css/bootstrap.min.css'>
+<link rel="stylesheet" href='css/custom.min.css'>
+<script src='jquery/jquery-2.1.3.min.js'></script>
+<script src='jquery/jquery.validate.min.js'></script>
 <script>
 function authenticate(){
 $("#signupForm").validate({
@@ -55,7 +55,7 @@ var form=$('#signupForm');
 if($('#signupForm').valid())
 {
 $.ajax({
-"url": "/loyalty.com/AdminFormCreation",
+"url": "AdminFormCreation",
 "data":{name:$("#name").val(),username:$("#username").val(),
 password:$("#password").val(),confirmPassword:$("#confirmPassword").val(),contactNumber:$("#contactNumber").val(),emailId:$("#emailId").val()
 },
@@ -86,7 +86,7 @@ alert("error!!");
         <div class="row">
           <div class="col-lg-6">
             <div class="well bs-component">
-              <form class="form-horizontal" id='signupForm' action='/loyalty.com/AdminFormCreation'>
+              <form class="form-horizontal" id='signupForm' action='AdminFormCreation'>
                 <fieldset>
                   <legend>Admin Details</legend>
                   <div class="form-group">
@@ -139,6 +139,6 @@ alert("error!!");
       </div>
 </div> <!-- container-->
 
-<form id='validForm' action='/loyalty.com/AdminLoginForm.jsp'></form>
+<form id='validForm' action='AdminLoginForm.jsp'></form>
 </body>
 </html>

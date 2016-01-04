@@ -22,47 +22,47 @@ rs.setContentType("application/json");
 CustomerBLInterface customerInterface=new Customer();
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
 
-customerInterface.setCode(Integer.parseInt(rq.getParameter("code")));
-customerInterface.setName(rq.getParameter("name"));
-customerInterface.setUsername(rq.getParameter("username"));
-customerInterface.setPassword(rq.getParameter("password"));
-customerInterface.setPasswordKey(rq.getParameter("passwordKey"));
-customerInterface.setPermanentAddress(rq.getParameter("permanentAddress"));
-customerInterface.setCurrentAddress(rq.getParameter("currentAddress"));
-customerInterface.setCityCode(Integer.parseInt(rq.getParameter("cityCode")));
+customerInterface.setCode(Integer.parseInt(rq.getParameter("code").trim()));
+customerInterface.setName(rq.getParameter("name").trim());
+customerInterface.setUsername(rq.getParameter("username").trim());
+customerInterface.setPassword(rq.getParameter("password").trim());
+customerInterface.setPasswordKey(rq.getParameter("passwordKey").trim());
+customerInterface.setPermanentAddress(rq.getParameter("permanentAddress").trim());
+customerInterface.setCurrentAddress(rq.getParameter("currentAddress").trim());
+customerInterface.setCityCode(Integer.parseInt(rq.getParameter("cityCode").trim()));
 try
 {
-customerInterface.setDateOfBirth(dateFormat.parse(rq.getParameter("dateOfBirth")));
+customerInterface.setDateOfBirth(dateFormat.parse(rq.getParameter("dateOfBirth").trim()));
 }catch(ParseException pe)
 {
 System.out.println(pe);
 }
-customerInterface.setGender(rq.getParameter("gender"));
-customerInterface.setOccupation(rq.getParameter("occupation"));
-customerInterface.setIsMarried(Boolean.parseBoolean(rq.getParameter("isMarried")));
-customerInterface.setIsStudent(Boolean.parseBoolean(rq.getParameter("isStudent")));
-customerInterface.setContactNumber(rq.getParameter("contactNumber"));
-customerInterface.setEmailId(rq.getParameter("emailId"));
-customerInterface.setSpouseName(rq.getParameter("spouseName"));
+customerInterface.setGender(rq.getParameter("gender").trim());
+customerInterface.setOccupation(rq.getParameter("occupation").trim());
+customerInterface.setIsMarried(Boolean.parseBoolean(rq.getParameter("isMarried").trim()));
+customerInterface.setIsStudent(Boolean.parseBoolean(rq.getParameter("isStudent").trim()));
+customerInterface.setContactNumber(rq.getParameter("contactNumber").trim());
+customerInterface.setEmailId(rq.getParameter("emailId").trim());
+customerInterface.setSpouseName(rq.getParameter("spouseName").trim());
 try
 {
-customerInterface.setSpouseDateOfBirth(dateFormat.parse(rq.getParameter("spouseDateOfBirth")));
+customerInterface.setSpouseDateOfBirth(dateFormat.parse(rq.getParameter("spouseDateOfBirth").trim()));
 }catch(ParseException pe)
 {
 System.out.println(pe);
 }
 try
 {
-customerInterface.setAnniversaryDate(dateFormat.parse(rq.getParameter("anniversaryDate")));
+customerInterface.setAnniversaryDate(dateFormat.parse(rq.getParameter("anniversaryDate").trim()));
 }catch(ParseException pe)
 {
 System.out.println(pe);
 }
-customerInterface.setSpouseOccupation(rq.getParameter("spouseOccupation"));
-customerInterface.setNumberOfGirlChild(Integer.parseInt(rq.getParameter("numberOfGirlChild")));
-customerInterface.setNumberOfBoyChild(Integer.parseInt(rq.getParameter("numberOfBoyChild")));
-customerInterface.setStream(rq.getParameter("stream"));
-customerInterface.setCourseDetails(rq.getParameter("courseDetails"));
+customerInterface.setSpouseOccupation(rq.getParameter("spouseOccupation").trim());
+customerInterface.setNumberOfGirlChild(Integer.parseInt(rq.getParameter("numberOfGirlChild").trim()));
+customerInterface.setNumberOfBoyChild(Integer.parseInt(rq.getParameter("numberOfBoyChild").trim()));
+customerInterface.setStream(rq.getParameter("stream").trim());
+customerInterface.setCourseDetails(rq.getParameter("courseDetails").trim());
 loyaltyApplication.updateCustomer(customerInterface);
 pw.println("{");
 pw.println("\"success\":true,");

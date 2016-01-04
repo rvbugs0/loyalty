@@ -19,7 +19,7 @@ pw=rs.getWriter();
 rs.setContentType("application/json");
 VendorBLInterface vendorInterface;
 ArrayList<VendorBLInterface> vendors=new ArrayList<VendorBLInterface>();
-int cityCode=Integer.parseInt(rq.getParameter("cityCode"));
+int cityCode=Integer.parseInt(rq.getParameter("cityCode").trim());
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
 vendors=loyaltyApplication.getAllVendorsByCityCode(cityCode);
 System.out.println(vendors.size());

@@ -39,6 +39,30 @@ function State()
 
 var globalStates=[];
 
+$(document).ready(function(){
+
+$.ajax({
+	"url": "GetAllCities",
+	"type": "GET",
+"success":function(data){
+
+var txt="<option value='-1'>&lt; Select &gt; </option> ";
+x=0;
+while(x<data.length)
+{
+	txt=txt + "<option value='"+data[x].code+"'>"+data[x].name +"</option> ";
+	x++;
+}
+$("#city").html(txt);
+
+},
+"error":function(){
+alert("error getting cities!!");
+}
+});
+});
+
+
 
 
 function printDistinctStates(arr)
@@ -95,7 +119,7 @@ function checkContactNumberAvailability()
 {
 	vContactNumber=$("#contactNumber").val();
 $.ajax({
-	"url": "/loyalty.com/GetCustomerByContactNumber",
+	"url": "GetCustomerByContactNumber",
 	"data":{
 	contactNumber:vContactNumber
 	},
@@ -124,7 +148,7 @@ function checkUsernameAvailability()
 {
 	vUsername=$("#username").val();
 $.ajax({
-	"url": "/loyalty.com/GetCustomerByUsername",
+	"url": "GetCustomerByUsername",
 	"data":{
 	username:vUsername
 	},
@@ -151,7 +175,7 @@ function checkEmailIdAvailability()
 {
 	vEmailId=$("#email").val();
 $.ajax({
-	"url": "/loyalty.com/GetCustomerByEmailId",
+	"url": "GetCustomerByEmailId",
 	"data":{
 	emailId:vEmailId
 	},
@@ -328,7 +352,7 @@ var globalCustomer="";
 	$("#accountCreationSection").show();		
 	//console.log(globalCustomer);	
 	$.ajax({
-	"url": "/loyalty.com/AddCustomer",
+	"url": "AddCustomer",
 	"data":{
 	name:globalCustomer.name,
 	username:globalCustomer.username,
@@ -357,7 +381,7 @@ var globalCustomer="";
 "success":function(data){
 if(data.success)
 {
-$("#accountStatusMessage").html("Account created successfully ,Click <a href='/loyalty.com/Customer.jsp'> here </a>to login to your account.");
+$("#accountStatusMessage").html("Account created successfully ,Click <a href='Customer.jsp'> here </a>to login to your account.");
 $("#accountProgress").css("width","100%");
 }
 else

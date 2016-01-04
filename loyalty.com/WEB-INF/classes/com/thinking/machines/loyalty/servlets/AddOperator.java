@@ -20,11 +20,11 @@ pw=rs.getWriter();
 rs.setContentType("application/json");
 OperatorBLInterface operatorInterface=new Operator();
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
-operatorInterface.setName(rq.getParameter("name"));
-operatorInterface.setUsername(rq.getParameter("username"));
-operatorInterface.setPassword(rq.getParameter("password"));
-operatorInterface.setPasswordKey(rq.getParameter("password"));
-operatorInterface.setVendorOutletCode(Integer.parseInt(rq.getParameter("vendorOutletCode")));
+operatorInterface.setName(rq.getParameter("name").trim());
+operatorInterface.setUsername(rq.getParameter("username").trim());
+operatorInterface.setPassword(rq.getParameter("password").trim());
+operatorInterface.setPasswordKey(rq.getParameter("password").trim());
+operatorInterface.setVendorOutletCode(Integer.parseInt(rq.getParameter("vendorOutletCode").trim()));
 
 loyaltyApplication.addOperator(operatorInterface);
 int code=operatorInterface.getCode();

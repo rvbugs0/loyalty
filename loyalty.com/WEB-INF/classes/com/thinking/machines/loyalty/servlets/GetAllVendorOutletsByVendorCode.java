@@ -21,7 +21,7 @@ VendorOutletBLInterface vendorOutletInterface;
 int code;
 try
 {
-code=Integer.parseInt(rq.getParameter("code"));	
+code=Integer.parseInt(rq.getParameter("code").trim());	
 }
 catch(Exception e)
 {

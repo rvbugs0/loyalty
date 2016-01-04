@@ -77,6 +77,29 @@ $('#vendorTable tbody').on( 'click', 'tr .editButton', function () {
 });
 
 
+$(document).ready(function(){
+
+$.ajax({
+  "url": "GetAllCities",
+  "type": "GET",
+"success":function(data){
+
+var txt="<option value='-1'>&lt; Select &gt; </option> ";
+x=0;
+while(x<data.length)
+{
+  txt=txt + "<option value='"+data[x].code+"'>"+data[x].name+"</option> ";
+  x++;
+}
+$("#AddVendorCity").html(txt);
+$("#EditVendorCity").html(txt);
+},
+"error":function(){
+alert("error getting cities!!");
+}
+});
+});
+
 $("#EditVendorFormSubmitButton").on("click",function(){
 	
   //$("#EditVendorModal").modal("hide");	

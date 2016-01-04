@@ -21,18 +21,18 @@ VendorOutletBLInterface vendorOutletInterface=new VendorOutlet();
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
 try
 {
-vendorOutletInterface.setVendorCode(Integer.parseInt(rq.getParameter("vendorCode")));	
-vendorOutletInterface.setCityCode(Integer.parseInt(rq.getParameter("cityCode")));
+vendorOutletInterface.setVendorCode(Integer.parseInt(rq.getParameter("vendorCode").trim()));	
+vendorOutletInterface.setCityCode(Integer.parseInt(rq.getParameter("cityCode").trim()));
 }
 catch(Exception e)
 {
 throw new ApplicationException(e.getMessage());	
 }
-vendorOutletInterface.setAddress(rq.getParameter("address"));
-vendorOutletInterface.setLatitude(rq.getParameter("latitude"));
-vendorOutletInterface.setLongitude(rq.getParameter("longitude"));
+vendorOutletInterface.setAddress(rq.getParameter("address").trim());
+vendorOutletInterface.setLatitude(rq.getParameter("latitude").trim());
+vendorOutletInterface.setLongitude(rq.getParameter("longitude").trim());
 
-vendorOutletInterface.setContactNumber(rq.getParameter("contactNumber"));
+vendorOutletInterface.setContactNumber(rq.getParameter("contactNumber").trim());
 
 loyaltyApplication.addVendorOutlet(vendorOutletInterface);
 int code=vendorOutletInterface.getCode();

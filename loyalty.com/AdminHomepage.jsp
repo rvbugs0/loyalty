@@ -1,13 +1,13 @@
 <html>
 <head>
 <title>Loyalty Application - Admin Login</title>
-<link rel="stylesheet" href='/loyalty.com/css/custom.min.css'>
-<link rel="stylesheet" href='/loyalty.com/css/styles.css'>
-<link rel="stylesheet" href='/loyalty.com/css/bootstrap/css/bootstrap.min.css'>
-<script src='/loyalty.com/jquery/jquery-2.1.3.min.js'></script>
-<script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
-<script src='/loyalty.com/jquery/jquery-ui.js'></script>
-<link rel="stylesheet" href="/loyalty.com/jquery/jquery-ui.css">
+<link rel="stylesheet" href='css/custom.min.css'>
+<link rel="stylesheet" href='css/styles.css'>
+<link rel="stylesheet" href='css/bootstrap/css/bootstrap.min.css'>
+<script src='jquery/jquery-2.1.3.min.js'></script>
+<script src='jquery/jquery.validate.min.js'></script>
+<script src='jquery/jquery-ui.js'></script>
+<link rel="stylesheet" href="jquery/jquery-ui.css">
 <title>Loyalty - Admin Home</title>
 </head>
 <body>
@@ -20,12 +20,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/loyalty.com/">Home</a>
+      <a class="navbar-brand" href="index.html">Home</a>
     </div>
  <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <li>
-              <a href="/loyalty.com/AdminHomepage.jsp">Admin-Home</a>
+              <a href="AdminHomepage.jsp">Admin-Home</a>
             </li>
           </ul>
 
@@ -46,12 +46,12 @@
           </div>
         </div>
 
-<a class="btn btn-default btn-danger" id='button1' href='/loyalty.com/UpdateAdminDetails.jsp'>Change Username/Password</a>
+<a class="btn btn-default btn-danger" id='button1' href='UpdateAdminDetails.jsp'>Change Username/Password</a>
 <br/><br/>
-<a class="btn btn-default btn-primary" id='button2' href='/loyalty.com/ManageVendors.jsp'>Manage Vendors</a><br/><br/>
-<a class="btn btn-default btn-success" id='button3' href='/loyalty.com/ManageCities.jsp'>Manage Cities</a>
+<a class="btn btn-default btn-primary" id='button2' href='ManageVendors.jsp'>Manage Vendors</a><br/><br/>
+<a class="btn btn-default btn-success" id='button3' href='ManageCities.jsp'>Manage Cities</a>
 <br/><br/>
-<a class="btn btn-default btn-info" id='button4' href='/loyalty.com/Logout.jsp'>Logout</a><br/>
+<a class="btn btn-default btn-info" id='button4' href='Logout.jsp'>Logout</a><br/>
 </div>
 </body>
 </html>

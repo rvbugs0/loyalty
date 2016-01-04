@@ -4,14 +4,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Loyalty</title>
-<link rel="stylesheet" href='/loyalty.com/css/styles.css'>
-<link rel="stylesheet" href='/loyalty.com/css/custom.min.css'>
+<link rel="stylesheet" href='css/styles.css'>
+<link rel="stylesheet" href='css/custom.min.css'>
 
-<link rel="stylesheet" href='/loyalty.com/css/bootstrap/css/bootstrap.min.css'>
-<script src='/loyalty.com/jquery/jquery-2.1.3.min.js'></script>
-<script src="/loyalty.com/js/bootstrap.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href='css/bootstrap/css/bootstrap.min.css'>
+<script src='jquery/jquery-2.1.3.min.js'></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
 
-<script src='/loyalty.com/jquery/jquery.validate.min.js'></script>
+<script src='jquery/jquery.validate.min.js'></script>
 <script type="text/javascript">
   
   
@@ -53,7 +53,7 @@ return false;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/loyalty.com/AdminHomepage.jsp">Home</a>
+      <a class="navbar-brand" href="AdminHomepage.jsp">Home</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -68,7 +68,7 @@ return false;
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
     <li><a href="#">Customer</a></li>
     <li><a href="#">Vendor</a></li>
-    <li><a href="/loyalty.com/Admin">Admin</a></li>
+    <li><a href="Admin">Admin</a></li>
     <li role="separator" class="divider"></li>
     <li><a href="#">Separated link</a></li>
   </ul>
@@ -93,7 +93,7 @@ return false;
         <div class="row">
           <div class="col-lg-6">
             <div class="well bs-component">
-              <form class="form-horizontal" id='loginForm' action='/loyalty.com/CustomerLogin' method="POST" onsubmit="return authenticate()">
+              <form class="form-horizontal" id='loginForm' action='CustomerLogin' method="POST" onsubmit="return authenticate()">
                 <fieldset>
                   <legend>Customer Details</legend>
                   <div class="form-group">
@@ -126,7 +126,7 @@ return false;
           <div class="col-lg-6">
             <div class="well bs-component">
                  <legend>Haven't Registered yet? </legend>
-               <a class="btn btn-default btn-primary" href="/loyalty.com/CustomerSignup.jsp">Register now</a>
+               <a class="btn btn-default btn-primary" href="CustomerSignup.jsp">Register now</a>
                <br/><br/>
             </div>
           </div><!-- col-lg-6-->

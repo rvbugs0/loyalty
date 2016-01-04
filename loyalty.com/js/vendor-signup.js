@@ -11,11 +11,35 @@ function Vendor()
 }
 
 
+$(document).ready(function(){
+
+$.ajax({
+	"url": "GetAllCities",
+	"type": "GET",
+"success":function(data){
+
+var txt="<option value='-1'>&lt; Select &gt; </option> ";
+x=0;
+while(x<data.length)
+{
+	txt=txt + "<option value='"+data[x].code+"'>"+data[x].name+"</option> ";
+	x++;
+}
+$("#city").html(txt);
+
+},
+"error":function(){
+alert("error getting cities!!");
+}
+});
+});
+
+
 function checkNameAvailability()
 {
 	vName=$("#name").val();
 $.ajax({
-	"url": "/loyalty.com/VendorExistsByName",
+	"url": "VendorExistsByName",
 	"data":{
 	name:vName
 	},
@@ -54,7 +78,7 @@ function checkContactNumberAvailability()
 {
 	vContactNumber=$("#contactNumber").val();
 $.ajax({
-	"url": "/loyalty.com/VendorExistsByContactNumber",
+	"url": "VendorExistsByContactNumber",
 	"data":{
 	contactNumber:vContactNumber
 	},
@@ -91,7 +115,7 @@ function checkUsernameAvailability()
 {
 	vUsername=$("#username").val();
 $.ajax({
-	"url": "/loyalty.com/VendorExistsByUsername",
+	"url": "VendorExistsByUsername",
 	"data":{
 	username:vUsername
 	},
@@ -130,7 +154,7 @@ function checkEmailIdAvailability()
 {
 	vEmailId=$("#email").val();
 $.ajax({
-	"url": "/loyalty.com/VendorExistsByEmailId",
+	"url": "VendorExistsByEmailId",
 	"data":{
 	emailId:vEmailId
 	},
@@ -192,7 +216,7 @@ alert("error!!");
 
 		
 	$.ajax({
-	"url": "/loyalty.com/AddVendor",
+	"url": "AddVendor",
 	"data":{
 	name:vendor.name,
 	username:vendor.username,
@@ -206,7 +230,7 @@ alert("error!!");
 "success":function(data){
 if(data.success)
 {
-$("#accountStatusMessage").html("Account created successfully ,Click <a href='/loyalty.com/Vendor.jsp'> here </a>to login to your account.");
+$("#accountStatusMessage").html("Account created successfully ,Click <a href='Vendor.jsp'> here </a>to login to your account.");
 $("#accountProgress").css("width","100%");
 }
 else

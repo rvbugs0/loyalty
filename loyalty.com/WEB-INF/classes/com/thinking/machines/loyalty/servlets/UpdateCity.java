@@ -20,10 +20,10 @@ rs.setContentType("application/json");
 CityBLInterface cityInterface=new City();
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
 
-cityInterface.setCode(Integer.parseInt(rq.getParameter("code")));
-cityInterface.setName(rq.getParameter("name"));
-cityInterface.setState(rq.getParameter("state"));
-cityInterface.setCountry(rq.getParameter("country"));
+cityInterface.setCode(Integer.parseInt(rq.getParameter("code").trim()));
+cityInterface.setName(rq.getParameter("name").trim());
+cityInterface.setState(rq.getParameter("state").trim());
+cityInterface.setCountry(rq.getParameter("country").trim());
 loyaltyApplication.updateCity(cityInterface);
 pw.println("{");
 pw.println("\"success\":true,");

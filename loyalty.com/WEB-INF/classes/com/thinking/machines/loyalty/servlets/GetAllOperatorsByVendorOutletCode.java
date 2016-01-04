@@ -20,7 +20,7 @@ pw=rs.getWriter();
 rs.setContentType("application/json");
 
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
-ArrayList<OperatorBLInterface>operators=loyaltyApplication.getAllOperatorsByVendorOutletCode(Integer.parseInt(rq.getParameter("vendorOutletCode")));
+ArrayList<OperatorBLInterface>operators=loyaltyApplication.getAllOperatorsByVendorOutletCode(Integer.parseInt(rq.getParameter("vendorOutletCode").trim()));
 
 OperatorBLInterface operatorInterface;
 int x=0;

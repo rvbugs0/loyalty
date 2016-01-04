@@ -19,7 +19,7 @@ pw=rs.getWriter();
 rs.setContentType("application/json");
 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy"); 
 LoyaltyApplication loyaltyApplication =new LoyaltyApplication();
-ArrayList<CustomerBLInterface>customers=loyaltyApplication.getAllCustomersByOccupation(rq.getParameter("occupation"));
+ArrayList<CustomerBLInterface>customers=loyaltyApplication.getAllCustomersByOccupation(rq.getParameter("occupation").trim());
 CustomerBLInterface customerInterface;
 int x=0;
 pw.println("[");
